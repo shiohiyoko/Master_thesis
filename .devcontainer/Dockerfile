@@ -1,4 +1,4 @@
-FROm laurenss/texlive-full:latest
+FROM texlive/texlive:latest-full
 RUN apt-get update
 RUN apt-get install -y \
   perl \
