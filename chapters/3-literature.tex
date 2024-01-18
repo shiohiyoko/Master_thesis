@@ -1,0 +1,99 @@
+\chapter{Literature Review}
+
+
+% ------------------------------------------------------------ %
+
+
+\section{Research Methodology}
+\textcolor{red}{WIP}\\
+In the methodology section, the researcher first delves into the existing literature, drawing from a paper accessible through the platform "Paper with Code." This platform typically provides research papers along with their associated code implementations. The chosen paper appears to be selected based on its prominence, likely measured by its reported accuracy or success in the field.
+Following the identification of the primary paper, the researcher conducts a thorough review of its content, focusing particularly on aspects related to methodology. This involves understanding the proposed techniques, algorithms, and approaches presented in the paper to achieve high accuracy in the context of text-based person searches. The aim is to comprehend the nuances of the existing methodology and identify the key factors contributing to its success.
+In addition to the primary paper, the researcher examines two other papers that exhibit a significant difference in accuracy. This comparative analysis is valuable for gaining insights into different approaches within the field. The choice of these additional papers may be strategic, aiming to capture diverse perspectives or methodologies, especially if there is a notable contrast in their reported accuracy metrics.
+The researcher likely scrutinizes the methodologies of these selected papers, comparing and contrasting them with the primary paper. This comparative analysis helps identify the strengths and weaknesses of different approaches, shedding light on potential areas of improvement or innovation for the current research.
+Overall, the methodology involves a comprehensive exploration of relevant literature, with a focus on the primary paper selected from "Paper with Code." The intent is to understand the methodologies employed in achieving high accuracies and to leverage insights from other papers with varying performance metrics. This approach contributes to a more informed and nuanced understanding of the existing landscape, guiding the development of the proposed Relation and Sensitivity-aware representation learning method (RaSa).
+
+\subsection*{Identification}
+
+The following research question was defined:
+
+\bigskip
+\textit{``Will the tracking will be better when the definition is presented by a text?''}
+\bigskip
+
+
+From this research question, four main keywords that sufficiently explain the topic were extracted: TIReID, person retrieval, person tracking. Furthermore, synonyms and related terms were associated to these keywords to form keyword groups as follows:
+
+\begin{itemize}
+    \item TIReID:
+    \begin{itemize}
+        \item lidar;
+        \item light detection and ranging;
+        \item laser sensor.
+    \end{itemize}
+    \item surface:
+    \begin{itemize}
+        \item specular;
+        \item mirror like;
+        \item reflective;
+        \item transparent.
+    \end{itemize}
+    \item goal:
+    \begin{itemize}
+        \item detection;
+        \item identification;
+        \item recognition;
+        \item localization.
+    \end{itemize}
+    \item slam:
+    \begin{itemize}
+        \item slam;
+        \item simultaneous localization and mapping.
+    \end{itemize}
+\end{itemize}
+
+A Python script was used to automate the process of generating search strings, searching through the Scopus database, and downloading and filtering the data into an Excel sheet. It is briefly discussed in \autoref{chap:Prisma Automator}.
+
+For instance, the subsequent three search strings are among the 144 generated:
+\begin{itemize}
+    \item ``lidar'' AND ``reflective'' AND ``detection";
+    \item ``light detection and ranging'' AND ``specular'' AND ``localization'' AND ``slam";
+    \item ``laser sensor'' AND ``transparent'' AND ``recognition'' AND ``slam".
+\end{itemize}
+
+The Scopus search yielded a total of $606$ documents. Within this pool, $288$ duplicates and $19$ conference reviews were identified, amounting to a sum of $307$ automatically excluded documents.
+
+\subsection*{Screening}
+
+Various factors were taken into account for the exclusion of documents:
+\begin{enumerate}
+    \item problem and goal were too different (e.g., building new hardware, analysis of leaf reflectance);
+    \item not sufficiently related to this work (e.g., focused on hyperspectral );
+    \item duplicates that were not automatically detected and excluded.
+\end{enumerate}
+
+
+
+% ------------------------------------------------------------ %
+
+
+\section{State of the art}
+\subsection{Text-based person search}
+\textcolor{red}{WIP}\\
+This section presents papers that study text-based person retrieval. A common issue addressed in each paper is the deficiency of the feature from text and image encoders. It has been confirmed that when the features of each modal are integrated, information is distorted or missing, which affects the accuracy of detection. Therefore, how to resolve this deficiency is key in this section.
+
+\subsubsection{RaSa: Relation and Sensitivity Aware e Representation Learning for Text-based Person Search}
+\textcolor{red}{WIP}\\
+This paper introduces a method called Relation and Sensitivity Aware representation learning (RaSa) that includes two novel tasks: Relation-Aware learning (RA) and Sensitivity-Aware learning (SA). It addresses the shortcomings of existing methods in text-based person search, where clustering representations of positive pairs without distinction leads to overfitting, particularly with weak positive pairs. RA mitigates overfitting by introducing a positive relation detection task to distinguish between strong and weak positive pairs. Additionally, the author emphasizes the common practice of learning invariant representation under data augmentation for robustness but goes further by encouraging the representation to perceive sensitive transformations through SA, promoting enhanced robustness by detecting replaced words in textual descriptions.
+
+\includegraphics[width=10cm]{img/rasa.png}
+
+\subsubsection{Cross-Modal Implicit Relation Reasoning and Aligning for Text-to-Image Person Retrieval}
+The paper introduces a novel approach, called IRRA (Implicit Relation Reasoning and Aligning), for text-to-image person retrieval. This task i`nvolves identifying a person based on a given textual description. The main challenge is to establish an effective mapping between visual and textual modalities in a shared latent space. Unlike previous methods that use separately pre-trained unimodal models, IRRA addresses this challenge by introducing a cross-modal Implicit Relation Reasoning module. This module integrates visual cues into textual tokens through a masked language modeling paradigm, facilitating cross-modal interaction. To globally align visual and textual embeddings, the paper proposes Similarity Distribution Matching, which minimizes the KL divergence between image-text similarity distributions and normalized label matching distributions. 
+
+\subsubsection{Learning Semantic-Aligned Feature Representation for Text-based Person Search}
+The paper focuses on text-based person search, aiming to retrieve images of a specific pedestrian based on a textual description. The primary challenge in this task is to bridge the inter-modality gap and align features across textual and visual modalities. The proposed solution is a semantic-aligned embedding method that automatically learns feature alignment between visual and textual representations. The method utilizes two Transformer-based backbones to encode robust feature representations for images and texts. Additionally, a semantic-aligned feature aggregation network is introduced, incorporating a multi-head attention module constrained by a cross-modality part alignment loss and a diversity loss. 
+
+% ------------------------------------------------------------ %
+
+
+\section{Research deficit}
