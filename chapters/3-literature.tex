@@ -64,17 +64,29 @@ Various factors were taken into account for the exclusion of documents:
 % ------------------------------------------------------------ %
 
 \section{Transformer}
-The Transformer was initially introduced for machine translation within the realm of natural language processing (NLP)\cite{vaswani2023attention}. Previous NLP models utilizes convolutional neural networks(CNN) or recurrent neural networks(RNN) for encoder and decoder. However, training this model is time consuming and required tremendous amount of labeled datasets. The transformer solves those problems by implementing an attention unit. 
+Transformer is build with fully connected layer and attention node. 
+this was first published in \cite{vaswani2023attention}.
+Transformer is a model that was meant to solve the problem that seq2seq had, which is that global nuances are hard to get, and lack of training speed.
+
+% general explanation of transformer
+Transformer is an encoder-decoder model which is made with attention mechanism. This model was first created to solve the problem of "lack of understanding the global nuances" and "faster training speed" which the Seq2Seq had. The author approach to this problem by applying a mechanism called "attention" to understand the caution expression. This is similar to gate mechanism in LSTM where they emphasizes the important information, and make unnecessary information inconspicuous. By this method, the model can focus to the important information from the enormous information to process.
+
+\includegraphics[width=10cm]{img/transformer.png}
+
+% % talk about transformer block, plus multihead attention
+% Transformer Block is the unit for transformer, and this contains multi-head attention and position wise feed-forward networks. Transformer block has three input Query, Key, and Value which is used for computing attention representation on Multi-head attention.
+% The position-wise feed-forward networks converts the output of Multi-head Attention to for each tokens. Skip connection is placed between the layers to decrease the gradient loss, which enables deepening the model. 
+
+% % image of transformer block with q,k,v input
+
+% To explain Multi-Head attention, we first describe the Single-Head Attention. Single-head Attention is a Attention module with only one Scale-Dot Product. 
 
 \section{Vision-language pre-training}
 Vision language pre-training has drawn increasing attention after Transformer came up. Transformer is meant for NLP tasks, but the researcher found out that this model is capable of many tasks including information retrieval from the image, classification, etc. Since then, many follow-up works are proposed, such as BERT, CLIP, RoBERTa, GPT series. 
 we know that bigger the transformer layer, the better accuracy. some methods like gpt4 has billions of parameters 
 there are research that seeks into less parameters, enabling small model with efficient accuracies.
 
-vision language like 
-vibert
-albef 
-CLIP
+Vision and Language(VL) is a major research area for the causality of Computer Vision and Natural Language Processing (NLP), which aims to effectively learn from multimodal data. Some of the great success of language model pre-training in NLP(RoBERTa(\cite{liu2020roberta}), BERT(\cite{devlin2018bert})), and GPT-3\cite{brown2020language}) influenced the field of Vision-Language Pre-training (VLP) to grow attention from both fields. 
 
 
 \section{Person Understanding Task}
