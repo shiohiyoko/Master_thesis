@@ -69,7 +69,7 @@ Various factors were taken into account for the exclusion of documents:
 % general explanation of transformer
 % Transformer is an encoder-decoder model which is made with attention mechanism \cite{vaswani2023attention}. This model was first created to solve the problem of "lack of understanding the global nuances" and "faster training speed" which the Seq2Seq had. The author approach to this problem by applying a mechanism called "attention" to understand the caution expression. This is similar to gate mechanism in LSTM where they emphasizes the important information, and make unnecessary information inconspicuous. By this method, the model can focus to the important information from the enormous information to process. 
 
-The Transformer model, introduced by Vaswani et al. \cite{vaswani2023attention}, is an encoder-decoder architecture featuring an attention mechanism. Initially devised to address the limitations of the Seq2Seq model, such as the challenges in grasping global nuances and the need for faster training, the Transformer model leverages attention mechanisms. These mechanisms, akin to the gating mechanism found in LSTM networks, prioritize important information while suppressing irrelevant details. By employing this approach, the model can effectively discern crucial information from the vast array of input data for processing.
+The Transformer model, introduced by \cite{vaswani2023attention}, is an encoder-decoder architecture featuring an attention mechanism. Initially devised to address the limitations of the Seq2Seq model, such as the challenges in grasping global nuances and the need for faster training, the Transformer model leverages attention mechanisms. These mechanisms, akin to the gating mechanism found in LSTM networks, prioritize important information while suppressing irrelevant details. By employing this approach, the model can effectively discern crucial information from the vast array of input data for processing.
 
 Structure of the Transformer is shown figure\ref{fig:transformer}. The model is structured as encoder-decoder model, most competitive neural sequence transduction models are also encoder-decoder model, with encoder maps an input of symbol representation $X=(x_1, ...,x_n)$ toa continuous representation $Z=(z_1,...,z_n)$. The decoder will take the given z to generate an output sequence of $(y_1,...,y_n)$ of symbols one at a time.
 
@@ -91,28 +91,27 @@ Structure of the Transformer is shown figure\ref{fig:transformer}. The model is 
 \section{Vision-language pre-training}
 \textcolor{red}{WIP}
 
-Vision and Language(VL) is a major research area for the causality of Computer Vision and Natural Language Processing (NLP), which aims to effectively learn from multimodal data. Some of the great success of language model pre-training in NLP(RoBERTa(\cite{liu2020roberta}), BERT(\cite{devlin2018bert}), and GPT-3(\cite{brown2020language})) influenced the field of Vision-Language Pre-training (VLP) to grow attention from both fields. 
+Vision and Language(VL) is a major research area for the causality of Computer Vision and Natural Language Processing (NLP), which aims to effectively learn from multimodal data. Some of the great success of language model pre-training in NLP(RoBERTa(\cite{liu2020roberta}), BERT(\cite{devlin2018bert}), and GPT-3(\cite{brown2020language})) influenced the field of Vision-Language Pre-training (VLP) to grow attention from both fields.Towards this tasks, many studies have been proposed.
 
-The existing methods for VLP rely on object detection models, multiple auxiliary objectives, and limited-scale human annotation data. To solve this challenges, blah,blah,blah....
+% The existing methods for VLP rely on object detection models, multiple auxiliary objectives, and limited-scale human annotation data. To solve this challenges, 
 
-Current works in VLP fields we have is the 
-VisualBERT
-A joint representation model for VL task which is designed to capture rich semantics in the image and associated text. The author integrated BERT for the NLP task with pretrained object proposal systems like Faster-RCNN. Figure\ref{fig:visualvert} shows how the model is trained. 
-
-\textcolor{red}{blah,blah, blah}
-\begin{figure}[htbp]
-    \includegraphics[width=10cm]{img/VisualBERT.png}
-    \caption{Representation of VisualBERT}\label{fig:visualvert}
-\end{figure}
+\begin{itemize}
+    \item VisualBERT
+    A joint representation model for VL task which is designed to capture rich semantics in the image and associated text. The author integrated BERT for the NLP task with pretrained object proposal systems like Faster-RCNN. Figure\ref{fig:visualvert} shows how the model is trained. 
+    \item SimVLM
+    Simple visual language model(SimVLM), introduced by \cite{wang2022simvlm}, is a minimalist pretraining framework for joint visual and textual representation. The motivation for this research is the limitations and complexity of existing vision-language pretraining models, which often require expensive annotations and multiple dataset-specific objectives. SimVLM aims to address these issues by utilizing large-scale weak supervision and training end-to-end with a single prefix language modeling objective.
 
 
-SimVLM simple visual language model
-Minimalist pretraining framework for joint visual and textual representation. The motivation for this research is the limitations and complexity of existing vision-language pretraining models, which often require expensive annotations and multiple dataset-specific objectives. SimVLM aims to address these issues by utilizing large-scale weak supervision and training end-to-end with a single prefix language modeling objective.
+    \item CLIP
+    CLIP, introduced by \cite{radford2021learning}, is build on a vision transformer architecture, similar to BERT but instead of joint representation model, CLIP uses different encoder for both modal and from the extracted features, we calculate the dot product. During the learning process, the diagonal component of this matrix are learned to have larger values than the others.
+    \begin{figure}[htbp]
+        \begin{center}
+            \includegraphics[width=10cm]{img/VisualBERT.png}
+            \caption{Representation of VisualBERT}\label{fig:visualvert}
+        \end{center}
+    \end{figure}
+\end{itemize}
 
-
-CLIP is build on a vision transformer architecture, similar to BERT but instead of joint representation model, CLIP uses different encoder for both modal and from the extracted features, we calculate the dot product. During the learning process, the diagonal component of this matrix are learned to have larger values than the others.
-
-Recent studies shows that bigger the learning dataset, the better accuracies. 
 
 \section{Person Understanding Task}
 in this section we will talk about different method we can use for person understanding task. 
@@ -121,18 +120,23 @@ in this section we will talk about different method we can use for person unders
 \textcolor{red}{WIP}\\
 This section presents papers that study text-based person retrieval. A common issue addressed in each paper is the deficiency of the feature from text and image encoders. It has been confirmed that when the features of each modal are integrated, information is distorted or missing, which affects the accuracy of detection. Therefore, how to resolve this deficiency is key in this section.
 
-\subsubsection{RaSa: Relation and Sensitivity Aware e Representation Learning for Text-based Person Search}
+\begin{itemize}
+    \item Relation and Sensitivity Aware representation learning\\
+    This paper introduces a method called Relation and Sensitivity Aware representation learning (RaSa) that includes two novel tasks: Relation-Aware learning (RA) and Sensitivity-Aware learning (SA). It addresses the shortcomings of existing methods in text-based person search, where clustering representations of positive pairs without distinction leads to overfitting, particularly with weak positive pairs. Figure\ref{fig:rasa} represents the overall structure of RaSa. RA mitigates overfitting by introducing a positive relation detection task to distinguish between strong and weak positive pairs. Additionally, the author emphasizes the common practice of learning invariant representation under data augmentation for robustness but goes further by encouraging the representation to perceive sensitive transformations through SA, promoting enhanced robustness by detecting replaced words in textual descriptions.
+    \begin{figure}[htbp]
+        \begin{center}
+            \includegraphics[width=10cm]{img/rasa.png}
+            \caption{Structure of RaSa}\label{fig:rasa}
+        \end{center}
+    \end{figure}
+    
+    \item Implicit Relation Reasoning and Aligning\\
+    The paper introduces a novel approach, called IRRA (Implicit Relation Reasoning and Aligning), for text-to-image person retrieval. This task involves identifying a person based on a given textual description. The main challenge is to establish an effective mapping between visual and textual modalities in a shared latent space. Unlike previous methods that use separately pre-trained unimodal models, IRRA addresses this challenge by introducing a cross-modal Implicit Relation Reasoning module. This module integrates visual cues into textual tokens through a masked language modeling paradigm, facilitating cross-modal interaction. To globally align visual and textual embeddings, the paper proposes Similarity Distribution Matching, which minimizes the KL divergence between image-text similarity distributions and normalized label matching distributions. 
+
+    \item Semantic-Aligned Feature Representation\\
+    The paper(\cite{li2021learning}) focuses on text-based person search, aiming to retrieve images of a specific pedestrian based on a textual description. The primary challenge in this task is to bridge the inter-modality gap and align features across textual and visual modalities. The proposed solution is a semantic-aligned embedding method that automatically learns feature alignment between visual and textual representations. The method utilizes two Transformer-based backbones to encode robust feature representations for images and texts. Additionally, a semantic-aligned feature aggregation network is introduced, incorporating a multi-head attention module constrained by a cross-modality part alignment loss and a diversity loss. 
+\end{itemize}
 \textcolor{red}{WIP}\\
-This paper introduces a method called Relation and Sensitivity Aware representation learning (RaSa) that includes two novel tasks: Relation-Aware learning (RA) and Sensitivity-Aware learning (SA). It addresses the shortcomings of existing methods in text-based person search, where clustering representations of positive pairs without distinction leads to overfitting, particularly with weak positive pairs. RA mitigates overfitting by introducing a positive relation detection task to distinguish between strong and weak positive pairs. Additionally, the author emphasizes the common practice of learning invariant representation under data augmentation for robustness but goes further by encouraging the representation to perceive sensitive transformations through SA, promoting enhanced robustness by detecting replaced words in textual descriptions.
-
-\includegraphics[width=10cm]{img/rasa.png}
-
-
-\subsubsection{Cross-Modal Implicit Relation Reasoning and Aligning for Text-to-Image Person Retrieval}
-The paper introduces a novel approach, called IRRA (Implicit Relation Reasoning and Aligning), for text-to-image person retrieval. This task i`nvolves identifying a person based on a given textual description. The main challenge is to establish an effective mapping between visual and textual modalities in a shared latent space. Unlike previous methods that use separately pre-trained unimodal models, IRRA addresses this challenge by introducing a cross-modal Implicit Relation Reasoning module. This module integrates visual cues into textual tokens through a masked language modeling paradigm, facilitating cross-modal interaction. To globally align visual and textual embeddings, the paper proposes Similarity Distribution Matching, which minimizes the KL divergence between image-text similarity distributions and normalized label matching distributions. 
-
-\subsubsection{Learning Semantic-Aligned Feature Representation for Text-based Person Search}
-The paper focuses on text-based person search, aiming to retrieve images of a specific pedestrian based on a textual description. The primary challenge in this task is to bridge the inter-modality gap and align features across textual and visual modalities. The proposed solution is a semantic-aligned embedding method that automatically learns feature alignment between visual and textual representations. The method utilizes two Transformer-based backbones to encode robust feature representations for images and texts. Additionally, a semantic-aligned feature aggregation network is introduced, incorporating a multi-head attention module constrained by a cross-modality part alignment loss and a diversity loss. 
 
 
 % \subsection{Image-based re-identification}
@@ -146,4 +150,12 @@ person attribute recognition has seeked to have supervision
 ... tried to slice the image so that we can extract specific parts from the person
 ... tried to create a filter 
 
+\begin{itemize}
+    \item A Simple and Robust Correlation Filtering
+    \cite{Suo_ECCV_A}
+    \item Vision-Guided Semantic-Group Network 
+    \cite{he2023vgsg}
+    \item Pose-Guided Multi-Granularity Attention Network
+    \cite{jing2019poseguided}
+\end{itemize}
 % ------------------------------------------------------------ %

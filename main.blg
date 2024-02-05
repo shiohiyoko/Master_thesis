@@ -1,0 +1,23 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'main.blg'
+[73] biber:340> INFO - === Mon Feb  5, 2024, 08:53:34
+[90] Biber.pm:419> INFO - Reading 'main.bcf'
+[201] Biber.pm:979> INFO - Found 11 citekeys in bib section 0
+[232] Biber.pm:4419> INFO - Processing section 0
+[241] Biber.pm:4610> INFO - Looking for bibtex file 'bibliography.bib' for section 0
+[243] bibtex.pm:1713> INFO - LaTeX decoding ...
+[260] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
+[480] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[480] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[480] Biber.pm:4239> INFO - Sorting list 'nyt/apasortcite//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[480] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[527] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[527] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[527] Biber.pm:4239> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[527] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[555] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[601] bbl.pm:763> INFO - Output to main.bbl
+[601] Biber.pm:131> WARN - legacy month field 'August' in entry 'Suo_ECCV_A' is not an integer - this will probably not sort properly.
+[601] Biber.pm:131> WARN - BibTeX subsystem: /tmp/biber_tmp_RAAA/f4d088b3f9f145b5c3058da33afd57d4_17287.utf8, line 110, warning: 13 characters of junk seen at toplevel
+[601] Biber.pm:131> WARN - I didn't find a database entry for 'prismastatement' (section 0)
+[601] Biber.pm:133> INFO - WARNINGS: 3
