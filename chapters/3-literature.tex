@@ -19,8 +19,9 @@ However, if only paperwithcode is used, the information obtained is limited and 
 The following research question was defined:
 
 \bigskip
-\textit{``How can we discern and identify the details of a person in text-based person search?''}
+\textit{``Can lightweight models maintain detection accuracy in text-based person search?''}
 \bigskip
+
 
 
 From this research question, four main keywords that sufficiently explain the topic were used: person retrieval and vision language pre-training.
@@ -64,14 +65,20 @@ Various factors were taken into account for the exclusion of documents:
 % ------------------------------------------------------------ %
 
 \section{Transformer}
-Transformer is build with fully connected layer and attention node. 
-this was first published in \cite{vaswani2023attention}.
-Transformer is a model that was meant to solve the problem that seq2seq had, which is that global nuances are hard to get, and lack of training speed.
-
+\textcolor{red}{WIP}
 % general explanation of transformer
-Transformer is an encoder-decoder model which is made with attention mechanism. This model was first created to solve the problem of "lack of understanding the global nuances" and "faster training speed" which the Seq2Seq had. The author approach to this problem by applying a mechanism called "attention" to understand the caution expression. This is similar to gate mechanism in LSTM where they emphasizes the important information, and make unnecessary information inconspicuous. By this method, the model can focus to the important information from the enormous information to process.
+% Transformer is an encoder-decoder model which is made with attention mechanism \cite{vaswani2023attention}. This model was first created to solve the problem of "lack of understanding the global nuances" and "faster training speed" which the Seq2Seq had. The author approach to this problem by applying a mechanism called "attention" to understand the caution expression. This is similar to gate mechanism in LSTM where they emphasizes the important information, and make unnecessary information inconspicuous. By this method, the model can focus to the important information from the enormous information to process. 
 
-\includegraphics[width=10cm]{img/transformer.png}
+The Transformer model, introduced by Vaswani et al. \cite{vaswani2023attention}, is an encoder-decoder architecture featuring an attention mechanism. Initially devised to address the limitations of the Seq2Seq model, such as the challenges in grasping global nuances and the need for faster training, the Transformer model leverages attention mechanisms. These mechanisms, akin to the gating mechanism found in LSTM networks, prioritize important information while suppressing irrelevant details. By employing this approach, the model can effectively discern crucial information from the vast array of input data for processing.
+
+Structure of the Transformer is shown figure\ref{fig:transformer}. The model is structured as encoder-decoder model, most competitive neural sequence transduction models are also encoder-decoder model, with encoder maps an input of symbol representation $X=(x_1, ...,x_n)$ toa continuous representation $Z=(z_1,...,z_n)$. The decoder will take the given z to generate an output sequence of $(y_1,...,y_n)$ of symbols one at a time.
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=10cm]{img/transformer.png}
+        \caption{Structure of the Transformer}\label{fig:transformer}
+    \end{center}
+\end{figure}
 
 % % talk about transformer block, plus multihead attention
 % Transformer Block is the unit for transformer, and this contains multi-head attention and position wise feed-forward networks. Transformer block has three input Query, Key, and Value which is used for computing attention representation on Multi-head attention.
@@ -82,15 +89,34 @@ Transformer is an encoder-decoder model which is made with attention mechanism. 
 % To explain Multi-Head attention, we first describe the Single-Head Attention. Single-head Attention is a Attention module with only one Scale-Dot Product. 
 
 \section{Vision-language pre-training}
-Vision language pre-training has drawn increasing attention after Transformer came up. Transformer is meant for NLP tasks, but the researcher found out that this model is capable of many tasks including information retrieval from the image, classification, etc. Since then, many follow-up works are proposed, such as BERT, CLIP, RoBERTa, GPT series. 
-we know that bigger the transformer layer, the better accuracy. some methods like gpt4 has billions of parameters 
-there are research that seeks into less parameters, enabling small model with efficient accuracies.
+\textcolor{red}{WIP}
 
-Vision and Language(VL) is a major research area for the causality of Computer Vision and Natural Language Processing (NLP), which aims to effectively learn from multimodal data. Some of the great success of language model pre-training in NLP(RoBERTa(\cite{liu2020roberta}), BERT(\cite{devlin2018bert})), and GPT-3\cite{brown2020language}) influenced the field of Vision-Language Pre-training (VLP) to grow attention from both fields. 
+Vision and Language(VL) is a major research area for the causality of Computer Vision and Natural Language Processing (NLP), which aims to effectively learn from multimodal data. Some of the great success of language model pre-training in NLP(RoBERTa(\cite{liu2020roberta}), BERT(\cite{devlin2018bert}), and GPT-3(\cite{brown2020language})) influenced the field of Vision-Language Pre-training (VLP) to grow attention from both fields. 
 
+The existing methods for VLP rely on object detection models, multiple auxiliary objectives, and limited-scale human annotation data. To solve this challenges, blah,blah,blah....
+
+Current works in VLP fields we have is the 
+VisualBERT
+A joint representation model for VL task which is designed to capture rich semantics in the image and associated text. The author integrated BERT for the NLP task with pretrained object proposal systems like Faster-RCNN. Figure\ref{fig:visualvert} shows how the model is trained. 
+
+\textcolor{red}{blah,blah, blah}
+\begin{figure}[htbp]
+    \includegraphics[width=10cm]{img/VisualBERT.png}
+    \caption{Representation of VisualBERT}\label{fig:visualvert}
+\end{figure}
+
+
+SimVLM simple visual language model
+Minimalist pretraining framework for joint visual and textual representation. The motivation for this research is the limitations and complexity of existing vision-language pretraining models, which often require expensive annotations and multiple dataset-specific objectives. SimVLM aims to address these issues by utilizing large-scale weak supervision and training end-to-end with a single prefix language modeling objective.
+
+
+CLIP is build on a vision transformer architecture, similar to BERT but instead of joint representation model, CLIP uses different encoder for both modal and from the extracted features, we calculate the dot product. During the learning process, the diagonal component of this matrix are learned to have larger values than the others.
+
+Recent studies shows that bigger the learning dataset, the better accuracies. 
 
 \section{Person Understanding Task}
 in this section we will talk about different method we can use for person understanding task. 
+
 \subsection{Text-based re-identification}
 \textcolor{red}{WIP}\\
 This section presents papers that study text-based person retrieval. A common issue addressed in each paper is the deficiency of the feature from text and image encoders. It has been confirmed that when the features of each modal are integrated, information is distorted or missing, which affects the accuracy of detection. Therefore, how to resolve this deficiency is key in this section.
@@ -109,12 +135,13 @@ The paper introduces a novel approach, called IRRA (Implicit Relation Reasoning 
 The paper focuses on text-based person search, aiming to retrieve images of a specific pedestrian based on a textual description. The primary challenge in this task is to bridge the inter-modality gap and align features across textual and visual modalities. The proposed solution is a semantic-aligned embedding method that automatically learns feature alignment between visual and textual representations. The method utilizes two Transformer-based backbones to encode robust feature representations for images and texts. Additionally, a semantic-aligned feature aggregation network is introduced, incorporating a multi-head attention module constrained by a cross-modality part alignment loss and a diversity loss. 
 
 
-\subsection{Image-based re-identification}
-with the image based methods, we have the old fashion way of cnn 
+% \subsection{Image-based re-identification}
+% with the image based methods, we have the old fashion way of cnn 
+
 
 
 \subsection{person attribute recognition}
-person attribute recognintion has seeked to have supervision 
+person attribute recognition has seeked to have supervision 
 ... made a mask on the person to set the person 
 ... tried to slice the image so that we can extract specific parts from the person
 ... tried to create a filter 
