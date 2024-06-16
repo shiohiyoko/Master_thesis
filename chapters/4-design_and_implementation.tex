@@ -1,9 +1,47 @@
-\chapter{Design and implementation}
+\chapter{Algorithm Structure}
+
+what i did 
+- change the mask 
+- visualize the attention section
+
+The structure of the algorithm is done as follows. 
+- image encoder
+  mlp 
+- text encoder
+  bert 
+
+When we work on fine tuning, we change the masking ratio on the mlm process. 
+the masking ratio will be changed as follows.
+flat 
+cosine curve 
+random 
+
+from these papers, bert scored higher accuracies when using 40\% on masking ratio. This is basically done in text information, 
+so we would like to try it out in text based image retireval tasks. T
+
+flat and cosine will work on the range of 40\% and 60\% 
+the previous work has been done as 15\%, so we would compare the results with that for the discussion 
+
+\subsection{Requirements specification}
+
+- model
+rasa
+
+- dataset 
+CUHK-dataset
+ICFG-dataset
+
+- epoch
+30
+
+- learning rate 
+1e-5 to 1e-6
+
+\section{Attention visualization}
+To be able to see where the model is paying attention to, we would use the attention matrix in cross atttention module.
 
 
-
-\section{Requirements specification}
-
-\section{Software Architecture}
 
 \section{Algorithm implementation}
+
+for the 

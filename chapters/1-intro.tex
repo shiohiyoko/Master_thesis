@@ -6,11 +6,15 @@ To overcome this problem, recent studies uses text information as input feature 
 In previous research, many researchers uses BERT for the text encoder and Vision Transformer as the image encoder. In many research, text encoder uses fixed masking ratio for the mlm tasks. But we want to know if we change the masking ratio for training the visual language model, how will it affect the model. 
 
 \section{Motivation}
-When I was researching through the person re-identification methods, most of the models were using the combination of vision Transformer and BERT. Both of the models are encoders for different modality data. After encoding both modalities, they are combined to the same feature space to enable to define each modalities. Many methods are trying to fit the same information from different modality to have it close to each other by contrastive learning, or some other methods. % reference
+When I was research ing through the person re-identification methods, most of the models were using the combination of vision Transformer and BERT. Both of the models are encoders for different modality data. After encoding both modalities, they are combined to the same feature space to enable to define each modalities. Many methods are trying to fit the same information from different modality to have it close to each other by contrastive learning, or some other methods. % reference
 But when i was looking through many papers, most of the 
 
 \section{Objectives}
+- intra difference
+- camera distortion
+- text information is not enough
+- attention differences
 
-\section{Stakeholders}
+we will tackle thorugh the attention differences between text and image information
 
 \section{Document structure}
