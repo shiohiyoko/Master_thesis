@@ -49,7 +49,7 @@ From the keywords, we had a keyword search on scopus from the search strings as 
 
 The Scopus search yielded a total of $20170$ documents. Within this result, we set the subject area to Computer Science, document type to article and conference paper, language to only english, and set the open access to all open access. With this filters, $862$ articles were found. 
 
-\subsection*{Screening}
+\subsection{Screening}
 
 Various factors were taken into account for the exclusion of documents:
 \begin{enumerate}
@@ -75,11 +75,11 @@ To predict the probable prompt, the model needs to understand both input image a
 
 
 \subsection{Learning Strategies}
-Contrastive learning aims to map input images and texts to the same feature space such that the distance between the embeddings of image-text pairs is minimized if they match or maximized if they don’t. This mothod is a commonly used pre-training objectives for vision models and proven to be a highly effective for vision-language models as well. \cite{radford2021learning} uses this learning strategy with a cosine distance betweent the text and image embeddings. For pre-training methods requires large datasets to train, so most of the times, they use image and corresponding caption from the internet to train. This way, the model can train with large data, but in the other hand the image and caption sometimes does not correlate. To deal with this problem, ALIGN\cite{jia2021scaling} and DeCLIP\cite{li2022supervision} designed their own distance metrics.
-
+Contrastive learning aims to map input images and texts to the same feature space such that the distance between the embeddings of image-text pairs is minimized if they match or maximized if they don’t. This method is a commonly used pre-training objectives for vision models and proven to be a highly effective for vision-language models as well. \cite{radford2021learning} uses this learning strategy with a cosine distance betweent the text and image embeddings. For pre-training methods requires large datasets to train, so most of the times, they use image and corresponding caption from the internet to train. This way, the model can train with large data, but in the other hand the image and caption sometimes does not correlate. To deal with this problem, ALIGN\cite{jia2021scaling} and DeCLIP\cite{li2022supervision} designed their own distance metrics.
 
 
 \subsection{BERT}
+
 
 \subsection{ALBEF}
 
