@@ -87,6 +87,20 @@ Contrastive learning aims to map input images and texts to the same feature spac
 
 Vision language models are very popular regions. Many studies have been published to be able to bind the visual information with the text information. 
 
+key concept and innovation
+relation aware
+既存のイメージテキストマッチングではペアの正負のみ判別している。
+
+
+この作者は同じIDの画像テキストペア１と画像テキストペア２では強い相関のある特徴と弱い相関のある特徴が存在する。筆者らはこの問題に対して相関の強いペアをより強く学習し、弱いペアを小さい値pwだけ学習させることにした。これにより強い相関のあるペア同士をより学習するとともに弱いペアに生じるノイズを抑止することが可能となる。これにより弱いペアのノイズから過学習を起こさないようにし、学習することが可能である。
+
+sensitivity aware
+
+次に著者らは文章中の表現に敏感になるように課題を足しました。
+
+この能力を達成させるために筆者らはテキストからランダムに単語を選択し、親しい単語に変換し、モデルに度の単語を変換させたのかを判断させる課題を提案しました。
+このシステムでは筆者らはテキストの表現を理解するためにmasked language modelタスクを利用し、より親しい
+
 
 \section{Masking Strategies}
 Methods for masking have many different varieties, so from those methods, I pick to change the masking ratio.
