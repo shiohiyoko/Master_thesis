@@ -1,14 +1,33 @@
 \chapter{Introduction}
-
 Person re-identification is an major subject which is used for service robots and security reasons. 
 To find the person, the task is to extract the features from the input source and compare with the large data to find the corresponding person. Most methods rely on image information for the input source,% reference to image methods 
  but with this method, the image source have many intra variations from the angle of the person, the environment, color, and etc.
 To overcome this problem, recent studies uses text information as input feature information. 
 In previous research, many researchers uses BERT for the text encoder and Vision Transformer as the image encoder. In many research, text encoder uses fixed masking ratio for the mlm tasks. But we want to know if we change the masking ratio for training the visual language model, how will it affect the model. 
 
+% GPT generated
+
+Person re-identification is a crucial topic with applications in service robotics and security. The goal is to extract features from an input source and compare them against a large dataset to identify the corresponding individual. Traditional methods predominantly rely on image-based inputs, but these methods face significant challenges due to intra-class variations caused by different viewing angles, environmental changes, and color variations.
+
+To address these issues, recent research has explored using text information as an input feature. Previous studies have commonly utilized BERT as the text encoder and Vision Transformer as the image encoder. Typically, the text encoder employs a fixed masking ratio for the masked language modeling (MLM) tasks. This thesis investigates the impact of varying the masking ratio during the training of the visual language model, aiming to understand how these changes affect the model's performance.
+
 \section{Motivation}
-When I was research ing through the person re-identification methods, most of the models were using the combination of vision Transformer and BERT. Both of the models are encoders for different modality data. After encoding both modalities, they are combined to the same feature space to enable to define each modalities. Many methods are trying to fit the same information from different modality to have it close to each other by contrastive learning, or some other methods. % reference
-But when i was looking through many papers, most of the 
+When I was researching through the person re-identification methods, most of the models were using the combination of vision Transformer and BERT. Both of the models are encoders for different modality data. After encoding both modalities, they are combined to the same feature space to enable to define each modalities. Many methods are trying to fit the same information from different modality to have it close to each other by contrastive learning, or some other methods. % reference
+But when i was looking through many papers, most of the methods have constant values for mlm tasks on BERT. In theory, masking 15\% of the full context will give the better solutions, but in this paper, it claims that  their work shows covering 40\% of the context gives the most accurate response. Also, I would like to know if we change the masking ratio dynamically.
+
+In the future, it is possible that we have a co-operation robot in many working situations. For the 
+
+- its possible to have a cooperating robot in working situations
+- It is preferable to be able to work with robots in a way that is intuitive to humans in order to facilitate collaboration
+- the most intuitive method is by text information or speaking information 
+- if we can collaborate with the robot like we do with other humans, we could solve the manpower shortage.
+- To do that, we need to connect the information between the text and the image information 
+- To work on this, we would use the cross modal model to map the same features from the image and text to recognize in both direction.
+
+% GPT generated
+The increasing potential for robots to collaborate with humans in various work environments necessitates the development of intuitive communication methods. The most natural way for humans to interact is through text or spoken information. By enabling robots to understand and respond to these forms of communication, we can significantly enhance human-robot collaboration.
+
+Such advancements could address critical issues like manpower shortages by allowing robots to seamlessly integrate into human workforces. To achieve this level of interaction, it is essential to effectively connect and interpret information from both text and images. This requires developing a cross-modal model that can map and recognize features across these different types of data. By focusing on creating such a model, we aim to bridge the gap between text and image information, facilitating more intuitive and efficient human-robot collaboration.
 
 \section{Objectives}
 - intra difference
