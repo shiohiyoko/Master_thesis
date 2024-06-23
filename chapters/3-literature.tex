@@ -75,7 +75,8 @@ Contrastive learning aims to map input images and texts to the same feature spac
 
 
 \subsection{ALBEF}
-For vision-and-language representation learning required 
+Text encoder and image encoder are used to learn the representation in vision-and-language pre-training models (VLP). Most existing VLP models use multimodal encoder to jointly model visual token (image feature) and word tokens (text features). This methods face challenges because the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. To tackle this challenge, the author first aligns image and text representations before fusing them through cross-modal attentions. Contrastive loss is used for alignment, which helps to ground the vision and text represenations.
+For vision-and-language representation learning 
 
 
 \subsection{RaSa}
