@@ -1,5 +1,5 @@
 \chapter{Related Studies }
-In this chapter we will briefly introduce the basics of person retrieval methods. To match two different modality data, recent studies uses attention based deep learning model. This way, the model could catch the feature from both modality and combine the same meanings. So we will mainly describe about the attention methods.
+In this chapter, priciples and theories utilized in this thesis will be introduced.
 
 
 % ------------------------------------------------------------ %
@@ -61,13 +61,6 @@ Various factors were taken into account for the exclusion of documents:
 % ------------------------------------------------------------ %
 
 \section{Vision-language models}
-before transformer
-transformer came, 
-with the transformer, we can have the model with better precision
-the sota model today we have rasa 
-this requires model to be sensitive to the text 
-
-albef -> rasa
 
 Vision-Language models are a model that combines both the vision and language modalities and enables to process both information. 
 Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.
@@ -82,24 +75,24 @@ Contrastive learning aims to map input images and texts to the same feature spac
 
 
 \subsection{ALBEF}
+For vision-and-language representation learning required 
+
 
 \subsection{RaSa}
 
-Vision language models are very popular regions. Many studies have been published to be able to bind the visual information with the text information. 
+Vision language models are very popular regions. Many studies have been published to be able to bind the visual information with the text information. Many methods have been proposed, but learning a powerful multimodal representation is still a challenging task. This author approches to this task by two innovations: Relation aware and Sensitivity aware.
 
-key concept and innovation
-relation aware
-既存のイメージテキストマッチングではペアの正負のみ判別している。
+The author remarked that the text and image pair of the same ID have a strong positive pair and weak positive pair. Since the textual discription is genereated by a single image in the text-based person search dataset, the text will strongly correlate to the image but it is not always well-aligned to the other images of the same person. Previous methods did not take this intra-variation into account when training, they put the equal weight for strong and weak positive pairs in learning representations. This lead the model to overfitting due to the weak pairs.
 
+To reduce the impact of noise interference from weak positive pairs, the author introduced a Relation-Aware learning (RA) task. This task consists of a probabilistic Image-Text Matching (p-ITM) component and a Positive Relation Detection (PRD) component. The p-ITM is a variant of the commonly used ITM, designed to differentiate negative and positive pairs by probabilistically considering strong or weak positive inputs. Meanwhile, the PRD explicitly distinguishes between strong and weak positive pairs. In this framework, p-ITM focuses on the consistency between strong and weak positive pairs, whereas PRD emphasizes their differences, effectively acting as a regularization for p-ITM. By incorporating RA, the model can extract valuable information from weak positive pairs through p-ITM and reduce noise interference through PRD, ultimately achieving a balance.
 
-この作者は同じIDの画像テキストペア１と画像テキストペア２では強い相関のある特徴と弱い相関のある特徴が存在する。筆者らはこの問題に対して相関の強いペアをより強く学習し、弱いペアを小さい値pwだけ学習させることにした。これにより強い相関のあるペア同士をより学習するとともに弱いペアに生じるノイズを抑止することが可能となる。これにより弱いペアのノイズから過学習を起こさないようにし、学習することが可能である。
+Furthermor, improving the robustness of representations often involves learning invariant representations under a set of manually chosen transformations, referred to as insensitive transformations [Caron et al., 2020; Chen and He, 2021]. While this approach is recognized, we take it further by drawing inspiration from the recent success of equivariant contrastive learning [Dangovski et al., 2022]. We explore sensitive transformations that would degrade performance if applied to learn transformation-invariant representations. Instead of maintaining invariance under insensitive transformations, we encourage the learned representations to be aware of sensitive transformations. 
 
-sensitivity aware
+To achieve this, author proposed a Sensitivity-Aware learning (SA) task. They use word replacement as the sensitive transformation and develop a Momentum-based Replaced Token Detection (m-RTD) pretext task. This task involves detecting whether a token originates from the original textual description or the replacement, as illustrated in Figure 1 (b). The closer the replaced word is to the original one (i.e., the more confusing the word), the more challenging the detection task becomes. Training the model to effectively solve this detection task is expected to enhance its ability to learn better representations.
 
-次に著者らはより文章中の変化する情報についてより注力するために
+The author utilize Masked Language Modeling (MLM) to perform word replacement, leveraging the image and text contextual tokens to predict the masked tokens. Additionally, considering that a momentum model, which is a slow-moving average of the online model, can learn more stable representations than the current online model [Grill et al., 2020], author use MLM from the momentum model to generate more confusing words. 
 
-この能力を達成させるために筆者らはテキストからランダムに単語を選択し、親しい単語に変換し、モデルに度の単語を変換させたのかを判断させる課題を提案しました。
-このシステムでは筆者らはテキストの表現を理解するためにmasked language modelタスクを利用し、より親しい
+Overall, MLM and m-RTD together form Sensitivity-Aware learning (SA), providing robust surrogate supervision for representation learning.
 
 
 \section{Masking Strategies}

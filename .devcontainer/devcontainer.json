@@ -20,7 +20,13 @@
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
-			"extensions": ["James-Yu.latex-workshop", "ms-azuretools.vscode-docker", "eamodio.gitlens", "geoffkaile.latex-count", "streetsidesoftware.code-spell-checker", "streetsidesoftware.code-spell-checker-scientific-terms"]
+			"extensions": ["James-Yu.latex-workshop", 
+							"ms-azuretools.vscode-docker", 
+							"eamodio.gitlens", 
+							"geoffkaile.latex-count", 
+							"streetsidesoftware.code-spell-checker", 
+							"streetsidesoftware.code-spell-checker-scientific-terms",
+							"ms-ceintl.vscode-language-pack-ja"]
 		}
 	}
 
