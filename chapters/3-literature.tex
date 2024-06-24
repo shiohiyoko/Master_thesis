@@ -75,8 +75,32 @@ Contrastive learning aims to map input images and texts to the same feature spac
 
 
 \subsection{ALBEF}
-Text encoder and image encoder are used to learn the representation in vision-and-language pre-training models (VLP). Most existing VLP models use multimodal encoder to jointly model visual token (image feature) and word tokens (text features). This methods face challenges because the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. To tackle this challenge, the author first aligns image and text representations before fusing them through cross-modal attentions. Contrastive loss is used for alignment, which helps to ground the vision and text represenations.
-For vision-and-language representation learning 
+Text encoder and image encoder are used to learn the representation in vision-and-language pre-training models (VLP). Most existing VLP models use multimodal encoder to jointly model visual token (image feature) and word tokens (text features). This methods face challenges because the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. 
+To tackle this challenge, the author first aligns image and text representations before fusing them through cross-modal attentions. 
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=10cm]{img/albef_model_structure.png}
+        \caption{Structure of ALBEF}
+        \label{fig:albef}
+    \end{center}
+\begin{figure}
+
+The author represented a model with an image encoder, text encoder, and a multimodal encoder. They use 12-layer visual transformer ViT-B/16[\cite{dosovitskiy2021image}], pretrained with ImageNet-1k, as the image encoder. Text encoder is based on 6 layers of transformer, and 6 layers of transformer for multimodal encoder. Those two encoders are pretrained with first 6 layers of $BERT_{base}$ for text encoders and last 6 layers of $BERT_{base}$ for multimodal encoders. The image features are fused with text features with cross attention in multimodal encoders.
+
+Pretraining Objectives
+The model have three objectives in pretraining: Image-Text Contrastive learining, masked language modeling and image text matchng.
+Image text contrastive learning is used to align the representation from the unimodal encoders. This task is done to align the represenation before they are fused.
+
+Masked languag modeling (MLM) is utilized with both image and text information to determine the masked text. Author randomly masks 15\% of the input token with specialized token [MASK]. The MLM minimizes the cross-entropy loss.
+\begin{displaymath}
+    L_{mlm} = \epsilon_{(I,\hat{T})~D}H(y^{msk}, p^{msk}(I,\hat{T}))
+\end{displaymath}
+
+$\hat{T}$ is masked text, $P^{msk}(I,\hat{T})$ is the model's predicted probability for a masked token. 
+
+Contrastive loss is used for alignment, which helps to ground the vision and text represenations.
+
 
 
 \subsection{RaSa}
