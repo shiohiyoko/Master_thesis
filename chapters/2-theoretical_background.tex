@@ -3,7 +3,7 @@ This section will describe the theoretical background for the techniques used fo
 \section{Transformer}
 A transformer is a type of deep learning model architecture that has revolutionized the field of natural language processing (NLP) and has been extended to various other domains such as computer vision and speech recognition. The transformer model was introduced in the paper "Attention is All You Need" by Vaswani et al. in 2017. Here's an overview of its key components and how it works:
 
-### Key Components of a Transformer
+ Key Components of a Transformer
 
 1. **Self-Attention Mechanism**:
    - **Self-attention** (or scaled dot-product attention) allows the model to weigh the importance of different words in a sentence relative to each other. It enables the model to focus on relevant parts of the input sequence when generating an output.
@@ -22,7 +22,7 @@ A transformer is a type of deep learning model architecture that has revolutioni
    - Layer normalization helps in stabilizing and accelerating the training process.
    - Residual connections (or skip connections) allow gradients to flow more easily through the network, which helps in training deep networks.
 
-### Architecture Overview
+ Architecture Overview
 
 A transformer model is composed of an encoder and a decoder, both of which are stacks of identical layers:
 
@@ -30,7 +30,7 @@ A transformer model is composed of an encoder and a decoder, both of which are s
   
 - **Decoder**: Each layer in the decoder has three sub-layers: a multi-head self-attention mechanism, a multi-head attention mechanism over the encoder's output, and a position-wise fully connected feed-forward network. The decoder generates the output sequence by attending to both the previously generated tokens and the encoder's output.
 
-### Advantages of Transformers
+ Advantages of Transformers
 
 1. **Parallelization**:
    - Unlike recurrent neural networks (RNNs), transformers do not rely on sequential processing, allowing for much more parallelization during training, which significantly speeds up the process.
@@ -41,13 +41,13 @@ A transformer model is composed of an encoder and a decoder, both of which are s
 3. **Scalability**:
    - Transformers have shown to scale well with the availability of large datasets and computational resources, leading to significant improvements in performance as the model size increases.
 
-### Applications
+ Applications
 
 - **Natural Language Processing**: Tasks such as translation, text summarization, and sentiment analysis.
 - **Computer Vision**: Vision Transformers (ViTs) have been used for image classification and object detection.
 - **Speech Recognition**: Transformers have been applied to model speech data and transcribe audio recordings.
 
-### Popular Transformer Models
+ Popular Transformer Models
 
 - **BERT (Bidirectional Encoder Representations from Transformers)**: Pre-trained on large text corpora to generate contextual embeddings for NLP tasks.
 - **GPT (Generative Pre-trained Transformer)**: A series of models designed for generating coherent and contextually relevant text.
@@ -58,7 +58,7 @@ In summary, the transformer model has become the foundation for many state-of-th
 \section{BERT}
 BERT (Bidirectional Encoder Representations from Transformers) is a transformer-based model designed for natural language processing (NLP) tasks. Developed by researchers at Google and introduced in the paper "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" in 2018, BERT has significantly advanced the state of the art in NLP by providing a powerful pre-trained language representation model. Here's a detailed explanation of BERT:
 
-### Key Concepts of BERT
+ Key Concepts of BERT
 
 1. **Bidirectionality**:
    - Traditional language models, like the original GPT, are unidirectional, meaning they predict the next word in a sequence based only on the words that come before it. BERT, however, is bidirectional. It considers both the left and right context when predicting a word, which allows it to better understand the context and semantics of the text.
@@ -66,7 +66,7 @@ BERT (Bidirectional Encoder Representations from Transformers) is a transformer-
 2. **Transformers**:
    - BERT is built upon the transformer architecture, specifically utilizing the encoder part of the transformer. The transformer’s self-attention mechanism allows BERT to focus on different parts of the input text to understand the relationships between words and phrases better.
 
-### Pre-training and Fine-tuning
+ Pre-training and Fine-tuning
 
 BERT involves two main steps: pre-training and fine-tuning.
 
@@ -77,7 +77,7 @@ BERT involves two main steps: pre-training and fine-tuning.
 2. **Fine-tuning**:
    - After pre-training, BERT can be fine-tuned on a specific NLP task such as question answering, sentiment analysis, or named entity recognition. During fine-tuning, the pre-trained BERT model is further trained on a labeled dataset for the specific task, adjusting its weights to optimize performance on that task.
 
-### BERT Variants
+ BERT Variants
 
 Several variants of BERT have been developed to cater to different needs:
 
@@ -87,7 +87,7 @@ Several variants of BERT have been developed to cater to different needs:
 4. **RoBERTa**: Robustly optimized BERT approach, which improves on BERT by training with more data and longer sequences.
 5. **ALBERT**: A lite version of BERT, which reduces the model size while maintaining performance by sharing parameters across layers.
 
-### Applications of BERT
+ Applications of BERT
 
 BERT has been applied to a wide range of NLP tasks, including:
 
@@ -98,7 +98,7 @@ BERT has been applied to a wide range of NLP tasks, including:
 5. **Language Translation**: Assisting in translating text from one language to another.
 6. **Text Summarization**: Generating concise summaries of longer texts.
 
-### Impact of BERT
+ Impact of BERT
 
 BERT has had a transformative impact on NLP by providing a robust, pre-trained model that can be fine-tuned for a variety of tasks with relatively little labeled data. This has significantly lowered the barrier to achieving state-of-the-art performance on many NLP benchmarks and has spurred further research and development in transformer-based models.
 
@@ -108,7 +108,7 @@ In summary, BERT's introduction of bidirectional context representation, coupled
 \section{Visual Transformer}
 A Visual Transformer (ViT) is a deep learning model designed to handle computer vision tasks using the transformer architecture, which was initially developed for natural language processing (NLP). The concept of using transformers for vision tasks was introduced by researchers at Google in the paper "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale" by Dosovitskiy et al., published in 2020. Here’s an overview of the Visual Transformer:
 
-### Key Concepts of Visual Transformers
+ Key Concepts of Visual Transformers
 
 1. **Patch Embeddings**:
    - Instead of processing entire images directly, ViTs divide an image into a grid of smaller, non-overlapping patches (e.g., 16x16 pixels each).
@@ -124,7 +124,7 @@ A Visual Transformer (ViT) is a deep learning model designed to handle computer 
 4. **Classification Token**:
    - A special classification token ([CLS]) is appended to the sequence of patch embeddings. The output corresponding to this token from the final layer of the transformer encoder is used as the representation of the entire image for classification tasks.
 
-### Architecture Overview
+ Architecture Overview
 
 - **Input Image**: The image is divided into fixed-size patches.
 - **Patch Embeddings**: Each patch is flattened and projected into a vector, forming a sequence of patch embeddings.
@@ -132,7 +132,7 @@ A Visual Transformer (ViT) is a deep learning model designed to handle computer 
 - **Transformer Encoder**: Processes the sequence of embeddings using self-attention and feed-forward layers.
 - **Classification Head**: The output corresponding to the [CLS] token is passed through a classifier to predict the class of the image.
 
-### Advantages of Visual Transformers
+ Advantages of Visual Transformers
 
 1. **Scalability**:
    - ViTs can benefit from the scalability of transformers, which can handle large datasets and model sizes effectively. They scale well with increasing data and computational resources, often outperforming traditional convolutional neural networks (CNNs) when trained on large datasets.
@@ -143,7 +143,7 @@ A Visual Transformer (ViT) is a deep learning model designed to handle computer 
 3. **Global Context**:
    - The self-attention mechanism in transformers allows ViTs to capture long-range dependencies and global context within an image, which can be beneficial for understanding complex visual scenes.
 
-### Challenges and Solutions
+ Challenges and Solutions
 
 1. **Data Efficiency**:
    - ViTs typically require large amounts of training data to perform well because they lack the inductive biases inherent in CNNs (e.g., translation invariance and local connectivity).
@@ -153,13 +153,13 @@ A Visual Transformer (ViT) is a deep learning model designed to handle computer 
    - The self-attention mechanism has a quadratic complexity with respect to the number of patches, making it computationally expensive for high-resolution images.
    - Hybrid models that combine CNNs (for initial feature extraction) with transformers (for high-level reasoning) have been explored to mitigate this issue.
 
-### Applications
+ Applications
 
 - **Image Classification**: ViTs have been used to achieve state-of-the-art performance on various image classification benchmarks.
 - **Object Detection and Segmentation**: Extensions of ViTs, such as DETR (Detection Transformer), have been developed for object detection and segmentation tasks.
 - **Vision-Language Tasks**: ViTs have been combined with NLP models to handle vision-language tasks like image captioning and visual question answering.
 
-### Notable Visual Transformer Models
+ Notable Visual Transformer Models
 
 - **ViT (Visual Transformer)**: The original model introduced by Dosovitskiy et al.
 - **DeiT (Data-efficient Image Transformers)**: An improved version of ViT that focuses on data efficiency and robustness, developed by researchers at Facebook AI.
@@ -170,7 +170,7 @@ In summary, Visual Transformers represent a significant advancement in computer 
 \section{ALBEF}
 The paper "Align before Fuse: Vision and Language Representation Learning with Momentum Distillation" by Junnan Li et al. from Salesforce Research presents a new framework for vision-and-language pre-training (VLP) called ALBEF (Align BEfore Fuse). Here is an overview of the main concepts and innovations introduced in the paper:
 
-### Key Concepts and Innovations:
+ Key Concepts and Innovations:
 
 1. **Problem with Existing Methods**:
    - Most existing VLP methods use a multimodal encoder to jointly model visual tokens (image features) and word tokens (text features).
