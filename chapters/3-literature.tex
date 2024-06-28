@@ -68,18 +68,17 @@ Vision recognition research have been updated until recent studies. Until now, t
 Traditional machine learning relied on feature engineering. To achieve features, general methods were to hand-craft features \cite{svmclassification} and lightweight models \cite{knn}\cite{svm} to classify images into predefined categories. However, this method demands domain experts to design effective features for specific visual recognition tasks, which makes it ineffective for complex tasks and limits its scalability.
 
 To overcome the problems with traditional methods, deep learning methods were devised \cite{imagenet} \cite{dnn_imagerecognition} to enhance the feature engineering and allowed to focus on the architecture engineering of neural networks to learn features effectively.
-Great success from ResNet \cite{resnet}, which is a deep learning model introducing residual connections as a solution to the gradient vanishing problem.
+Great success from ResNet \cite{resnet}, which is a deep learning model introducing residual connections as a solution to the gradient vanishing problem. From this point, the deep learning demonstrated the ability to train on large datasets, achieving unprecedented performance. However, this approach faced issues such as slow training convergence and the need for extensive labeled data. 
 
-1. Traditional Machine Learning and Prediction
-Early visual recognition relied on hand-crafted features and lightweight models to classify images into predefined categories.
-This method required domain experts and struggled with complex tasks and scalability.
-2. Deep Learning from Scratch and Prediction
-With the advent of deep learning, visual recognition shifted to end-to-end trainable Deep Neural Networks (DNNs), removing the need for hand-crafted features.
-Models like ResNet demonstrated the ability to train on large datasets, achieving unprecedented performance.
-However, this approach faced issues such as slow training convergence and the need for extensive labeled data.
-3. Supervised Pre-training, Fine-tuning, and Prediction
-This paradigm pre-trains DNNs on large labeled datasets and then fine-tunes them on specific tasks.
-It accelerates convergence and improves performance even with limited task-specific data by leveraging pre-learned visual knowledge.
+Recent studies \cite{radford2021learning} have discovered that the features learned from large-scale labeled datasets possess a high degree of versatility and can be effectively transferred to a variety of downstream tasks. This indicates that the patterns and representations captured during the training on these extensive datasets are not only specific to the initial context but are also generalizable, allowing them to be utilized in different, often more specialized applications. This transferability underscores the potential of leveraging pre-trained models to enhance performance and efficiency in a wide range of tasks across various domains. 
+This learning techniques accelerates training models with limited task-specific training datasets while achieving high performance.
+
+The supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still have the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, Kaiming He, Haoqi Fan, et al.\cite{he2020momentumcontrastunsupervisedvisual} presented a method called Momentum Contrast (MoCo), which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation witout labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by Ting Chen, Simon Kornblith, et al. \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. 
+Beyond this foundations, pre-training models no more rely on labeled datasets, which enabled to learn from various training data compared to supervised pre-training. For fine-tuning it requires labeled dataset for downstream tasks, but it requires few sets to gain better performance compared to fine-tuning the self-supervised pre-training models. 
+
+
+
+
 4. Unsupervised Pre-training, Fine-tuning, and Prediction
 To overcome the dependency on labeled data, this method uses self-supervised learning for pre-training on unlabeled data.
 Techniques like masked image modeling and contrastive learning enable the model to learn transferable features.
