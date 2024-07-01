@@ -74,20 +74,10 @@ Recent studies \cite{radford2021learning} have discovered that the features lear
 This learning techniques accelerates training models with limited task-specific training datasets while achieving high performance.
 
 The supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still have the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, Kaiming He, Haoqi Fan, et al.\cite{he2020momentumcontrastunsupervisedvisual} presented a method called Momentum Contrast (MoCo), which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation witout labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by Ting Chen, Simon Kornblith, et al. \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. 
-Beyond this foundations, pre-training models no more rely on labeled datasets, which enabled to learn from various training data compared to supervised pre-training. For fine-tuning it requires labeled dataset for downstream tasks, but it requires few sets to gain better performance compared to fine-tuning the self-supervised pre-training models. 
+Beyond this foundations, pre-training models no more rely on labeled datasets, which enabled to learn from various training data compared to supervised pre-training. 
 
-
-
-
-4. Unsupervised Pre-training, Fine-tuning, and Prediction
-To overcome the dependency on labeled data, this method uses self-supervised learning for pre-training on unlabeled data.
-Techniques like masked image modeling and contrastive learning enable the model to learn transferable features.
-This paradigm allows the use of more extensive data, often leading to better performance than supervised pre-training.
-5. Vision-Language Model (VLM) Pre-training and Zero-shot Prediction
-Inspired by natural language processing, this new approach pre-trains models using large-scale image-text pairs available on the internet.
-These models, trained with vision-language objectives, can make zero-shot predictions on new tasks without additional fine-tuning.
-This paradigm leverages vast amounts of web data, enabling effective and efficient visual recognition.
-
+For fine-tuning it requires labeled dataset for downstream tasks in both supervised or non-supervised pre-training models. Drastic improvements have emerged from natural language processing \cite{devlin2018bert}\cite{brown2020language}, combined with previous vision recognition, new paradigm called vision-language model pre-training have proposed for vision recognition. To pre-train, this model does not requires to have labeled datasets, just requires image-text pairs. With this, the training datasets can be found infinitely in the internet. However, the image text pair in the internet contains information that does not correlate to each other. To train the model with some noize in the data, VLM is trained with certain vision-language objectives \cite{radford2021learning} \cite{yu2022cocacontrastivecaptionersimagetext}. From these objectives, the VLM 
+matches the embedding of any given images and text, which enabled the performance of zero-shot prediction without fine-tuning on downstream visual recognintion.
 
 Vision-Language models are a model that combines both the vision and language modalities and enables to process both information. 
 Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.
@@ -108,7 +98,7 @@ To tackle this challenge, the author first aligns image and text representations
 
 \begin{figure}[htbp]
     \begin{center}
-        \includegraphics[width=10cm]{img/albef_model_structure.png}
+        \includegraphics{img/albef_model_structure.png}
         \caption{Structure of ALBEF}
         \label{fig:albef}
     \end{center}
