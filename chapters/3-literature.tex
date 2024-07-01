@@ -76,21 +76,12 @@ This learning techniques accelerates training models with limited task-specific 
 The supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still have the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, Kaiming He, Haoqi Fan, et al.\cite{he2020momentumcontrastunsupervisedvisual} presented a method called Momentum Contrast (MoCo), which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation witout labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by Ting Chen, Simon Kornblith, et al. \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. 
 Beyond this foundations, pre-training models no more rely on labeled datasets, which enabled to learn from various training data compared to supervised pre-training. 
 
-For fine-tuning it requires labeled dataset for downstream tasks in both supervised or non-supervised pre-training models. Drastic improvements have emerged from natural language processing \cite{devlin2018bert}\cite{brown2020language}, combined with previous vision recognition, new paradigm called vision-language model pre-training have proposed for vision recognition. To pre-train, this model does not requires to have labeled datasets, just requires image-text pairs. With this, the training datasets can be found infinitely in the internet. However, the image text pair in the internet contains information that does not correlate to each other. To train the model with some noize in the data, VLM is trained with certain vision-language objectives \cite{radford2021learning} \cite{yu2022cocacontrastivecaptionersimagetext}. From these objectives, the VLM 
+For fine-tuning it requires labeled dataset for downstream tasks in both supervised or non-supervised pre-training models. Drastic improvements have emerged from natural language processing \cite{devlin2018bert}\cite{brown2020language}, combined with previous vision recognition, new paradigm called vision-language model (VLM) pre-training have proposed for vision recognition. To pre-train, this model does not requires to have labeled datasets, just requires image-text pairs. With this, the training datasets can be found infinitely in the internet. However, the image text pair in the internet contains information that does not correlate to each other. To train the model with some noize in the data, VLM is trained with certain vision-language objectives \cite{radford2021learning} \cite{yu2022cocacontrastivecaptionersimagetext}. From these objectives, the VLM 
 matches the embedding of any given images and text, which enabled the performance of zero-shot prediction without fine-tuning on downstream visual recognintion.
 
-Vision-Language models are a model that combines both the vision and language modalities and enables to process both information. 
-Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.
-To predict the probable prompt, the model needs to understand both input image and the text prompts. To understand those modalities, the model will have separate or fused encoders for both vision and language.
-
-
-\subsection{Learning Strategies}
-Contrastive learning aims to map input images and texts to the same feature space such that the distance between the embeddings of image-text pairs is minimized if they match or maximized if they don’t. This method is a commonly used pre-training objectives for vision models and proven to be a highly effective for vision-language models as well. \cite{radford2021learning} uses this learning strategy with a cosine distance between the text and image embeddings. For pre-training methods requires large datasets to train, so most of the times, they use image and corresponding caption from the internet to train. This way, the model can train with large data, but in the other hand the image and caption sometimes does not correlate. To deal with this problem, ALIGN\cite{jia2021scaling} and DeCLIP\cite{li2022supervision} designed their own distance metrics.
-
-
-\subsection{BERT}
-aaa
-
+% Vision-Language models are a model that combines both the vision and language modalities and enables to process both information. 
+% Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.
+% To predict the probable prompt, the model needs to understand both input image and the text prompts. To understand those modalities, the model will have separate or fused encoders for both vision and language.
 
 \subsection{ALBEF}
 Text encoder and image encoder are used to learn the representation in vision-and-language pre-training models (VLP). Most existing VLP models use multi-modal encoder to jointly model visual token (image feature) and word tokens (text features). This methods face challenges because the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. 
@@ -98,7 +89,7 @@ To tackle this challenge, the author first aligns image and text representations
 
 \begin{figure}[htbp]
     \begin{center}
-        \includegraphics{img/albef_model_structure.png}
+        \includegraphics[width=\linewidth]{img/albef_model_structure.png}
         \caption{Structure of ALBEF}
         \label{fig:albef}
     \end{center}
@@ -125,7 +116,7 @@ Contrastive loss is used for alignment, which helps to ground the vision and tex
 
 
 
-\section{Person retrieval methods}
+\section{Model Used In This Thesis}
 \subsection{RaSa}
 
 Vision language models are very popular regions. Many studies have been published to be able to bind the visual information with the text information. Many methods have been proposed, but learning a powerful multimodal representation is still a challenging task. This author approches to this task by two innovations: Relation aware and Sensitivity aware.
@@ -143,5 +134,10 @@ The author utilize Masked Language Modeling (MLM) to perform word replacement, l
 Overall, MLM and m-RTD together form Sensitivity-Aware learning (SA), providing robust surrogate supervision for representation learning.
 
 
+\section{previous methods for masking strategies}
+
+
 \section{Masking Strategies}
+To extract finer features from the image and text inputs, 
+
 Methods for masking have many different varieties, so from those methods, I pick to change the masking ratio.

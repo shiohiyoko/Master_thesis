@@ -6,3 +6,54 @@ Comprising two classes, ``Splitter'' and ``Collector'', Prisma Automator facilit
 
 Prisma Automator is an open-source project available at \url{https://github.com/Fabulani/prisma-automator}.
 
+
+\chapter{BERT}
+
+
+BERT (Bidirectional Encoder Representations from Transformers) is a transformer-based model designed for natural language processing (NLP) tasks. Developed by researchers at Google and introduced in the paper "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" in 2018, BERT has significantly advanced the state of the art in NLP by providing a powerful pre-trained language representation model. Here's a detailed explanation of BERT:
+
+ Key Concepts of BERT
+
+1. **Bidirectionality**:
+   - Traditional language models, like the original GPT, are unidirectional, meaning they predict the next word in a sequence based only on the words that come before it. BERT, however, is bidirectional. It considers both the left and right context when predicting a word, which allows it to better understand the context and semantics of the text.
+
+2. **Transformers**:
+   - BERT is built upon the transformer architecture, specifically utilizing the encoder part of the transformer. The transformer’s self-attention mechanism allows BERT to focus on different parts of the input text to understand the relationships between words and phrases better.
+
+ Pre-training and Fine-tuning
+
+BERT involves two main steps: pre-training and fine-tuning.
+
+1. **Pre-training**:
+   - **Masked Language Modeling (MLM)**: During pre-training, some percentage of the input tokens are randomly masked, and the model is trained to predict the original tokens based on the context provided by the unmasked tokens. This helps BERT learn bidirectional representations of the text.
+   - **Next Sentence Prediction (NSP)**: This task involves predicting whether a given sentence B is the actual next sentence that follows a given sentence A in the corpus. This helps BERT understand the relationships between sentences.
+
+2. **Fine-tuning**:
+   - After pre-training, BERT can be fine-tuned on a specific NLP task such as question answering, sentiment analysis, or named entity recognition. During fine-tuning, the pre-trained BERT model is further trained on a labeled dataset for the specific task, adjusting its weights to optimize performance on that task.
+
+ BERT Variants
+
+Several variants of BERT have been developed to cater to different needs:
+
+1. **BERT Base**: Consists of 12 layers (transformer blocks), 768 hidden units, and 12 attention heads.
+2. **BERT Large**: Consists of 24 layers, 1024 hidden units, and 16 attention heads.
+3. **DistilBERT**: A smaller, faster, and lighter version of BERT, retaining 97% of BERT's language understanding while being 60% faster.
+4. **RoBERTa**: Robustly optimized BERT approach, which improves on BERT by training with more data and longer sequences.
+5. **ALBERT**: A lite version of BERT, which reduces the model size while maintaining performance by sharing parameters across layers.
+
+ Applications of BERT
+
+BERT has been applied to a wide range of NLP tasks, including:
+
+1. **Question Answering**: BERT can be fine-tuned on datasets like SQuAD to understand and answer questions based on given texts.
+2. **Sentiment Analysis**: Determining the sentiment expressed in a piece of text.
+3. **Named Entity Recognition (NER)**: Identifying and classifying named entities (e.g., people, organizations, locations) within a text.
+4. **Text Classification**: Classifying texts into different categories.
+5. **Language Translation**: Assisting in translating text from one language to another.
+6. **Text Summarization**: Generating concise summaries of longer texts.
+
+ Impact of BERT
+
+BERT has had a transformative impact on NLP by providing a robust, pre-trained model that can be fine-tuned for a variety of tasks with relatively little labeled data. This has significantly lowered the barrier to achieving state-of-the-art performance on many NLP benchmarks and has spurred further research and development in transformer-based models.
+
+In summary, BERT's introduction of bidirectional context representation, coupled with its robust pre-training on large corpora and the flexibility of fine-tuning for specific tasks, has made it a cornerstone in modern NLP, influencing a wide array of applications and subsequent model developments.

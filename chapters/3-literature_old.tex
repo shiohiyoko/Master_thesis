@@ -57,6 +57,9 @@ Various factors were taken into account for the exclusion of documents:
     \item duplicates that were not automatically detected and excluded.
 \end{enumerate}
 
+
+\subsection{Learning Strategies}
+Contrastive learning aims to map input images and texts to the same feature space such that the distance between the embeddings of image-text pairs is minimized if they match or maximized if they don’t. This method is a commonly used pre-training objectives for vision models and proven to be a highly effective for vision-language models as well. \cite{radford2021learning} uses this learning strategy with a cosine distance between the text and image embeddings. For pre-training methods requires large datasets to train, so most of the times, they use image and corresponding caption from the internet to train. This way, the model can train with large data, but in the other hand the image and caption sometimes does not correlate. To deal with this problem, ALIGN\cite{jia2021scaling} and DeCLIP\cite{li2022supervision} designed their own distance metrics.
 % ------------------------------------------------------------ %
 
 \section{Transformer}

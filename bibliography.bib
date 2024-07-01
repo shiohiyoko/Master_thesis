@@ -310,3 +310,32 @@ doi = {10.1145/3459665}
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2205.01917}, 
 }
+
+@inproceedings{wettig-etal-2023-mask,
+    title = "Should You Mask 15{\%} in Masked Language Modeling?",
+    author = "Wettig, Alexander  and
+      Gao, Tianyu  and
+      Zhong, Zexuan  and
+      Chen, Danqi",
+    editor = "Vlachos, Andreas  and
+      Augenstein, Isabelle",
+    booktitle = "Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics",
+    month = may,
+    year = "2023",
+    address = "Dubrovnik, Croatia",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.eacl-main.217",
+    doi = "10.18653/v1/2023.eacl-main.217",
+    pages = "2985--3000",
+    abstract = "Masked language models (MLMs) conventionally mask 15{\%} of tokens due to the belief that more masking would leave insufficient context to learn good representations; this masking rate has been widely used, regardless of model sizes or masking strategies. In this work, we revisit this important choice of MLM pre-training. We first establish that 15{\%} is not universally optimal, and larger models should adopt a higher masking rate. Specifically, we find that masking 40{\%} outperforms 15{\%} for BERT-large size models on GLUE and SQuAD. Interestingly, an extremely high masking rate of 80{\%} can still preserve 95{\%} fine-tuning performance and most of the accuracy in linguistic probing, challenging the conventional wisdom about the role of the masking rate. We then examine the interplay between masking rates and masking strategies and find that uniform masking requires a higher masking rate compared to sophisticated masking strategies such as span or PMI masking. Finally, we argue that increasing the masking rate has two distinct effects: it leads to more corruption, which makes the prediction task more difficult; it also enables more predictions, which benefits optimization. Using this framework, we revisit BERT{'}s 80-10-10 corruption strategy. Together, our results contribute to a better understanding of MLM pre-training.",
+}
+
+@misc{yang2023learningbettermaskingbetter,
+      title={Learning Better Masking for Better Language Model Pre-training}, 
+      author={Dongjie Yang and Zhuosheng Zhang and Hai Zhao},
+      year={2023},
+      eprint={2208.10806},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2208.10806}, 
+}

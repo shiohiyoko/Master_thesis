@@ -1,5 +1,17 @@
 \chapter{Algorithm Structure}
 
+masking strategies 
+
+higher masking ratio means larger batch size
+
+Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proved to be beneficial for pre-training (Liu et al., 2019).
+
+corruption rate how much we mask the words from the text
+prediction rate how much we predict the mask token 
+
+
+
+
 what i did 
 - change the mask 
 - visualize the attention section
