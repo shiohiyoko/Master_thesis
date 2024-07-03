@@ -143,11 +143,9 @@ To extract finer features from the image and text inputs,
 Methods for masking have many different varieties, so from those methods, I pick to change the masking ratio.
 
 \section{Visualize attention}
+In this section, methology for visualization for attention towards the vision models. To understand how the vision model is recognizing the input images, many methods are introduced to describe the models perceptions.
 \section{GradCAM}
-The paper titled "Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization" by Ramprasaath R. Selvaraju et al. presents a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image, which are crucial for predicting a specific concept.
-
-Key Points:
-Grad-CAM Method:
+Ramprasaath R. Selvaraju et al. presents a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image, which are crucial for predicting a specific concept.
 
 Utilizes gradients flowing into the final convolutional layer to produce a localization map.
 Applicable to various CNN architectures, including those with fully-connected layers (like VGG), models for structured outputs (like image captioning), and multi-modal inputs (like visual question answering).
@@ -170,9 +168,8 @@ Outperforms previous methods in terms of weakly-supervised localization tasks an
 The paper emphasizes the importance of interpretability in AI systems, aiming to bridge the gap between model accuracy and transparency. By providing clear visual explanations, Grad-CAM enhances the trustworthiness and usability of deep learning models in practical applications.
 
 \section{GradCAM++}
-The paper titled "Grad-CAM++: Improved Visual Explanations for Deep Convolutional Networks" by Aditya Chattopadhyay et al. introduces an enhanced version of the Grad-CAM method called Grad-CAM++. This method aims to provide better visual explanations of CNN model predictions by improving object localization and handling multiple object instances in a single image.
+Aditya Chattopadhyay et al. introduces an enhanced version of the Grad-CAM method called Grad-CAM++. This method aims to provide better visual explanations of CNN model predictions by improving object localization and handling multiple object instances in a single image.
 
-### Key Points:
 1. **Grad-CAM++ Method**:
    - Builds on Grad-CAM by introducing a generalized approach that uses a weighted combination of the positive partial derivatives of the last convolutional layer feature maps with respect to a specific class score to generate visual explanations.
    - Provides a mathematical derivation for the proposed method, making it computationally efficient and improving localization performance.
