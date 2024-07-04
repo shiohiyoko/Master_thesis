@@ -136,16 +136,14 @@ Overall, MLM and m-RTD together form Sensitivity-Aware learning (SA), providing 
 
 \section{previous methods for masking strategies}
 
+In this section we will introduce the masking strategies for masked learning modeling. Existing pre-trained language models tries to have different masking strategies to enhance training efficiency and effectiveness. 
+Joshi, et al. \cite{10.1162/tacl_a_00300} introduced SpanBERT which is designed to better represent and predict span of text.
 
-\section{Masking Strategies}
-To extract finer features from the image and text inputs, 
-
-Methods for masking have many different varieties, so from those methods, I pick to change the masking ratio.
 
 \section{Attention visualization method}
 In this section, methology for visualization for attention towards the vision models. To understand how the vision model is recognizing the input images, many methods are introduced to describe the models perceptions.
 
-\section{Grad-CAM}
+\subsection{Grad-CAM}
 Ramprasaath R. Selvaraju et al. present a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image crucial for predicting a specific concept.
 
 Grad-CAM utilizes gradients flowing into the final convolutional layer to produce a localization map. It is applicable to various CNN architectures, including those with fully-connected layers (like VGG), and models for structured outputs. When combined with pixel-space gradient visualizations, Grad-CAM creates Guided Grad-CAM, which offers high-resolution, class-discriminative visualizations.
@@ -160,5 +158,5 @@ First, we would define the neuron importance weights $\alpha^c_k$. calculate the
 
 One significant advantage of this method is its class-discriminative nature. Grad-CAM can highlight specific regions relevant to a particular class, making it useful for understanding model predictions. Another advantage is the high resolution of the visualizations. By combining Grad-CAM with existing fine-grained visualization techniques like Guided Backpropagation, the authors create Guided Grad-CAM, which provides detailed and class-discriminative visual explanations.
 
-\section{Grad-CAM++}
+\subsection{Grad-CAM++}
 Grad-CAM however, it has some limitations, such as difficulty in handling multiple instances of the same class within an image and partial localization of objects. To address these issues, Grad-CAM++ introduces a more refined approach that can better capture the spatial importance of different regions in an image. 
