@@ -110,7 +110,7 @@ Image text contrastive learning is used to align the representation from the uni
 Masked language modeling (MLM) is utilized with both image and text information to determine the masked text. Author randomly masks 15\% of the input token with specialized token [MASK]. The MLM minimizes the cross-entropy loss.
 
 \begin{displaymath}
-    L_{mlm} = \epsilon_{\(I,\hat{T}\)~D}H(y^{msk}, p^{msk}\(I,\hat{T}\))
+    L_{mlm} = \epsilon_{(I,\hat{T})~D}H(y^{msk}, p^{msk}(I,\hat{T}))
 \end{displaymath}
 
 $\hat{T}$ is masked text, $P^{msk}(I,\hat{T})$ is the model's predicted probability for a masked token. 
@@ -137,7 +137,7 @@ Overall, MLM and m-RTD together form Sensitivity-Aware learning (SA), providing 
 \section{previous methods for masking strategies}
 
 In this section we will introduce the masking strategies for masked learning modeling. Existing pre-trained language models tries to have different masking strategies to enhance training efficiency and effectiveness. 
-Joshi, et al. \cite{10.1162/tacl_a_00300} introduced SpanBERT which is designed to better represent and predict span of text.
+Joshi, et al.  introduced SpanBERT which is designed to better represent and predict span of text.
 
 
 \section{Attention visualization method}
@@ -148,12 +148,12 @@ Ramprasaath R. Selvaraju et al. present a method for providing visual explanatio
 
 Grad-CAM utilizes gradients flowing into the final convolutional layer to produce a localization map. It is applicable to various CNN architectures, including those with fully-connected layers (like VGG), and models for structured outputs. When combined with pixel-space gradient visualizations, Grad-CAM creates Guided Grad-CAM, which offers high-resolution, class-discriminative visualizations.
 
-Following steps enables to obtain the class-discriminative localization map $L^c_{Grad-CAM} \in\Re^{u\timesv}$ of class $c$ from the image width $u$ and height $v$. 
+Following steps enables to obtain the class-discriminative localization map $L^c_{Grad-CAM} = \in\Re^{u \times v}$ of class $c$ from the image width $u$ and height $v$. 
 
 First, we would define the neuron importance weights $\alpha^c_k$. calculate the gradient of the score for class c, $y_c$(before softmax), with respect to the feature map activations $A_k$ of a convolutional layer, i.e., $\frac{\delta y^c}{\delta A^k}$. 
  
 \begin{displaymath}
-    L^c_{Grad-CAM} = ReLU\(\sum_k\alpha^c_kA^k\)
+    L^c_{Grad-CAM} = ReLU(\sum_k\alpha^c_kA^k)
 \end{displaymath}
 
 One significant advantage of this method is its class-discriminative nature. Grad-CAM can highlight specific regions relevant to a particular class, making it useful for understanding model predictions. Another advantage is the high resolution of the visualizations. By combining Grad-CAM with existing fine-grained visualization techniques like Guided Backpropagation, the authors create Guided Grad-CAM, which provides detailed and class-discriminative visual explanations.
