@@ -28,17 +28,23 @@ Dataset we are using is CUHK-PEDES \cite{li2017personsearchnaturallanguage}. Thi
 \begin{itemize}
   \item Large-scale: Dataset contains 40,206 images over 13,003 persons 
   \item Annotations: Each images is described with two sentences by independent annotators, in total of 80,412 sentence descriptions
-  \item Source diversity: Images are collected from various existing person re-identification datasets, including CUHK03\cite{li2014deepreid}, Market-1501\cite{7410490}, SSM\cite{ssm}, VIPER\cite{viper}, and CUHK01\cite{li2012human}.
+  \item Source diversity: Images are sourced from a variety of existing person re-identification datasets, including CUHK03\cite{li2014deepreid}, Market-1501\cite{7410490}, SSM\cite{ssm}, VIPeR\cite{viper}, and CUHK01\cite{li2012human}.
 \end{itemize}
 
 The datasets contains image and corresponding natural language description as shown in Fig\ref{fig:cuhk_pedes}. Image source for CUHK-PEDES are from CUHK03, Market-1501, SSM, VIPER, and CUHK01. The annotations for each image are done by Amazon Mechanical Turk(AMT), which is a crowd workers that are employed to describe each image with two sentence. Each sentence include rich descriptions about person appearance, action poses, and interactions.
 
 
 \section{Methods}
-In this section, the experiment method will be introduced for the effect of performance with vision language models(VLM). VLM with recent SOTA models (\cite{Bai2023RaSaRA}) uses attention mechanism to extract both image and text features, and then both features are aligned with cross modality encoders. For relation and sensitivity aware learning, they train the model with two tasks: relation aware and sensitivity aware. Relation aware 
+In this section, the experiment method will be introduced for the effect of performance with vision language models(VLM). VLM with recent SOTA models (\cite{Bai2023RaSaRA}) uses attention mechanism to extract both image and text features, and then both features are aligned with cross modality encoders. To achieve better results, feature extraction is important but also learning better textual representation is required to guide the interpretation of visual data. Thus, our aim is to train the visual language model with textual information representation with different strategies.
 
-\section{Masking ratio for mlm}
-explanation about masking ratio changes on mlm
+
+\section{Masking ratio for mlm} 
+To investigate the impact of varying the masking ratio on the performance of masked language models (MLMs). The study aims to determine the optimal masking ratio that balances training efficiency and model accuracy.
+
+Recently, textual information representation is done by masked language model 
+For relation and sensitivity aware learning, they train the model with two tasks: relation aware and sensitivity aware. Relation aware distinguishes between strong and weak positive pairs in the dataset which allows to learn more effectively from the data. 
+Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
+
 
 \section{masking ratio for replaced token detection}
 explanation about masking ratio changes on m-RTD
