@@ -35,11 +35,12 @@ The datasets contains image and corresponding natural language description as sh
 
 
 \section{Methods}
-In this section, the experiment method will be introduced for the effect of performance with vision language models(VLM). VLM with recent SOTA models (\cite{Bai2023RaSaRA}) uses attention mechanism to extract both image and text features, and then both features are aligned with cross modality encoders. To achieve better results, feature extraction is important but also learning better textual representation is required to guide the interpretation of visual data. Thus, our aim is to train the visual language model with textual information representation with different strategies.
+In this section, the experiment method will be introduced for the effect of performance with vision language models(VLM). VLM with recent SOTA models (\cite{Bai2023RaSaRA}) uses attention mechanism to extract both image and text features, and then both features are aligned with cross modality encoders. To achieve better results, feature extraction is important but also learning better textual representation is required to guide the interpretation of visual data. Thus, our aim is to train the visual language model with textual information representation with different strategies. We will experiment on two different methods to see the affect to the result.
 
 
 \section{Masking ratio for mlm} 
-To investigate the impact of varying the masking ratio on the performance of masked language models (MLMs). The study aims to determine the optimal masking ratio that balances training efficiency and model accuracy.
+To investigate the impact of varying the masking ratio on the performance of masked language models (MLMs). The study aims to determine the optimal masking ratio that balances training efficiency and model accuracy. 
+
 
 Recently, textual information representation is done by masked language model 
 For relation and sensitivity aware learning, they train the model with two tasks: relation aware and sensitivity aware. Relation aware distinguishes between strong and weak positive pairs in the dataset which allows to learn more effectively from the data. 
