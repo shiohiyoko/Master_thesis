@@ -1,15 +1,21 @@
 \chapter{Proposed Methods}
 % do i need this
-In this chapter, we introduce the proposed methods and experimental methodology. This research aims to address the question, "What would happen if we change the masking strategies?" While numerous strategies have been proposed to enhance the representation of text and images, there has been limited experimentation on altering the masking ratio in masked language modeling (MLM). This study primarily focuses on two main aspects:
+% In this chapter, we introduce the proposed methods and experimental methodology. This research aims to address the question, "What would happen if we change the masking strategies?" While numerous strategies have been proposed to enhance the representation of text and images, there has been limited experimentation on altering the masking ratio in masked language modeling (MLM). This study primarily focuses on two main aspects:
 
-\begin{itemize}
-  \item The referenced model employs masked language modeling to train feature extraction, maintaining a constant masking ratio throughout the training process. This research proposes varying the masking ratio and introducing a time-variant component during training.
-  \item The referenced model includes a function known as momentum-based replace token detection, which also operates with a specific masking ratio. This study examines whether adjusting the masking ratio for this task, similar to the approach taken with MLM, improves prediction performance when both parameters are modified.
-\end{itemize}
+% \begin{itemize}
+%   \item The referenced model employs masked language modeling to train feature extraction, maintaining a constant masking ratio throughout the training process. This research proposes varying the masking ratio and introducing a time-variant component during training.
+%   \item The referenced model includes a function known as momentum-based replace token detection, which also operates with a specific masking ratio. This study examines whether adjusting the masking ratio for this task, similar to the approach taken with MLM, improves prediction performance when both parameters are modified.
+% \end{itemize}
 %%%
 % \color{WIP}
-The purpose of this experiment is to examine the hypothesis that time variant masking ratio affect the prediction on text based person retrieval.
-This is carried out by investigating the relation and sensitivity aware representation learning \cite{Bai2023RaSaRA} that investigated the better representation learning for image and text inputs by detecting the replaced tokens from the converted text and corresponding image inputs. The results showed significant improvements in prediction performance. To investigate further towards the masking ratio, \cite{wettig-etal-2023-mask} investigated that larger models should adopt a higher masking rate rather than masking 15\% of tokens conventionally. Another method from Dongjie Yang, et al, \cite{yang2023learningbettermaskingbetter} proposed time-variant masking ratio decay strategy and POS-tagging weighed masking. In results, the time variant masking decay method outperformed the time invariant masking ratio for F1 score on SQuAD performance during pre-training on BERT-large model. 
+% The purpose of this experiment is to examine the hypothesis that time variant masking ratio affect the prediction on text based person retrieval.
+% This is carried out by investigating the relation and sensitivity aware representation learning \cite{Bai2023RaSaRA} that investigated the better representation learning for image and text inputs by detecting the replaced tokens from the converted text and corresponding image inputs. The results showed significant improvements in prediction performance. To investigate further towards the masking ratio, \cite{wettig-etal-2023-mask} investigated that larger models should adopt a higher masking rate rather than masking 15\% of tokens conventionally. Another method from Dongjie Yang, et al, \cite{yang2023learningbettermaskingbetter} proposed time-variant masking ratio decay strategy and POS-tagging weighed masking. In results, the time variant masking decay method outperformed the time invariant masking ratio for F1 score on SQuAD performance during pre-training on BERT-large model. 
+
+The purpose of this experiment is to examine the hypothesis that a time-variant masking ratio affects the prediction accuracy in text-based person retrieval tasks. We approach this by exploring the relationship between the sensitivity-aware representation learning, as investigated by Bai et al. (\cite{Bai2023RaSaRA}) in their work "RaSa," which focuses on improving representation learning for image and text inputs by detecting replaced tokens from the combined text and image inputs. Their results demonstrated significant improvements in prediction performance.
+
+To delve deeper into the impact of masking ratios, (\cite{wettig-etal-2023-mask}) suggested that larger models benefit from adopting a higher masking rate rather than the  conventional 15\% of tokens. Additionally, (\cite{yang2023learningbettermaskingbetter}) proposed a time-variant masking ratio decay strategy along with POS-tagging weighted masking. Their findings indicated that the time-variant masking decay method significantly outperformed the time-invariant masking ratio in terms of F1 score on the SQuAD dataset during the pre-training of the BERT-large model.
+
+Our experiment aims to build on these insights by evaluating the effects of different masking strategies on the performance of vision-language models, specifically in the context of text-based person retrieval. By systematically varying the masking ratio and employing time-variant masking techniques, we seek to determine the optimal approach for enhancing the alignment and interpretation of textual and visual data.
 
 In this experiment, we investigate the effect of the performance towards the time variant masking ratio on replaced token detection task. To evaluate the performance, we will compute the feature similarity score for all image-text pairs. Then we take top-$k$ candidates and calculate their ITM score $s_{itm}$ for ranking. 
 
@@ -17,7 +23,7 @@ In this experiment, we investigate the effect of the performance towards the tim
 
 \begin{figure}[htbp]
   \begin{center}
-      \includegraphics[width=\linewidth]{img/cuhk_pedes.png}
+      \includegraphics[width=\linewidth]{img/cuhk_pedes.eps}
       \caption{Example sentence with corresponding image}
       \label{fig:cuhk_pedes}
   \end{center}
@@ -35,23 +41,33 @@ The datasets contains image and corresponding natural language description as sh
 
 
 \section{Methods}
-In this section, the experiment method will be introduced for the effect of performance with vision language models(VLM). VLM with recent SOTA models (\cite{Bai2023RaSaRA}) uses attention mechanism to extract both image and text features, and then both features are aligned with cross modality encoders. To achieve better results, feature extraction is important but also learning better textual representation is required to guide the interpretation of visual data. Thus, our aim is to train the visual language model with textual information representation with different strategies. We will experiment on two different methods to see the affect to the result.
+In this section, we introduce the experimental methods designed to evaluate the performance of vision-language models (VLMs). Recent state-of-the-art VLMs, such as the one described by Bai et al. (2023) in their work "RaSa," utilize an attention mechanism to extract and align features from both images and text using cross-modality encoders. Achieving optimal results necessitates not only robust feature extraction but also the development of sophisticated textual representations to enhance the interpretation of visual data. Therefore, our objective is to train the visual-language model (Bai et al., 2023) by employing diverse strategies for textual information representation. Specifically, we will investigate two distinct methods to determine their impact on model performance.
 
 
-\section{Masking ratio for mlm} 
-To investigate the impact of varying the masking ratio on the performance of masked language models (MLMs). The study aims to determine the optimal masking ratio that balances training efficiency and model accuracy. 
+\section{Masking ratio for masked language modeling} 
+
+\subsection{Introduction}
+% explanation about what we do with masking ratio
+In natural language pre-training, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
+
+\subsection{Procedure}
+
+- モデルとパラメータの具体的な説明
+- 始めにどの比率が効果的かの検証
+- 次に時間変動での検証
 
 
-Recently, textual information representation is done by masked language model 
-For relation and sensitivity aware learning, they train the model with two tasks: relation aware and sensitivity aware. Relation aware distinguishes between strong and weak positive pairs in the dataset which allows to learn more effectively from the data. 
-Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
+To experiment on 
 
+% explanation about what strategy we try to experiment
+- what we are changing  explanation of parameter
+- evaluation method for experiment
+- the effect of the experiment 
+- 
 
 \section{masking ratio for replaced token detection}
-explanation about masking ratio changes on m-RTD
-
-
-
+RaSa utilizes this to create a task called sensitivity aware learning.
+Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
 
 
 Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proved to be beneficial for pre-training (Liu et al., 2019). 

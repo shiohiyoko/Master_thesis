@@ -73,7 +73,7 @@ Structure of the Transformer is shown figure\ref{fig:transformer}. The model is 
 
 \begin{figure}[htbp]
     \begin{center}
-        \includegraphics[width=10cm]{img/transformer.png}
+        \includegraphics[width=10cm]{img/transformer.eps}
         \caption{Structure of the Transformer}\label{fig:transformer}
     \end{center}
 \end{figure}
@@ -97,7 +97,7 @@ Vision and Language(VL) is a major research area for the causality of Computer V
     A joint representation model for VL task which is designed to capture rich semantics in the image and associated text. The author integrated BERT for the VLP task with pretrained object proposal systems like Faster-RCNN. Figure\ref{fig:visualvert} shows how the model is trained. VisualBERT requires the input of image regions and language to train with a masked language modeling and sentence-image prediction task. With these tasks, the model will realize the implicit alignment between the image and text representation.
     \begin{figure}[htbp]
         \begin{center}
-            \includegraphics[width=10cm]{img/VisualBERT.png}
+            \includegraphics[width=10cm]{img/VisualBERT.eps}
             \caption{Representation of VisualBERT}\labzel{fig:visualvert}
         \end{center}
     \end{figure}
@@ -123,7 +123,7 @@ This section presents papers that study text-based person retrieval. A common is
     This paper introduces a method called Relation and Sensitivity Aware representation learning (RaSa) that includes two novel tasks: Relation-Aware learning (RA) and Sensitivity-Aware learning (SA). It addresses the shortcomings of existing methods in text-based person search, where clustering representations of positive pairs without distinction leads to overfitting, particularly with weak positive pairs. Fig\ref{fig:rasa} represents the overall structure of RaSa. RA mitigates overfitting by introducing a positive relation detection task to distinguish between strong and weak positive pairs. Additionally, the author emphasizes the common practice of learning invariant representation under data augmentation for robustness but goes further by encouraging the representation to perceive sensitive transformations through SA, promoting enhanced robustness by detecting replaced words in textual descriptions.
     \begin{figure}[htbp]
         \begin{center}
-            \includegraphics[width=10cm]{img/rasa.png}
+            \includegraphics[width=10cm]{img/rasa.eps}
             \caption{Structure of RaSa}\label{fig:rasa}
         \end{center}
     \end{figure}
@@ -132,7 +132,7 @@ This section presents papers that study text-based person retrieval. A common is
     The paper introduces a novel approach, called IRRA (Implicit Relation Reasoning and Aligning), for text-to-image person retrieval. This task involves identifying a person based on a given textual description. The main challenge is to establish an effective mapping between visual and textual modalities in a shared latent space as shown in Fig\ref{fig:irra}. Unlike previous methods that use separately pre-trained unimodal models, IRRA addresses this challenge by introducing a cross-modal Implicit Relation Reasoning module. This module integrates visual cues into textual tokens through a masked language modeling paradigm, facilitating cross-modal interaction. To globally align visual and textual embeddings, the paper proposes Similarity Distribution Matching, which minimizes the KL divergence between image-text similarity distributions and normalized label matching distributions. 
     \begin{figure}[htbp]
         \begin{center}
-            \includegraphics[width=10cm]{img/irra.png}
+            \includegraphics[width=10cm]{img/irra.eps}
             \caption[short]{The progression of paradigms in text-to-image person retrieval is as follows: (a) Early methods. Global-matching methods directly synchronize global image and text embeddings. (b) Recent methods. Local-matching methods have emerged, focusing on the explicit extraction and alignment of local image and text embeddings. (c) Presented method. Rooted in implicit relation reasoning, enhances the alignment of global image and text embeddings by implicitly considering the relationships among all local tokens.}\label{fig:irra}
         \end{center}
     \end{figure}
@@ -142,7 +142,7 @@ This section presents papers that study text-based person retrieval. A common is
 
     \begin{figure}[htbp]
         \begin{center}
-            \includegraphics[width=10cm]{img/sem_feature.png}
+            \includegraphics[width=10cm]{img/sem_feature.eps}
             \caption{Structure of presented model}\label{fig:sem_align}
         \end{center}
     \end{figure}
