@@ -88,6 +88,12 @@ Time variant strategy will have the cosine curve and linear curve to see the res
   M_{cosine decrease}(t) = P*(1+cos(\pi*t/T)) + 0.02 
 \end{displaymath}
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{img/Schedule for masking ratio.png}
+  \caption{Masking Ratio Schedule for each methods}
+  \label{img:masking_ratio_scheduler}
+\end{figure}
+
 \begin{tabular}{rcccc}
   masking ratio & r1 & r5 & r10 & mAP\\ \hline
   linear increase & 76.62 & 89.88 & 93.62 & 70.36 \\
@@ -100,11 +106,20 @@ Time variant strategy will have the cosine curve and linear curve to see the res
 RaSa utilizes this to create a task called sensitivity aware learning.
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
 
+\begin{tabular}{rcccc}
+  masking ratio & r1 & r5 & r10 & mAP\\ \hline
+  15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
+  20\% & 75.58 & 90.35 & 93.91 & 68.73 \\
+  25\% & 75.63 & 90.09 & 93.83 & 68.76 \\
+  30\% & 75.57 & 93.92 & 93.92 & 68.81 \\
+  35\% & 75.03 & 90.14 & 93.89 & 68.57 \\
+  40\% & 75.80 & 90.27 & 93.97 & 68.73
+\end{tabular}
 
 Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proved to be beneficial for pre-training (Liu et al., 2019). 
 
 \section{Attention visualization}
-To be able to see where the model is paying attention to, we would use the attention matrix in cross atttention module.
+To be able to see where the model is paying attention to, we would use the attention matrix in cross atttention module. 
 
 
 
