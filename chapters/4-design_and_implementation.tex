@@ -60,10 +60,6 @@ Given a masked text \( T_{msk} \), where each token in the input text \( T_s \) 
 % explanation about what we do with masking ratio
 In natural language pre-training, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
 
-% - モデルとパラメータの具体的な説明
-% - 始めにどの比率が効果的かの検証
-% - 次に時間変動での検証
-
 \subsubsection{fixed masking ratio}
 We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the most highest mAP from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not train at all. 
 
@@ -107,7 +103,7 @@ RaSa utilizes this to create a task called sensitivity aware learning.
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
 
 \begin{tabular}{rcccc}
-  masking ratio & r1 & r5 & r10 & mAP\\ \hline
+  masking ratio & r1 & r5 & r10 & mAP \\ \hline
   15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
   20\% & 75.58 & 90.35 & 93.91 & 68.73 \\
   25\% & 75.63 & 90.09 & 93.83 & 68.76 \\
