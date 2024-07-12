@@ -64,9 +64,23 @@ In natural language pre-training, masked language modeling is utilized to unders
 % - 始めにどの比率が効果的かの検証
 % - 次に時間変動での検証
 
+\subsubsection{fixed masking ratio}
 We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the most highest mAP from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not train at all. 
-Time variant strategy will have the cosine curve and linear curve to see the result. The time variant will have four different methods, linear increase, linear decrease, cosine increase, and cosine decrease. The equations are shown as follows:
 
+For all training tasks, the number of epochs is set to 30, batch size is 13. With this, the model will train under 30 iterations and trains with the dataset which is divided to 13 different datasets. The optimization methods are adamW, learning rate is set to 1.0e-4 at first and create a cosine curve to decrease to 1.0e-5. 
+
+\begin{tabular}{rcccc}
+  masking ratio & r1 & r5 & r10 & mAP\\ \hline
+  15\% & 76.51 & 90.20 & 94.25 & 69.38 \\
+  20\% & 76.64 & 89.90 & 93.70 & 70.27 \\
+  25\% & 76.23 & 89.86 & 93.79 & 70.22 \\
+  30\% & 76.72 & 89.77 & 93.60 & 70.30 \\
+  35\% & 76.61 & 89.77 & 93.47 & 70.26 \\
+  40\% & 76.56 & 89.88 & 93.47 & 70.26
+\end{tabular}
+
+\subsubsection{time variant masking ratio}
+Time variant strategy will have the cosine curve and linear curve to see the result. The time variant will have four different methods, linear increase, linear decrease, cosine increase, and cosine decrease. The equations are shown as follows:
 \begin{displaymath}
   M_{linear increase}(t) = P*t/T \
   M_{linear decrease}(t) = P*(1-t/T) \
@@ -74,18 +88,13 @@ Time variant strategy will have the cosine curve and linear curve to see the res
   M_{cosine decrease}(t) = P*(1+cos(\pi*t/T)) + 0.02 
 \end{displaymath}
 
-For all training tasks, the number of epochs is set to 30, batch size is 13. With this, the model will train under 30 iterations and trains with the dataset which is divided to 13 different datasets. The optimization methods are adamW, learning rate is set to 1.0e-4 at first and create a cosine curve to decrease to 1.0e-5. 
-
-\section{Initial Testing}
-RaSa utilizes masked language learning to utlize the image and test features to understand the connection between both modality.
-
-In the initial testing section, we would experiment with 
-
-% explanation about what strategy we try to experiment
-- what we are changing  explanation of parameter
-- evaluation method for experiment
-- the effect of the experiment 
-
+\begin{tabular}{rcccc}
+  masking ratio & r1 & r5 & r10 & mAP\\ \hline
+  linear increase & 76.62 & 89.88 & 93.62 & 70.36 \\
+  linear decrease & 76.70 & 89.85 & 93.58 & 70.21 \\
+  cosine increase & 76.54 & 90.04 & 94.02 & 70.15 \\
+  cosine decrease & 76.21 & 90.09 & 93.65 & 70.21 \\
+\end{tabular}
 
 \section{masking ratio for replaced token detection}
 RaSa utilizes this to create a task called sensitivity aware learning.
@@ -93,48 +102,6 @@ Sensitivity aware aims to make the model sensitive to specific transformations i
 
 
 Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proved to be beneficial for pre-training (Liu et al., 2019). 
-
-
-corruption rate how much we mask the words from the text
-prediction rate how much we predict the mask token 
-
-
-what i did 
-- change the mask 
-- visualize the attention section
-
-The structure of the algorithm is done as follows. 
-- image encoder
-  mlp 
-- text encoder
-  bert 
-
-When we work on fine tuning, we change the masking ratio on the mlm process. 
-the masking ratio will be changed as follows.
-flat 
-cosine curve 
-random 
-
-from these papers, bert scored higher accuracies when using 40\% on masking ratio. This is basically done in text information, 
-so we would like to try it out in text based image retireval tasks. T
-
-flat and cosine will work on the range of 40\% and 60\% 
-the previous work has been done as 15\%, so we would compare the results with that for the discussion 
-
-\section{Requirements specification}
-
-- model
-rasa
-
-- dataset 
-CUHK-dataset
-ICFG-dataset
-
-- epoch
-30
-
-- learning rate 
-1e-5 to 1e-6
 
 \section{Attention visualization}
 To be able to see where the model is paying attention to, we would use the attention matrix in cross atttention module.
