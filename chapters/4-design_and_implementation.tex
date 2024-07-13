@@ -1,18 +1,5 @@
 \chapter{Proposed Methods}
 
-% do i need this
-% In this chapter, we introduce the proposed methods and experimental methodology. This research aims to address the question, "What would happen if we change the masking strategies?" While numerous strategies have been proposed to enhance the representation of text and images, there has been limited experimentation on altering the masking ratio in masked language modeling (MLM). This study primarily focuses on two main aspects:
-
-% \begin{itemize}
-%   \item The referenced model employs masked language modeling to train feature extraction, maintaining a constant masking ratio throughout the training process. This research proposes varying the masking ratio and introducing a time-variant component during training.
-%   \item The referenced model includes a function known as momentum-based replace token detection, which also operates with a specific masking ratio. This study examines whether adjusting the masking ratio for this task, similar to the approach taken with MLM, improves prediction performance when both parameters are modified.
-% \end{itemize}
-%%%
-
-% \color{WIP}
-% The purpose of this experiment is to examine the hypothesis that time variant masking ratio affect the prediction on text based person retrieval.
-% This is carried out by investigating the relation and sensitivity aware representation learning \cite{Bai2023RaSaRA} that investigated the better representation learning for image and text inputs by detecting the replaced tokens from the converted text and corresponding image inputs. The results showed significant improvements in prediction performance. To investigate further towards the masking ratio, \cite{wettig-etal-2023-mask} investigated that larger models should adopt a higher masking rate rather than masking 15\% of tokens conventionally. Another method from Dongjie Yang, et al, \cite{yang2023learningbettermaskingbetter} proposed time-variant masking ratio decay strategy and POS-tagging weighed masking. In results, the time variant masking decay method outperformed the time invariant masking ratio for F1 score on SQuAD performance during pre-training on BERT-large model. 
-
 The purpose of this experiment is to examine the hypothesis that a time-variant masking ratio would affects the prediction accuracy in text-based person retrieval tasks. We approach this by exploring the relationship between the sensitivity-aware representation learning, as investigated by Bai et al. (\cite{Bai2023RaSaRA}) in their work "RaSa," which focuses on improving representation learning for image and text inputs by detecting replaced tokens from the combined text and image inputs. Their results demonstrated significant improvements in prediction performance. They used masked language modeling to combine the image and text feature to match the information, but the masking ratio were fixed to 15\% during the whole process.
 
 To delve deeper into the impact of masking ratios, (\cite{wettig-etal-2023-mask}) suggested that larger models benefit from adopting a higher masking rate rather than the  conventional 15\% of tokens. Additionally, (\cite{yang2023learningbettermaskingbetter}) proposed a time-variant masking ratio decay strategy along with POS-tagging weighted masking. Their findings indicated that the time-variant masking decay method significantly outperformed the time-invariant masking ratio in terms of F1 score on the SQuAD dataset during the pre-training of the BERT-large model.
@@ -118,7 +105,12 @@ Predicting more means the model learns from more training signals, so higher pre
 To be able to see where the model is paying attention to, we would use the attention matrix in cross atttention module. 
 
 
-
-\section{Algorithm implementation}
-
-for the 
+\begin{figure}
+  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
+  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
+  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
+  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
+  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}\includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
+  
+  
+\end{figure}
