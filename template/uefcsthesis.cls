@@ -449,6 +449,11 @@ footskip=13mm,
 \def\ccsname{ACM CCS (2012)}
 \ifuef@imlex
 \def\uef@logo{template/imlex_logos}
+% \RequirePackage{amsmath} % For advanced math typesetting
+% \RequirePackage{amssymb} % For additional math symbols
+% \RequirePackage[varg]{newtxmath} % Ensure newtxmath is correctly loaded
+% \RequirePackage{newtxtext} % Ensure compatible text font
+
 \else
 \def\uef@logo{template/uef_logo}
 \fi

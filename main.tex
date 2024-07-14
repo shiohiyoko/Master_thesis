@@ -1,4 +1,3 @@
-%%
 %% This is file `minimal_imlex.en.tex',
 %% generated with the docstrip utility.
 %%
@@ -43,19 +42,20 @@
 %% $ lualatex flat_thesis
 %% which produces files called flat_thesis.tex and flat_thesis.pdf that can be
 %% returned to the library.
-%%
+%% 
+
 
 \documentclass[mscthesis,english,oneside,biblatex,imlex]{template/uefcsthesis}
 %% Correct the below with the name of your bibliography file
 \addbibresource{bibliography.bib}
-\usepackage{txfonts}
-\usepackage{amsmath}
 
+\usepackage{newtxtext, newtxmath}
+\usepackage{amsfonts}
 % Fabiano: these are packages added by me:
-\usepackage[dvipsnames]{xcolor}  % enables textcolor
+% \usepackage[dvipsnames]{xcolor}  % enables textcolor
 \usepackage[acronym, toc]{glossaries}  % enables glossaries
-\usepackage{lastpage}
-\usepackage{fancyhdr}
+% \usepackage{lastpage}
+% \usepackage{fancyhdr}
 
 
 %% Replace all capital text with your own information.
@@ -90,20 +90,17 @@
     name=mathematics,
     description={Mathematics is what mathematicians do}
 }
-
 \begin{document}
 \maketitle
 
-% \begin{abstract}
-% Person re-identification is used to 
+\begin{abstract}
+Person re-identification is used to 
     
-% \end{abstract}
+\end{abstract}
 
 \frontmatter
 \tableofcontents
 \mainmatter
-
-
 
 % Each chapter is separated into a different .tex file. Include them here.
 \include{chapters/1-intro}
@@ -124,7 +121,7 @@
 
 \printnoidxglossaries
 
-%% Next comes the references
+% Next comes the references
 \printbibliography[heading=bibintoc]
 
 \backmatter % Do not remove!

@@ -123,7 +123,7 @@ Image text contrastive learning is used to align the representation from the uni
 Masked language modeling (MLM) is utilized with both image and text information to determine the masked text. Author randomly masks 15\% of the input token with specialized token [MASK]. The MLM minimizes the cross-entropy loss.
 
 \begin{displaymath}
-    L_{mlm} = \epsilon_{(I,\hat{T})~D}H(y^{msk}, p^{msk}(I,\hat{T}))
+    L_{mlm} = \mathbb{E}_{(I,\hat{T})~D}H(y^{msk}, p^{msk}(I,\hat{T}))
 \end{displaymath}
 
 $\hat{T}$ is masked text, $P^{msk}(I,\hat{T})$ is the model's predicted probability for a masked token. 

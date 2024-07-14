@@ -47,60 +47,68 @@ Given a masked text \( T_{msk} \), where each token in the input text \( T_s \) 
 % explanation about what we do with masking ratio
 In natural language pre-training, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
 
-Furthermore, we will evaluate the results by visual grounding by Grad-CAM (\cite{gradcam}) for Image text maching. This method is originally proposed for visual explanation in convolutional neural network (CNN). GradCAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight thte feature maps, which produces a heatmap to show the areas of the image that is the most relevent to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architecutral changes or re-training of the network.
+Furthermore, we will evaluate the results by visual grounding by Grad-CAM (\cite{gradcam}) for Image text matching. This method is originally proposed for visual explanation in convolutional neural network (CNN). GradCAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight thte feature maps, which produces a heatmap to show the areas of the image that is the most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
 
-In this work, we will take the cross-attention maps in the 3rd layer of the multimodal encoder (which is a layer specialized in grounding). The image is randomly taken from the test dataset and input text will be defined with simple information.
+In this work, we will take the cross-attention maps in the 3rd layer of the multi-modal encoder (which is a layer specialized in grounding). The image is randomly taken from the test dataset and input text will be defined with simple information.
 
-\subsubsection{fixed masking ratio}
+\subsection{fixed masking ratio}
 We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the most highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not train at all. 
 
 For all training tasks, the number of epochs is set to 30, batch size is 13. With this, the model will train under 30 iterations and trains with the dataset which is divided to 13 different datasets. The optimization methods are adamW, learning rate is set to 1.0e-4 at first and create a cosine curve to decrease to 1.0e-5. 
 
-\begin{tabular}{rcccc}
-  masking ratio & r1 & r5 & r10 & mAP\\ \hline
-  15\% & 76.51 & 90.20 & 94.25 & 69.38 \\
-  20\% & 76.64 & 89.90 & 93.70 & 70.27 \\
-  25\% & 76.23 & 89.86 & 93.79 & 70.22 \\
-  30\% & 76.72 & 89.77 & 93.60 & 70.30 \\
-  35\% & 76.61 & 89.77 & 93.47 & 70.26 \\
-  40\% & 76.56 & 89.88 & 93.47 & 70.26
-\end{tabular}
+\begin{table}[htbp]
+\centering
+  \caption{Result for masking fixed masking ratio}
+  \begin{tabular}{rcccc}
+    masking ratio & r1 & r5 & r10 & mAP\\ \hline
+    15\% & 76.51 & 90.20 & 94.25 & 69.38 \\
+    20\% & 76.64 & 89.90 & 93.70 & 70.27 \\
+    25\% & 76.23 & 89.86 & 93.79 & 70.22 \\
+    30\% & 76.72 & 89.77 & 93.60 & 70.30 \\
+    35\% & 76.61 & 89.77 & 93.47 & 70.26 \\
+    40\% & 76.56 & 89.88 & 93.47 & 70.26
+  \end{tabular}
+\end{table}
 
-\subsubsection{time variant masking ratio}
+\subsection{time variant masking ratio}
 Time variant strategy will have the cosine curve and linear curve to see the result. The time variant will have four different methods, linear increase, linear decrease, cosine increase, and cosine decrease. The equations are shown as follows:
-\begin{displaymath}
-  M_{linear increase}(t) = P*t/T \
-  M_{linear decrease}(t) = P*(1-t/T) \
-  M_{cosine increase}(t) = P*(1-cos(\pi*t/T)) + 0.02 \ 
-  M_{cosine decrease}(t) = P*(1+cos(\pi*t/T)) + 0.02 
-\end{displaymath}
+\begin{eqnarray}
+M_{linear increase}\left( t \right) &=& P*t/T \\
+M_{linear decrease}\left( t \right) &=& P*\left(1-t/T\right) \\
+M_{cosine increase}\left(t\right) &=& P*\left(1-cos\left(\pi*t/T\right)\right) + 0.02 \\
+M_{cosine decrease}\left(t\right) &=& P*\left(1+cos\left(\pi*t/T\right)\right) + 0.02 
+\end{eqnarray}
 
-\begin{figure}
+\begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/Schedule_masking_ratio.png}
   \caption{Masking Ratio Schedule for each methods}
   \label{img:masking_ratio_scheduler}
 \end{figure}
 
-\begin{tabular}{rcccc}
-  masking ratio & r1 & r5 & r10 & mAP\\ \hline
-  linear increase & 76.62 & 89.88 & 93.62 & 70.36 \\
-  linear decrease & 76.70 & 89.85 & 93.58 & 70.21 \\
-  cosine increase & 76.54 & 90.04 & 94.02 & 70.15 \\
-  cosine decrease & 76.21 & 90.09 & 93.65 & 70.21 \\
-\end{tabular}
+\begin{table}[htbp]
+  \caption{Result for time variant masking ratio}
+  \begin{tabular}{rcccc}
+    \centering
+    masking ratio & r1 & r5 & r10 & mAP\\ \hline
+    linear increase & 76.62 & 89.88 & 93.62 & 70.36 \\
+    linear decrease & 76.70 & 89.85 & 93.58 & 70.21 \\
+    cosine increase & 76.54 & 90.04 & 94.02 & 70.15 \\
+    cosine decrease & 76.21 & 90.09 & 93.65 & 70.21 \\
+  \end{tabular}
+\end{table}
 
 \begin{figure}
   \includegraphics[width=10cm]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
   \caption{Visual grounding for masking rate of 15}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
   \caption{Visual grounding for masking rate of 20}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
   \caption{Visual grounding for masking rate of 25}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
   \caption{Visual grounding for masking rate of 30}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}
   \caption{Visual grounding for masking rate of 35}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
   \caption{Visual grounding for masking rate of 40}
 \end{figure}
 
@@ -108,15 +116,19 @@ Time variant strategy will have the cosine curve and linear curve to see the res
 RaSa utilizes this to create a task called sensitivity aware learning.
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
 
-\begin{tabular}{rcccc}
-  masking ratio & r1 & r5 & r10 & mAP \\ \hline
-  15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
-  20\% & 75.58 & 90.35 & 93.91 & 68.73 \\
-  25\% & 75.63 & 90.09 & 93.83 & 68.76 \\
-  30\% & 75.57 & 93.92 & 93.92 & 68.81 \\
-  35\% & 75.03 & 90.14 & 93.89 & 68.57 \\
-  40\% & 75.80 & 90.27 & 93.97 & 68.73
-\end{tabular}
+\begin{table}[htbp]
+  \centering
+  \caption{Result for fixed masking ratio on m-RTD}
+  \begin{tabular}{rcccc}
+    masking ratio & r1 & r5 & r10 & mAP \\ \hline
+    15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
+    20\% & 75.58 & 90.35 & 93.91 & 68.73 \\
+    25\% & 75.63 & 90.09 & 93.83 & 68.76 \\
+    30\% & 75.57 & 93.92 & 93.92 & 68.81 \\
+    35\% & 75.03 & 90.14 & 93.89 & 68.57 \\
+    40\% & 75.80 & 90.27 & 93.97 & 68.73
+  \end{tabular}
+\end{table}
 
 Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proved to be beneficial for pre-training (Liu et al., 2019). 
 
@@ -138,11 +150,11 @@ First, we would define the neuron importance weights $\alpha^c_k$. calculate the
 One significant advantage of this method is its class-discriminative nature. Grad-CAM can highlight specific regions relevant to a particular class, making it useful for understanding model predictions. Another advantage is the high resolution of the visualizations. By combining Grad-CAM with existing fine-grained visualization techniques like Guided Backpropagation, the authors create Guided Grad-CAM, which provides detailed and class-discriminative visual explanations.
 
 \begin{figure}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
-  \includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}\includegraphics[options]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}\includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
   
   
 \end{figure}
