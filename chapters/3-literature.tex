@@ -76,12 +76,25 @@ This learning techniques accelerates training models with limited task-specific 
 The supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still have the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, Kaiming He, Haoqi Fan, et al.\cite{he2020momentumcontrastunsupervisedvisual} presented a method called Momentum Contrast (MoCo), which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation without labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by Ting Chen, Simon Kornblith, et al. \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. 
 Beyond this foundations, pre-training models no more rely on labeled datasets, which enabled to learn from various training data compared to supervised pre-training. 
 
-For fine-tuning it requires labeled dataset for downstream tasks in both supervised or non-supervised pre-training models. Drastic improvements have emerged from natural language processing \cite{devlin2018bert}\cite{brown2020language}, combined with previous vision recognition, new paradigm called vision-language model (VLM) pre-training have proposed for vision recognition. To pre-train, this model does not requires to have labeled datasets, just requires image-text pairs. With this, the training datasets can be found infinitely in the internet. However, the image text pair in the internet contains information that does not correlate to each other. To train the model with some noise in the data, VLM is trained with certain vision-language objectives \cite{radford2021learning} \cite{yu2022cocacontrastivecaptionersimagetext}. From these objectives, the VLM 
-matches the embedding of any given images and text, which enabled the performance of zero-shot prediction without fine-tuning on downstream visual recognition.
+For fine-tuning it requires labeled dataset for downstream tasks in both supervised or non-supervised pre-training models. Drastic improvements have emerged from natural language processing \cite{devlin2018bert}\cite{brown2020language}, combined with previous vision recognition, new paradigm called vision-language model (VLM) pre-training have proposed for vision recognition. To pre-train, this model does not requires to have labeled datasets, just requires image-text pairs. With this, the training datasets can be found infinitely in the internet. However, the image text pair in the internet contains information that does not correlate to each other. To train the model with some noise in the data, VLM is trained with certain vision-language objectives \cite{radford2021learning} \cite{yu2022cocacontrastivecaptionersimagetext}. From these objectives, the VLM matches the embedding of any given images and text, which enabled the performance of zero-shot prediction without fine-tuning on downstream visual recognition.
 
 % Vision-Language models are a model that combines both the vision and language modalities and enables to process both information. 
 % Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.
 % To predict the probable prompt, the model needs to understand both input image and the text prompts. To understand those modalities, the model will have separate or fused encoders for both vision and language.
+
+\section{previous methods for masking strategies}
+Learning robust representation from image and text is the key challenge for VLM. An approach to this challenge is previously done with masked language modeling. This is a pre-training task for language models, where the model learns to predict masked tokens in a sequence based on the surrounding context. This strategy is foundational for several state-of-the-art models (\cite{devlin2018bert}, \cite{liu2020roberta}). 
+
+In MLM, it is necessary to develop a strategy to mask the text. Key masking strategy are random masking, span-based masking, whole word masking, and entity masking. Random masking are done by randomly select the tokens from the sentence and replace with special [MASK] token. For example, BERT's pre-training, 15\% of the tokens are masked, out of which 80\% are replaced with [MASK] token, 10\% are replaced with random token, and 10\% remain unchanged. 
+To understand longer text spans, span-based masking was conceived. Span-based masking involves masking contiguous spans of tokens, with this, the model will be encouaged to learn depecencies across longer text spans. 
+Another method is whole word masking. This strategy masks entire words instead of subword units. If any part of a word is selected for masking, the entire word is masked.
+
+In VLM, similar masking strategies can be employed to enhance the model's ability to understand and generate language in relation to visual content.
+
+Text caption masking is a masking strategy to mask the words or phrases in the text captions and traing the VLM to reconstruct them based on the visual content and the unmasked text. This approach leverages the contextual understanding from both modalities. ImageBERT (\cite{qi2020imagebertcrossmodalpretraininglargescale}) used masked language modeling on text captions to pre-train the VLM.
+
+Another method is the visual patch masking, where it masks patches of an image nad training the VLm to reconstruct the missing parts based on the unmasked image regions and the associated text.
+
 
 \section{Model Used In This Thesis}
 In this section, vision language model which is used in this thesis will be introduced.
@@ -133,30 +146,7 @@ The author utilize Masked Language Modeling (MLM) to perform word replacement, l
 
 Overall, MLM and m-RTD together form Sensitivity-Aware learning (SA), providing robust surrogate supervision for representation learning.
 
-
-\section{previous methods for masking strategies}
-
-In this section we will introduce the masking strategies for masked learning modeling. Existing pre-trained language models tries to have different masking strategies to enhance training efficiency and effectiveness. 
-Joshi, et al.  introduced SpanBERT which is designed to better represent and predict span of text.
+% In this section we will introduce the masking strategies for masked learning modeling. Existing pre-trained language models tries to have different masking strategies to enhance training efficiency and effectiveness. 
+% Joshi, et al.  introduced SpanBERT which is designed to better represent and predict span of text.
 
 
-\section{Attention visualization method}
-In this section, methology for visualization for attention towards the vision models. To understand how the vision model is recognizing the input images, many methods are introduced to describe the models perceptions.
-
-\subsection{Grad-CAM}
-Ramprasaath R. Selvaraju et al. present a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image crucial for predicting a specific concept.
-
-Grad-CAM utilizes gradients flowing into the final convolutional layer to produce a localization map. It is applicable to various CNN architectures, including those with fully-connected layers (like VGG), and models for structured outputs. When combined with pixel-space gradient visualizations, Grad-CAM creates Guided Grad-CAM, which offers high-resolution, class-discriminative visualizations.
-
-Following steps enables to obtain the class-discriminative localization map $L^c_{Grad-CAM} = \in\Re^{u \times v}$ of class $c$ from the image width $u$ and height $v$. 
-
-First, we would define the neuron importance weights $\alpha^c_k$. calculate the gradient of the score for class c, $y_c$(before softmax), with respect to the feature map activations $A_k$ of a convolutional layer, i.e., $\frac{\delta y^c}{\delta A^k}$. 
- 
-\begin{displaymath}
-    L^c_{Grad-CAM} = ReLU(\sum_k\alpha^c_kA^k)
-\end{displaymath}
-
-One significant advantage of this method is its class-discriminative nature. Grad-CAM can highlight specific regions relevant to a particular class, making it useful for understanding model predictions. Another advantage is the high resolution of the visualizations. By combining Grad-CAM with existing fine-grained visualization techniques like Guided Backpropagation, the authors create Guided Grad-CAM, which provides detailed and class-discriminative visual explanations.
-
-\subsection{Grad-CAM++}
-Grad-CAM however, it has some limitations, such as difficulty in handling multiple instances of the same class within an image and partial localization of objects. To address these issues, Grad-CAM++ introduces a more refined approach that can better capture the spatial importance of different regions in an image. 
