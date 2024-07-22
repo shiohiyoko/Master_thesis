@@ -52,10 +52,8 @@
 \usepackage{newtxtext, newtxmath}
 \usepackage{amsfonts}
 % Fabiano: these are packages added by me:
-% \usepackage[dvipsnames]{xcolor}  % enables textcolor
-\usepackage[acronym, toc]{glossaries}  % enables glossaries
-% \usepackage{lastpage}
-% \usepackage{fancyhdr}
+\usepackage[dvipsnames]{xcolor}  % enables textcolor
+\usepackage[acronym,toc]{glossaries}  % enables glossaries
 
 
 %% Replace all capital text with your own information.
@@ -64,7 +62,7 @@
 \date{\thismonth} % The month and year of handing in your thesis, or \thismonth of automatic
 \city{Joensuu} % Either Kuopio or Joensuu
 \firstsupervisor{Jun Miura} % Name of the first supervisor
-\keywords{ Text-based person Re-identification\sep Textt-based person retrieval\sep Masked Language Model} % Keywords must be separated with \sep
+\keywords{ Text-based person Re-identification\sep Text-based person retrieval\sep Masked Language Model} % Keywords must be separated with \sep
 
 %% To get the ACM CCS classification, you can visit
 %% https://dl.acm.org/ccs/ccs.cfm
@@ -83,24 +81,29 @@
 %% pages, see uefcsthesis.pdf, section ``Pre-Defined Strings and a Macro to Change
 %% Them'' for further information.
 
+\color{red} PUT MORE acronym!!!
 
-\makenoidxglossaries
-\newglossaryentry{maths}
-{
-    name=mathematics,
-    description={Mathematics is what mathematicians do}
-}
+\makeglossaries
+% \newglossaryentry{maths}
+% {
+%     name=mathematics,
+%     description={Mathematics is what mathematicians do}
+% }
+\newacronym{vlm}{VLM}{Vision Language Model}
+\newacronym{mlm}{MLM}{Masked Language Modeling}
+
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Person re-identification is an essential task in service robotics and security, aiming to match individuals from input sources with large data sets. Traditional image-based methods face challenges due to intra-class variations such as different viewing angles and environmental changes. To overcome these challenges, visual language models (VLMs) that leverage advances in natural language processing have been employed; common learning strategies for VLMs include contrastive learning and masking. Contrastive learning trains the model to produce similar representations for positive pairs and different representations for negative pairs. Masking reconstructs missing parts of text or image data.
-For person retrieval tasks, a combination of contrastive learning and masking is effective, typically using BERT as the text encoder and Vision Transformer as the image encoder. In this paper, we investigate the effect of changing the masking ratio during learning on the performance of VLMs in the person retrieval task. The motivation for this study is to enhance human-robot collaboration by developing intuitive communication methods via text and image information. To achieve this, an effective cross-modal model that can map and recognize text and image features is needed. To this end, this study investigates whether changing the masking ratio in masking language modeling affects the accuracy of person retrieval models.
+Person re-identification is an essential task in service robotics and security, aiming to match individuals from input sources with large data sets. Traditional image-based methods face challenges due to intra-class variations such as different viewing angles and environmental changes. To overcome these challenges, visual language models (VLM) that leverage advances in natural language processing have been employed; common learning strategies for VLM include contrastive learning and masking. Contrastive learning trains the model to produce similar representations for positive pairs and different representations for negative pairs. Masking reconstructs missing parts of text or image data.
+For person retrieval tasks, a combination of contrastive learning and masking is effective, typically using BERT as the text encoder and Vision Transformer as the image encoder. In this work, we investigate the effect of changing the masking ratio during learning on the performance of VLMs in the person retrieval task. The motivation for this study is to enhance human-robot collaboration by developing intuitive communication methods via text and image information. To achieve this, an effective cross-modal model that can map and recognize text and image features is needed. {\color{red} add the brief results here. \(like this\)Results show that increasing the masking ratio improves inference accuracy at the cost of computing performance.}
 \end{abstract}
 
 \frontmatter
 \tableofcontents
 \mainmatter
+\printglossary[type=\acronymtype]
 
 % Each chapter is separated into a different .tex file. Include them here.
 \include{chapters/1-intro}
@@ -119,8 +122,7 @@ For person retrieval tasks, a combination of contrastive learning and masking is
 % \citet{kalofolias18from} discuss sets of redescriptions.
 
 
-\printnoidxglossaries
-
+% \printglossaries
 % Next comes the references
 \printbibliography[heading=bibintoc]
 
