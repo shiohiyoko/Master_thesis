@@ -17,10 +17,8 @@ However, if only paperwithcode is used, the information obtained is limited and 
 The following research question was defined:
 
 \bigskip
-\textit{``How does the model compares with the text information with the image information''}
+\textit{``How does time-variant masking ratio would affects the prediction accuracy in text-based person retrieval tasks''}
 \bigskip
-
-
 
 From this research question, four main keywords that sufficiently explain the topic were used: person retrieval and vision language pre-training.
 Furthermore, synonyms and related terms were associated to these keywords to form keyword groups as follows:
@@ -60,48 +58,47 @@ Various factors were taken into account for the exclusion of documents:
 
 % ------------------------------------------------------------ %
 
-\section{Vision-language models}
+\section{Vision-language Models}
 Vision-language model have been researched significantly by leveraging end-to-end trainable deep neural networks (DNN). Before the vision-language model, both vision and language were researched with different DNN model structures. 
 
 Vision recognition research have been updated until recent studies. Until now, the vision recognition models have experienced 5 stages, including traditional machine learning, deep learning from scratch, supervised pre-training with fine-tuning, unsupervised pre-training with fine-tuning, and vision-language model with pre-training.
 
-Traditional machine learning relied on feature engineering. To achieve features, general methods were to hand-craft features \cite{svmclassification} and lightweight models \cite{knn}\cite{svm} to classify images into predefined categories. However, this method demands domain experts to design effective features for specific visual recognition tasks, which makes it ineffective for complex tasks and limits its scalability.
+Traditional machine learning relied on feature engineering. To achieve features, general methods were to hand-craft features (\cite{svmclassification}) and lightweight models (\cite{knn})(\cite{svm}) to classify images into predefined categories. However, this method demands domain experts to design effective features for specific visual recognition tasks, which makes it ineffective for complex tasks and limits its scalability.
 
-To overcome the problems with traditional methods, deep learning methods were devised \cite{imagenet} \cite{dnn_imagerecognition} to enhance the feature engineering and allowed to focus on the architecture engineering of neural networks to learn features effectively.
-Great success from ResNet \cite{resnet}, which is a deep learning model introducing residual connections as a solution to the gradient vanishing problem. From this point, the deep learning demonstrated the ability to train on large datasets, achieving unprecedented performance. However, this approach faced issues such as slow training convergence and the need for extensive labeled data. 
+To overcome the problems with traditional methods, deep learning methods were devised (\cite{imagenet}) (\cite{dnn_imagerecognition}) to enhance the feature engineering and allowed to focus on the architecture engineering of neural networks to learn features effectively.
+Great success from ResNet (\cite{resnet}), which is a deep learning model introducing residual connections as a solution to the gradient vanishing problem. From this point, the deep learning demonstrated the ability to train on large datasets, achieving unprecedented performance. However, this approach faced issues such as slow training convergence and the need for extensive labeled data. 
 
-Recent studies \cite{radford2021learning} have discovered that the features learned from large-scale labeled datasets possess a high degree of versatility and can be effectively transferred to a variety of downstream tasks. This indicates that the patterns and representations captured during the training on these extensive datasets are not only specific to the initial context but are also generalizable, allowing them to be utilized in different, often more specialized applications. This transferability underscores the potential of leveraging pre-trained models to enhance performance and efficiency in a wide range of tasks across various domains. 
+Recent studies (\cite{radford2021learning}) have discovered that the features learned from large-scale labeled datasets possess a high degree of versatility and can be effectively transferred to a variety of downstream tasks. This indicates that the patterns and representations captured during the training on these extensive datasets are not only specific to the initial context but are also generalizable, allowing them to be utilized in different, often more specialized applications. This transferability underscores the potential of leveraging pre-trained models to enhance performance and efficiency in a wide range of tasks across various domains. 
 This learning techniques accelerates training models with limited task-specific training datasets while achieving high performance.
 
-The supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still have the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, Kaiming He, Haoqi Fan, et al.\cite{he2020momentumcontrastunsupervisedvisual} presented a method called Momentum Contrast (MoCo), which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation without labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by Ting Chen, Simon Kornblith, et al. \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. 
+The supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still have the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, Kaiming He, Haoqi Fan, et al.(\cite{he2020momentumcontrastunsupervisedvisual}) presented a method called Momentum Contrast (MoCo), which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation without labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by Ting Chen, Simon Kornblith, et al. (\cite{chen2020simpleframeworkcontrastivelearning}). This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. 
 Beyond this foundations, pre-training models no more rely on labeled datasets, which enabled to learn from various training data compared to supervised pre-training. 
 
-For fine-tuning it requires labeled dataset for downstream tasks in both supervised or non-supervised pre-training models. Drastic improvements have emerged from natural language processing \cite{devlin2018bert}\cite{brown2020language}, combined with previous vision recognition, new paradigm called vision-language model (VLM) pre-training have proposed for vision recognition. To pre-train, this model does not requires to have labeled datasets, just requires image-text pairs. With this, the training datasets can be found infinitely in the internet. However, the image text pair in the internet contains information that does not correlate to each other. To train the model with some noise in the data, VLM is trained with certain vision-language objectives \cite{radford2021learning} \cite{yu2022cocacontrastivecaptionersimagetext}. From these objectives, the VLM matches the embedding of any given images and text, which enabled the performance of zero-shot prediction without fine-tuning on downstream visual recognition.
+For fine-tuning it requires labeled dataset for downstream tasks in both supervised or non-supervised pre-training models. Drastic improvements have emerged from natural language processing (\cite{devlin2018bert})(\cite{brown2020language}), combined with previous vision recognition, new paradigm called vision-language model (VLM) pre-training have proposed for vision recognition. To pre-train, this model does not requires to have labeled datasets, just requires image-text pairs. With this, the training datasets can be found infinitely in the internet. However, the image text pair in the internet contains information that does not correlate to each other. To train the model with some noise in the data, VLM is trained with certain vision-language objectives (\cite{radford2021learning})( \cite{yu2022cocacontrastivecaptionersimagetext}). From these objectives, the VLM matches the embedding of any given images and text, which enabled the performance of zero-shot prediction without fine-tuning on downstream visual recognition.
 
 % Vision-Language models are a model that combines both the vision and language modalities and enables to process both information. 
 % Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.
 % To predict the probable prompt, the model needs to understand both input image and the text prompts. To understand those modalities, the model will have separate or fused encoders for both vision and language.
 
-\section{previous methods for masking strategies}
-Learning robust representation from image and text is the key challenge for VLM. An approach to this challenge is previously done with masked language modeling. This is a pre-training task for language models, where the model learns to predict masked tokens in a sequence based on the surrounding context. This strategy is foundational for several state-of-the-art models (\cite{devlin2018bert}, \cite{liu2020roberta}). 
+\section{Previous Methods for Masking Strategies}
+Learning robust representation from image and text is the key challenge for VLM. An approach to this challenge is previously done with masked language modeling. This is a pre-training task for language models, where the model learns to predict masked tokens in a sequence based on the surrounding context. This strategy is foundational for several state-of-the-art models (\cite{devlin2018bert})(\cite{liu2020roberta}). 
 
 In MLM, it is necessary to develop a strategy to mask the text. Key masking strategy are random masking, span-based masking, whole word masking, and entity masking. Random masking are done by randomly select the tokens from the sentence and replace with special [MASK] token. For example, BERT's pre-training, 15\% of the tokens are masked, out of which 80\% are replaced with [MASK] token, 10\% are replaced with random token, and 10\% remain unchanged. 
-To understand longer text spans, span-based masking was conceived. Span-based masking involves masking contiguous spans of tokens, with this, the model will be encouaged to learn depecencies across longer text spans. 
-Another method is whole word masking. This strategy masks entire words instead of subword units. If any part of a word is selected for masking, the entire word is masked.
+To understand longer text spans, span-based masking was conceived. Span-based masking involves masking contiguous spans of tokens, with this, the model will be encouraged to learn dependencies across longer text spans. 
+Another method is whole word masking. This strategy masks entire words instead of sub-word units. If any part of a word is selected for masking, the entire word is masked.
 
 In VLM, similar masking strategies can be employed to enhance the model's ability to understand and generate language in relation to visual content.
 
-Text caption masking is a masking strategy to mask the words or phrases in the text captions and traing the VLM to reconstruct them based on the visual content and the unmasked text. This approach leverages the contextual understanding from both modalities. ImageBERT (\cite{qi2020imagebertcrossmodalpretraininglargescale}) used masked language modeling on text captions to pre-train the VLM.
+Text caption masking is a masking strategy to mask the words or phrases in the text captions and training the VLM to reconstruct them based on the visual content and the unmasked text. This approach leverages the contextual understanding from both modalities. ImageBERT (\cite{qi2020imagebertcrossmodalpretraininglargescale}) used masked language modeling on text captions to pre-train the VLM.
 
 Another method is the visual patch masking, where it masks patches of an image nad training the VLm to reconstruct the missing parts based on the unmasked image regions and the associated text.
-
 
 \section{Model Used In This Thesis}
 In this section, vision language model which is used in this thesis will be introduced.
 
-\subsection{ALBEF}
-Text encoder and image encoder are used to learn the representation in vision-and-language pre-training models (VLP). Most existing VLP models use multi-modal encoder to jointly model visual token (image feature) and word tokens (text features). This methods face challenges because the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. 
-To tackle this challenge, the author first aligns image and text representations before fusing them through cross-modal attentions. 
+\subsection{ALBEF: Align before Fuse}
+Text encoder and image encoder are used to learn the representation in vision-and-language pre-training models (VLP). Most existing VLP models use multi-modal encoder to jointly model visual token (image feature) and word tokens (text features). Although this method gives a certain level of performance, it faces challenges towards the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. 
+To tackle this challenge, the author (\cite{li2021align}) first aligns image and text representations before fusing them through cross-modal attentions. 
 
 \begin{figure}[htbp]
     \begin{center}
@@ -111,11 +108,10 @@ To tackle this challenge, the author first aligns image and text representations
     \end{center}
 \end{figure}
 
-The author represented a model with an image encoder, text encoder, and a multi-modal encoder. They use 12-layer visual transformer ViT-B/16[\cite{dosovitskiy2021image}], pre-trained with ImageNet-1k, as the image encoder. 
+The author represented a model with an image encoder, text encoder, and a multi-modal encoder. They use 12-layer visual transformer ViT-B/16 (\cite{dosovitskiy2021image}), pre-trained with ImageNet-1k, as the image encoder. 
 Text encoder is pre-trained by the first 6 layers of $BERT_{base}$, and multi-modal encoder for fusing text and image features are pre-trained by the last 6 layers of $BERT_{base}$. The text encoder transform an input text $T$ into a sequence of embedding $\{w_{cls}, w_1, ..., w_N\}$. The image features also transform an input image $I$ into a sequence of embedding $\{v_{cls}, v_1, ..., v_M\}$. The text features are fed to a multi-modal encoder, while the image features are fused through cross attention at each layer of the multi-modal encoder.
 
-Pretraining Objectives
-The model have three objectives in pretraining: image-text contrastive learning (ITC) on the unimodal encoders, masked language modeling (MLM) and image-text matching (ITM).
+In pre-training task, the model have three objectives: image-text contrastive learning (ITC) on the unimodal encoders, masked language modeling (MLM) and image-text matching (ITM).
 Author utilizes the hard negative mined from ITC to improve ITM.
 
 Image text contrastive learning is used to align the representation from the unimodal encoders before fusing. This objective makes it easier for the multi-modal encoder to perform cross-modal learning, as the input features are already aligned in a common space. 
@@ -130,15 +126,15 @@ $\hat{T}$ is masked text, $P^{msk}(I,\hat{T})$ is the model's predicted probabil
 
 Contrastive loss is used for alignment, which helps to ground the vision and text representations.
 
-\subsection{RaSa}
+\subsection{RaSa: Relation and Sensitivity Aware}
 
-Vision language models are very popular regions. Many studies have been published to be able to bind the visual information with the text information. Many methods have been proposed, but learning a powerful multi-modal representation is still a challenging task. This author approaches to this task by two innovations: Relation aware and Sensitivity aware.
+Vision language models are very popular regions. Many studies have been published to be able to bind the visual information with the text information. Many methods have been proposed, but learning a powerful multi-modal representation is still a challenging task. This author approaches to this task by two innovations: Relation aware and Sensitivity aware (\cite{Bai2023RaSaRA}).
 
 The author remarked that the text and image pair of the same ID have a strong positive pair and weak positive pair. Since the textual description is generated by a single image in the text-based person search dataset, the text will strongly correlate to the image but it is not always well-aligned to the other images of the same person. Previous methods did not take this intra-variation into account when training, they put the equal weight for strong and weak positive pairs in learning representations. This lead the model to overfitting due to the weak pairs.
 
 To reduce the impact of noise interference from weak positive pairs, the author introduced a Relation-Aware learning (RA) task. This task consists of a probabilistic Image-Text Matching (p-ITM) component and a Positive Relation Detection (PRD) component. The p-ITM is a variant of the commonly used ITM, designed to differentiate negative and positive pairs by probabilistically considering strong or weak positive inputs. Meanwhile, the PRD explicitly distinguishes between strong and weak positive pairs. In this framework, p-ITM focuses on the consistency between strong and weak positive pairs, whereas PRD emphasizes their differences, effectively acting as a regularization for p-ITM. By incorporating RA, the model can extract valuable information from weak positive pairs through p-ITM and reduce noise interference through PRD, ultimately achieving a balance.
 
-Furthermore, improving the robustness of representations often involves learning invariant representations under a set of manually chosen transformations, referred to as insensitive transformations [Caron et al., 2020; Chen and He, 2021]. While this approach is recognized, we take it further by drawing inspiration from the recent success of equivariant contrastive learning [Dangovski et al., 2022]. We explore sensitive transformations that would degrade performance if applied to learn transformation-invariant representations. Instead of maintaining invariance under insensitive transformations, we encourage the learned representations to be aware of sensitive transformations. 
+Furthermore, improving the robustness of representations often involves learning invariant representations under a set of manually chosen transformations, referred to as insensitive transformations (\cite{caron2021unsupervisedlearningvisualfeatures}). While this approach is recognized, the author went it further by drawing inspiration from the recent success of equivariant contrastive learning (\cite{dangovski2022equivariantcontrastivelearning}). We explore sensitive transformations that would degrade performance if applied to learn transformation-invariant representations. Instead of maintaining invariance under insensitive transformations, they encourage the learned representations to be aware of sensitive transformations. 
 
 To achieve this, author proposed a Sensitivity-Aware learning (SA) task. They use word replacement as the sensitive transformation and develop a Momentum-based Replaced Token Detection (m-RTD) pretext task. This task involves detecting whether a token originates from the original textual description or the replacement, as illustrated in Figure 1 (b). The closer the replaced word is to the original one (i.e., the more confusing the word), the more challenging the detection task becomes. Training the model to effectively solve this detection task is expected to enhance its ability to learn better representations.
 
