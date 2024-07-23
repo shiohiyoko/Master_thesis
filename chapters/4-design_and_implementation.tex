@@ -1,41 +1,41 @@
 \chapter{Proposed Methods}
 
-The purpose of this experiment is to examine the hypothesis that a time-variant masking ratio would affects the prediction accuracy in text-based person retrieval tasks. We approach this by exploring the relationship between the sensitivity-aware representation learning, as investigated by Bai et al. (\cite{Bai2023RaSaRA}) in their work "RaSa," which focuses on improving representation learning for image and text inputs by detecting replaced tokens from the combined text and image inputs. Their results demonstrated significant improvements in prediction performance. They used masked language modeling to combine the image and text feature to match the information, but the masking ratio were fixed to 15\% during the whole process.
+The purpose of this experiment is to examine the hypothesis that a time-variant masking ratio would effects the prediction accuracy in text-based person retrieval tasks. We approach this by exploring the relationship between the sensitivity-aware representation learning, as investigated by \cite{Bai2023RaSaRA} in their work "RaSa," which focuses on improving representation learning for image and text inputs by detecting replaced tokens from the combined text and image inputs. Their results demonstrated significant improvements in prediction performance. They used masked language modeling to combine the image and text features to match the information, but the masking ratio was fixed to 15\% during the whole process.
 
-To delve deeper into the impact of masking ratios, (\cite{wettig-etal-2023-mask}) suggested that larger models benefit from adopting a higher masking rate rather than the  conventional 15\% of tokens. Additionally, (\cite{yang2023learningbettermaskingbetter}) proposed a time-variant masking ratio decay strategy along with POS-tagging weighted masking. Their findings indicated that the time-variant masking decay method significantly outperformed the time-invariant masking ratio in terms of F1 score on the SQuAD dataset during the pre-training of the BERT-large model.
+To delve deeper into the impact of masking ratios, \cite{wettig-etal-2023-mask} suggested that larger models benefit from adopting a higher masking rate rather than the  conventional 15\% of tokens. Additionally, \cite{yang2023learningbettermaskingbetter} proposed a time-variant masking ratio decay strategy along with POS-tagging weighted masking. Their findings indicated that the time-variant masking decay method significantly outperformed the time-invariant masking ratio in terms of F1 score on the SQuAD dataset during the pre-training of the BERT-large model.
 
 Our experiment aims to build on these insights by evaluating the effects of different masking strategies on the performance of vision-language models, specifically in the context of text-based person retrieval. By systematically varying the masking ratio and employing time-variant masking techniques, we seek to determine the optimal approach for enhancing the alignment and interpretation of textual and visual data.
 
 % this part might not required
-In this experiment, we investigate the effect of the performance towards the time variant masking ratio on replaced token detection task. To evaluate the performance, we will compute the feature similarity score for all image-text pairs. Then we take top-$k$ candidates and calculate their ITM score $s_{itm}$ for ranking. 
+In this experiment, we investigate the effect of the performance towards the time variant masking ratio on replaced token detection task. To evaluate the performance, we compute the feature similarity score for all image-text pairs. Then, we take the top-$k$ candidates and calculate their ITM score $s_{itm}$ for ranking. 
 
 \section{Dataset}
 
 \begin{figure}[htbp]
   \begin{center}
       \includegraphics[width=\linewidth]{img/cuhk_pedes.png}
-      \caption{Example sentence with corresponding image}
+      \caption{Example sentence with corresponding images.}
       \label{fig:cuhk_pedes}
   \end{center}
 \end{figure}
 
 
-Dataset we are using is CUHK-PEDES \cite{li2017personsearchnaturallanguage}. This is a large-scale dataset created to facilitate person search using natural language descriptions. It addresses the need for a dataset where persons are described in detail using natural language, enabling practical applications such as video surveillance. Key features of the dataset are shown as follows:
+The dataset we are using is CUHK-PEDES (\cite{li2017personsearchnaturallanguage}). This is a large-scale dataset created to facilitate person search using natural language descriptions. It addresses the need for a dataset where persons are described in detail using natural language, enabling practical applications such as video surveillance. Key features of the dataset are shown as follows:
 \begin{itemize}
-  \item Large-scale: Dataset contains 40,206 images over 13,003 persons 
-  \item Annotations: Each images is described with two sentences by independent annotators, in total of 80,412 sentence descriptions
-  \item Source diversity: Images are sourced from a variety of existing person re-identification datasets, including CUHK03(\cite{li2014deepreid}), Market-1501 (\cite{7410490}), SSM (\cite{ssm}), VIPeR (\cite{viper}), and CUHK01 (\cite{li2012human}).
+  \item large-scale: the dataset contains 40,206 images of 13,003 persons; 
+  \item annotations: each images is described with two sentences by independent annotators for a total of 80,412 sentence descriptions;
+  \item source diversity: images are sourced from a variety of existing person re-identification datasets, including CUHK03 (\cite{li2014deepreid}), Market-1501 (\cite{7410490}), SSM (\cite{ssm}), VIPeR (\cite{viper}), and CUHK01 (\cite{li2012human}).
 \end{itemize}
 
-The datasets contains image and corresponding natural language description as shown in Fig\ref{fig:cuhk_pedes}. Image source for CUHK-PEDES are from CUHK03, Market-1501, SSM, VIPER, and CUHK01. The annotations for each image are done by Amazon Mechanical Turk(AMT), which is a crowd workers that are employed to describe each image with two sentence. Each sentence include rich descriptions about person appearance, action poses, and interactions.
+The datasets contain image and corresponding natural language description as shown in Fig\ref{fig:cuhk_pedes}. The image source for CUHK-PEDES are from CUHK03, Market-1501, SSM, VIPER, and CUHK01. The annotations for each image are done by Amazon Mechanical Turk (\acrshort{amt}) through crowd sourcing, where employees describe each image with two sentence. Each sentence includes rich descriptions about a person's appearance, action poses, and interactions.
 
 \section{Methods}
-In this section, we introduce the experimental methods designed to evaluate the performance of vision-language models (VLMs). Recent state-of-the-art VLMs, such as the one described by Bai et al. (\cite{Bai2023RaSaRA}) in their work "RaSa," utilize an attention mechanism to extract and align features from both images and text using cross-modality encoders. Achieving optimal results necessitates not only robust feature extraction but also the development of sophisticated textual representations to enhance the interpretation of visual data. Therefore, our objective is to train the visual-language model from RaSa by employing diverse strategies for textual information representation. Specifically, we will investigate two distinct methods to determine their impact on model performance.
+In this section, we introduce the experimental methods designed to evaluate the performance of \acrshort{vlm}. Recent state-of-the-art VLMs, such as the one described by \cite{Bai2023RaSaRA} in their work `RaSa', utilize an attention mechanism to extract and align features from both images and text using cross-modality encoders. Achieving optimal results necessitates not only robust feature extraction but also the development of sophisticated textual representations to enhance the interpretation of visual data. Therefore, our objective is to train the visual-language model from RaSa by employing diverse strategies for textual information representation. Specifically, we will investigate two distinct methods to determine their impact on model performance.
 
 % explain about the parameters based on the model image and loss function
 
 \subsection{Masking Ratio for Masked Language Modeling} 
-A Masked Language Model (MLM) is a type of neural network model used primarily for natural language processing tasks, including (\cite{devlin2018bert}, \cite{Bai2023RaSaRA}). MLMs are trained on text data where some of the words in the input sentences are replaced with a special token (often "[MASK]"), and the model's objective is to predict the original words that were masked. This training method helps the model learns to capture the semantics and syntax of the language, making it effective for various NLP tasks such as text classification, sentiment analysis, and machine translation.
+A Masked Language Model (MLM) is a type of neural network model used primarily for natural language processing tasks, including (\cite{devlin2018bert} and \cite{Bai2023RaSaRA}). MLMs are trained on text data where some of the words in the input sentences are replaced with a special token (often "[MASK]"), and the model's objective is to predict the original words that were masked. This training method helps the model learns to capture the semantics and syntax of the language, making it effective for various NLP tasks such as text classification, sentiment analysis, and machine translation.
 
 During training, a portion of the input tokens are randomly masked, and the model learns to predict these masked tokens based on the surrounding context. For example, in the sentence "The cat sat on the [MASK]," the model should predict "mat" if it has learned the context correctly. For each image and text pair ($I,T^S$), MLM loss will be formulated as:
 \[
@@ -47,7 +47,7 @@ Given a masked text \( T_{msk} \), where each token in the input text \( T_s \) 
 % explanation about what we do with masking ratio
 In natural language pre-training, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
 
-Furthermore, we will evaluate the results by visual grounding by Grad-CAM (\cite{gradcam}) for Image text matching. This method is originally proposed for visual explanation in convolutional neural network (CNN). Grad-CAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight the feature maps, which produces a heatmap to show the areas of the image that is the most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
+Furthermore, we will evaluate the results by visual grounding with Grad-CAM (\cite{gradcam}) for Image text matching. This method is originally proposed for visual explanation in convolutional neural network (CNN). Grad-CAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight the feature maps, which produces a heatmap that shows /highlights/emphasizes areas of the image that are most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
 
 In this work, we will take the cross-attention maps in the 3rd layer of the multi-modal encoder (which is a layer specialized in grounding). The image is randomly taken from the test dataset and input text will be defined with simple information.
 
