@@ -52,19 +52,20 @@ Furthermore, we will evaluate the results by visual grounding with Grad-CAM (\ci
 In this work, we will take the cross-attention maps in the 3rd layer of the multi-modal encoder (which is a layer specialized in grounding). The image is randomly taken from the test dataset, and input text will be defined with simple information.
 
 \subsection{Fixed Masking Ratio}
-We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the most highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not train at all. 
+We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not train at all. 
+{\color{red} may need refinement}
+For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern. Table 3.1 shows the results for masking with a fixed ratio, and table x shows the time variant masking ratio results.
 
-For all training tasks, the number of epochs is set to 30, batch size is 13. With this, the model will train under 30 iterations and trains with the dataset which is divided to 13 different datasets. The optimization methods are adamW, learning rate is set to 1.0e-4 at first and create a cosine curve to decrease to 1.0e-5. 
 
 \begin{table}[htbp]
 \centering
   \caption{Result for masking fixed masking ratio}
   \begin{tabular}{rcccc}
     masking ratio & r1 & r5 & r10 & mAP\\ \hline
-    15\% & 76.51 & 90.20 & 94.25 & 69.38 \\
+    15\% & 76.51 & \mathbf{90.20} & \mathbf{94.25} & 69.38 \\
     20\% & 76.64 & 89.90 & 93.70 & 70.27 \\
     25\% & 76.23 & 89.86 & 93.79 & 70.22 \\
-    30\% & 76.72 & 89.77 & 93.60 & 70.30 \\
+    30\% & \mathbf{76.72} & 89.77 & 93.60 & \mathbf{70.30} \\
     35\% & 76.61 & 89.77 & 93.47 & 70.26 \\
     40\% & 76.56 & 89.88 & 93.47 & 70.26
   \end{tabular}
@@ -98,6 +99,7 @@ M_{cosine decrease}\left(t\right) &=& P*\left(1+cos\left(\pi*t/T\right)\right) +
   \end{tabular}
 \end{table}
 
+{\color{red} fixed until here}
 \section{Masking Ratio for Replaced Token Detection}
 RaSa utilizes this to create a task called sensitivity aware learning.
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
