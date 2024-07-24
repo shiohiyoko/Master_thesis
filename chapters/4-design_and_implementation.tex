@@ -120,18 +120,18 @@ Sensitivity aware aims to make the model sensitive to specific transformations i
   \end{tabular}
 \end{table}
 
-Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proven to be beneficial for pre-training (Liu et al., 2019). 
+Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proven to be beneficial for pre-training (\cite{liu2019robertarobustlyoptimizedbert}). 
 
 \section{Attention Visualization}
 To be able to see where the model is paying attention to, we use the attention matrix in cross attention module. 
 
-Ramprasaath R. Selvaraju et al. present a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image crucial for predicting a specific concept.
+\cite{gradcam} present a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image crucial for predicting a specific concept.
 
 Grad-CAM utilizes gradients flowing into the final convolutional layer to produce a localization map. It is applicable to various CNN architectures, including those with fully-connected layers (like VGG), and models for structured outputs. When combined with pixel-space gradient visualizations, Grad-CAM creates Guided Grad-CAM, which offers high-resolution, class-discriminative visualizations.
 
 Following steps enables to obtain the class-discriminative localization map $L^c_{Grad-CAM} = \in\Re^{u \times v}$ of class $c$ from the image width $u$ and height $v$. 
 
-First, we would define the neuron importance weights $\alpha^c_k$. calculate the gradient of the score for class c, $y_c$(before softmax), with respect to the feature map activations $A_k$ of a convolutional layer, i.e., $\frac{\delta y^c}{\delta A^k}$. 
+First, we define the neuron importance weights $\alpha^c_k$. Then, we calculate the gradient of the score for class c, $y_c$(before softmax), with respect to the feature map activations $A_k$ of a convolutional layer, i.e., $\frac{\delta y^c}{\delta A^k}$. 
  
 \begin{displaymath}
     L^c_{Grad-CAM} = ReLU(\sum_k\alpha^c_kA^k)
@@ -144,35 +144,42 @@ Below are the results achieved from the MLM with different masking ratio.
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/placeholder.png}
   \caption{placeholder for visual grounding on MLM}
+  \label{mlm_1}
 \end{figure}
 
-Below are the results achieved from the m-RTD with different masking ratio.
+\ref{mtrd_1,mtrd_2,mtrd_3,mtrd_4,mtrd_5,mtrd_6} shows the results achieved from the m-RTD with different masking ratio.
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
   \caption{Visual grounding for masking rate of 15}
+  \label{mtrd_1}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
   \caption{Visual grounding for masking rate of 20}
+  \label{mtrd_2}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
-  \caption{Visual grounding for masking rate of 25}  
+  \caption{Visual grounding for masking rate of 25} 
+  \label{mtrd_3} 
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
   \caption{Visual grounding for masking rate of 30}
+  \label{mtrd_4}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}
   \caption{Visual grounding for masking rate of 35}
+  \label{mtrd_5}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
   \caption{Visual grounding for masking rate of 40}
+  \label{mtrd_6}
 \end{figure}
