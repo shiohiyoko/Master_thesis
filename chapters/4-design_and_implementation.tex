@@ -62,10 +62,10 @@ For all training tasks, the number of epochs is set to 30, and batch size is 13.
   \caption{Result for masking fixed masking ratio}
   \begin{tabular}{rcccc}
     masking ratio & r1 & r5 & r10 & mAP\\ \hline
-    15\% & 76.51 & \mathbf{90.20} & \mathbf{94.25} & 69.38 \\
+    15\% & 76.51 & \te-xtbf{90.20} & \textbf{94.25} & 69.38 \\
     20\% & 76.64 & 89.90 & 93.70 & 70.27 \\
     25\% & 76.23 & 89.86 & 93.79 & 70.22 \\
-    30\% & \mathbf{76.72} & 89.77 & 93.60 & \mathbf{70.30} \\
+    30\% & \textbf{76.72} & 89.77 & 93.60 & \textbf{70.30} \\
     35\% & 76.61 & 89.77 & 93.47 & 70.26 \\
     40\% & 76.56 & 89.88 & 93.47 & 70.26
   \end{tabular}
@@ -101,8 +101,10 @@ M_{cosine decrease}\left(t\right) &=& P*\left(1+cos\left(\pi*t/T\right)\right) +
 
 {\color{red} fixed until here}
 \section{Masking Ratio for Replaced Token Detection}
-RaSa utilizes this to create a task called sensitivity aware learning.
+RaSa utilizes a loss function called replaced token detection to create a task called sensitivity aware learning.
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
+{\color{red}further explanation about sensitivity aware}
+
 
 \begin{table}[htbp]
   \centering
@@ -118,10 +120,10 @@ Sensitivity aware aims to make the model sensitive to specific transformations i
   \end{tabular}
 \end{table}
 
-Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proved to be beneficial for pre-training (Liu et al., 2019). 
+Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proven to be beneficial for pre-training (Liu et al., 2019). 
 
 \section{Attention Visualization}
-To be able to see where the model is paying attention to, we would use the attention matrix in cross attention module. 
+To be able to see where the model is paying attention to, we use the attention matrix in cross attention module. 
 
 Ramprasaath R. Selvaraju et al. present a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image crucial for predicting a specific concept.
 
