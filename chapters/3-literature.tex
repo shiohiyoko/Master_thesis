@@ -3,6 +3,7 @@ In this chapter, principles and theories utilized in this thesis are introduced.
 
 
 % ------------------------------------------------------------ %
+{\color{red}maybe not required}
 \section{Research Methodology}
 We first delve into the existing literature, drawing from papers accessible through the "Paper with Code" platform. This platform typically provides research papers along with their associated code implementations. {\color{red}This papers was selected based on its prominence, measured by the reported accuracy and success in the field, as stated in the platform.}
 
@@ -72,6 +73,8 @@ To overcome the problems with traditional methods, deep learning methods were de
 
 Recent studies (\cite{radford2021learning}) have discovered that the features learned from large-scale labeled datasets possess a high degree of versatility and can be effectively transferred to a variety of downstream tasks. This indicates that the patterns and representations captured during the training on these extensive datasets are not only specific to the initial context but are also generalizable, allowing them to be utilized in different, often more specialized applications. The transferability underscores the potential of leveraging pre-trained models to enhance performance and efficiency in a wide range of tasks across various domains. 
 These learning techniques accelerates training models with limited task-specific training datasets while achieving high performance.
+
+{\color{red}supervision}
 
 Supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still has the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, \cite{he2020momentumcontrastunsupervisedvisual} presented a method called Momentum Contrast (MoCo), which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation without labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. Beyond these foundations, pre-training models no longer rely on labeled datasets, which enables to learn from various training data compared to supervised pre-training. 
 
