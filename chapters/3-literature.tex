@@ -1,4 +1,5 @@
 \chapter{Related Studies }
+{\color{red} need to think about this a little further}
 In this chapter, principles and theories utilized in this thesis are introduced.
 
 
@@ -84,7 +85,7 @@ Drastic improvements have emerged from natural language processing (\cite{devlin
 % Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.
 % To predict the probable prompt, the model needs to understand both input image and the text prompts. To understand those modalities, the model will have separate or fused encoders for both vision and language.
 
-\section{Previous Methods for Masking Strategies}
+\section{Masking Strategies}
 Learning robust representation from image and text is the key challenge for VLM. An approach to this challenge is previously done with masked language modeling. This is a pre-training task for language models, where the model learns to predict masked tokens in a sequence based on the surrounding context. This strategy is foundational for several state-of-the-art models (\cite{devlin2018bert, liu2020roberta}). 
 
 In MLM, it is necessary to develop a strategy to mask the text. Key masking strategy are random masking, span-based masking, whole word masking, and entity masking. 

@@ -1,7 +1,8 @@
 \chapter{Introduction}
+{\color{red} reference}
 Person re-identification is a crucial topic with applications in service robotics and security. The goal is to extract features from an input source and compare them against a large dataset to identify the corresponding individual. Traditional methods predominantly rely on image-based inputs, but these methods face significant challenges due to intra-class variations caused by different viewing angles, environmental changes, and color variations.
 
-To address these issues, with advances in learned models of natural language processing, vision language models are used. There are few methods to train the vision-language models. 
+To address these issues, with advances in learned models of natural language processing, vision language models are used. There are a few methods to train the vision-language models. 
 Contrastive training is a common strategy that utilizes pairs of positive and negative examples. In this method, the VLM is trained to produce similar representations for positive pairs and different representations for negative pairs. Another strategy is masking, where the VLM learns to reconstruct missing patches from an unmasked text caption. Similarly, masking words in a caption allows the VLM to reconstruct those words using an unmasked image.
 
 % While many approaches use intermediate representations or partial reconstructions, generative VLMs are designed to generate entire images or lengthy captions. Due to their complexity, these models are often the most expensive to train. VLMs with pre-trained backbones frequently employ open-source LLMs like Llama to establish a mapping between a pre-trained image encoder and the LLM. It's important to note that these paradigms are not mutually exclusive; many approaches combine contrastive, masking, and generative criteria.
@@ -17,7 +18,7 @@ Such advancements could address critical issues like manpower shortages by allow
 This thesis is tackling through the attention differences between text and image information. 
 Many approaches have been developed to achieve better multi-modal representation, but they lack an investigation of the masking ratio when it comes to VLM models. In this work, we tackle the attention differences between text and image information applied to person retrieval models. Special attention is given to the influences of the masking ratio on the model accuracy. We look into this and see if the accuracy changes.
 
-\section{Document Structure}
+\section{Thesis Structure}
 
 Chapter 1 presents the purpose and background of this research and the structure of this paper. Chapter 2 describes the previous findings and theories related to this research. Chapter 3 includes the experiments towards the affect of masking ratio for masked language modeling. Chapter 4 will have a discussion from chapter 3. Chapter 5 presents the conclusions, limitations, and future perspectives of this study.
 
