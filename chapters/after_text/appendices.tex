@@ -1,58 +1,114 @@
-\chapter{Prisma Automator}\label{chap:Prisma Automator}
+% \chapter{Prisma Automator}\label{chap:Prisma Automator}
 
-The ``Prisma Automator'' program was developed to automate the initial steps outlined in the PRISMA2020 Statement\cite{prismastatement}. This process, typically done manually, involves formulating search strings, retrieving document metadata, and filtering results — tasks that become increasingly repetitive with more keyword combinations. The program aims to simplify user interaction by handling these steps, requiring only input of desired keywords and subsequent monitoring of the resulting document pool.
+% The ``Prisma Automator'' program was developed to automate the initial steps outlined in the PRISMA2020 Statement\cite{prismastatement}. This process, typically done manually, involves formulating search strings, retrieving document metadata, and filtering results — tasks that become increasingly repetitive with more keyword combinations. The program aims to simplify user interaction by handling these steps, requiring only input of desired keywords and subsequent monitoring of the resulting document pool.
 
-Comprising two classes, ``Splitter'' and ``Collector'', Prisma Automator facilitates the generation of search strings (splits) and interacts with the Scopus API to retrieve, clean, and save results locally. Both classes offer streamlined functionality through the ``split()'' method in Splitter and the ``run()'' method in Collector, but users have the flexibility to employ other methods or customize functionality as needed. 
+% Comprising two classes, ``Splitter'' and ``Collector'', Prisma Automator facilitates the generation of search strings (splits) and interacts with the Scopus API to retrieve, clean, and save results locally. Both classes offer streamlined functionality through the ``split()'' method in Splitter and the ``run()'' method in Collector, but users have the flexibility to employ other methods or customize functionality as needed. 
 
-Prisma Automator is an open-source project available at \url{https://github.com/Fabulani/prisma-automator}.
+% Prisma Automator is an open-source project available at \url{https://github.com/Fabulani/prisma-automator}.
 
 
-\chapter{BERT}
+% \chapter{BERT}
 
-BERT (Bidirectional Encoder Representations from Transformers) is a transformer-based model designed for natural language processing (NLP) tasks. Developed by researchers at Google and introduced in the paper "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" in 2018, BERT has significantly advanced the state of the art in NLP by providing a powerful pre-trained language representation model. Here's a detailed explanation of BERT:
+% BERT (Bidirectional Encoder Representations from Transformers) is a transformer-based model designed for natural language processing (NLP) tasks. Developed by researchers at Google and introduced in the paper "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" in 2018, BERT has significantly advanced the state of the art in NLP by providing a powerful pre-trained language representation model. Here's a detailed explanation of BERT:
 
- Key Concepts of BERT
+%  Key Concepts of BERT
 
-1. **Bidirectionality**:
-   - Traditional language models, like the original GPT, are unidirectional, meaning they predict the next word in a sequence based only on the words that come before it. BERT, however, is bidirectional. It considers both the left and right context when predicting a word, which allows it to better understand the context and semantics of the text.
+% 1. **Bidirectionality**:
+%    - Traditional language models, like the original GPT, are unidirectional, meaning they predict the next word in a sequence based only on the words that come before it. BERT, however, is bidirectional. It considers both the left and right context when predicting a word, which allows it to better understand the context and semantics of the text.
 
-2. **Transformers**:
-   - BERT is built upon the transformer architecture, specifically utilizing the encoder part of the transformer. The transformer’s self-attention mechanism allows BERT to focus on different parts of the input text to understand the relationships between words and phrases better.
+% 2. **Transformers**:
+%    - BERT is built upon the transformer architecture, specifically utilizing the encoder part of the transformer. The transformer’s self-attention mechanism allows BERT to focus on different parts of the input text to understand the relationships between words and phrases better.
 
- Pre-training and Fine-tuning
+%  Pre-training and Fine-tuning
 
-BERT involves two main steps: pre-training and fine-tuning.
+% BERT involves two main steps: pre-training and fine-tuning.
 
-1. **Pre-training**:
-   - **Masked Language Modeling (MLM)**: During pre-training, some percentage of the input tokens are randomly masked, and the model is trained to predict the original tokens based on the context provided by the unmasked tokens. This helps BERT learn bidirectional representations of the text.
-   - **Next Sentence Prediction (NSP)**: This task involves predicting whether a given sentence B is the actual next sentence that follows a given sentence A in the corpus. This helps BERT understand the relationships between sentences.
+% 1. **Pre-training**:
+%    - **Masked Language Modeling (MLM)**: During pre-training, some percentage of the input tokens are randomly masked, and the model is trained to predict the original tokens based on the context provided by the unmasked tokens. This helps BERT learn bidirectional representations of the text.
+%    - **Next Sentence Prediction (NSP)**: This task involves predicting whether a given sentence B is the actual next sentence that follows a given sentence A in the corpus. This helps BERT understand the relationships between sentences.
 
-2. **Fine-tuning**:
-   - After pre-training, BERT can be fine-tuned on a specific NLP task such as question answering, sentiment analysis, or named entity recognition. During fine-tuning, the pre-trained BERT model is further trained on a labeled dataset for the specific task, adjusting its weights to optimize performance on that task.
+% 2. **Fine-tuning**:
+%    - After pre-training, BERT can be fine-tuned on a specific NLP task such as question answering, sentiment analysis, or named entity recognition. During fine-tuning, the pre-trained BERT model is further trained on a labeled dataset for the specific task, adjusting its weights to optimize performance on that task.
 
- BERT Variants
+%  BERT Variants
 
-Several variants of BERT have been developed to cater to different needs:
+% Several variants of BERT have been developed to cater to different needs:
 
-1. **BERT Base**: Consists of 12 layers (transformer blocks), 768 hidden units, and 12 attention heads.
-2. **BERT Large**: Consists of 24 layers, 1024 hidden units, and 16 attention heads.
-3. **DistilBERT**: A smaller, faster, and lighter version of BERT, retaining 97% of BERT's language understanding while being 60% faster.
-4. **RoBERTa**: Robustly optimized BERT approach, which improves on BERT by training with more data and longer sequences.
-5. **ALBERT**: A lite version of BERT, which reduces the model size while maintaining performance by sharing parameters across layers.
+% 1. **BERT Base**: Consists of 12 layers (transformer blocks), 768 hidden units, and 12 attention heads.
+% 2. **BERT Large**: Consists of 24 layers, 1024 hidden units, and 16 attention heads.
+% 3. **DistilBERT**: A smaller, faster, and lighter version of BERT, retaining 97% of BERT's language understanding while being 60% faster.
+% 4. **RoBERTa**: Robustly optimized BERT approach, which improves on BERT by training with more data and longer sequences.
+% 5. **ALBERT**: A lite version of BERT, which reduces the model size while maintaining performance by sharing parameters across layers.
 
- Applications of BERT
+%  Applications of BERT
 
-BERT has been applied to a wide range of NLP tasks, including:
+% BERT has been applied to a wide range of NLP tasks, including:
 
-1. **Question Answering**: BERT can be fine-tuned on datasets like SQuAD to understand and answer questions based on given texts.
-2. **Sentiment Analysis**: Determining the sentiment expressed in a piece of text.
-3. **Named Entity Recognition (NER)**: Identifying and classifying named entities (e.g., people, organizations, locations) within a text.
-4. **Text Classification**: Classifying texts into different categories.
-5. **Language Translation**: Assisting in translating text from one language to another.
-6. **Text Summarization**: Generating concise summaries of longer texts.
+% 1. **Question Answering**: BERT can be fine-tuned on datasets like SQuAD to understand and answer questions based on given texts.
+% 2. **Sentiment Analysis**: Determining the sentiment expressed in a piece of text.
+% 3. **Named Entity Recognition (NER)**: Identifying and classifying named entities (e.g., people, organizations, locations) within a text.
+% 4. **Text Classification**: Classifying texts into different categories.
+% 5. **Language Translation**: Assisting in translating text from one language to another.
+% 6. **Text Summarization**: Generating concise summaries of longer texts.
 
- Impact of BERT
+%  Impact of BERT
 
-BERT has had a transformative impact on NLP by providing a robust, pre-trained model that can be fine-tuned for a variety of tasks with relatively little labeled data. This has significantly lowered the barrier to achieving state-of-the-art performance on many NLP benchmarks and has spurred further research and development in transformer-based models.
+% BERT has had a transformative impact on NLP by providing a robust, pre-trained model that can be fine-tuned for a variety of tasks with relatively little labeled data. This has significantly lowered the barrier to achieving state-of-the-art performance on many NLP benchmarks and has spurred further research and development in transformer-based models.
 
-In summary, BERT's introduction of bidirectional context representation, coupled with its robust pre-training on large corpora and the flexibility of fine-tuning for specific tasks, has made it a cornerstone in modern NLP, influencing a wide array of applications and subsequent model developments.
+% In summary, BERT's introduction of bidirectional context representation, coupled with its robust pre-training on large corpora and the flexibility of fine-tuning for specific tasks, has made it a cornerstone in modern NLP, influencing a wide array of applications and subsequent model developments.
+
+\chapter{Transformer}
+
+A transformer is a type of deep learning model architecture that has revolutionized the field of natural language processing (NLP) and has been extended to various other domains such as computer vision and speech recognition. The transformer model was introduced in the paper "Attention is All You Need" by Vaswani et al. in 2017. Here's an overview of its key components and how it works:
+
+ Key Components of a Transformer
+
+1. **Self-Attention Mechanism**:
+   - **Self-attention** (or scaled dot-product attention) allows the model to weigh the importance of different words in a sentence relative to each other. It enables the model to focus on relevant parts of the input sequence when generating an output.
+   - For each word, self-attention calculates a weighted sum of all the words in the sentence, where the weights are determined by the relevance of the words to each other.
+
+2. **Multi-Head Attention**:
+   - Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions. Instead of performing a single attention function, the transformer splits the input into multiple heads and performs attention in parallel, then concatenates the results.
+
+3. **Positional Encoding**:
+   - Since transformers do not have a built-in notion of the order of elements in a sequence, positional encoding is added to the input embeddings to provide information about the position of each word in the sequence.
+
+4. **Feed-Forward Neural Network**:
+   - Each position in the sequence is processed independently through a feed-forward neural network. This is applied identically to each position, providing additional processing power to the model.
+
+5. **Layer Normalization and Residual Connections**:
+   - Layer normalization helps in stabilizing and accelerating the training process.
+   - Residual connections (or skip connections) allow gradients to flow more easily through the network, which helps in training deep networks.
+
+ Architecture Overview
+
+A transformer model is composed of an encoder and a decoder, both of which are stacks of identical layers:
+
+- **Encoder**: Each layer in the encoder consists of two sub-layers: a multi-head self-attention mechanism and a position-wise fully connected feed-forward network. The input to the encoder is a sequence of word embeddings, along with positional encodings.
+  
+- **Decoder**: Each layer in the decoder has three sub-layers: a multi-head self-attention mechanism, a multi-head attention mechanism over the encoder's output, and a position-wise fully connected feed-forward network. The decoder generates the output sequence by attending to both the previously generated tokens and the encoder's output.
+
+ Advantages of Transformers
+
+1. **Parallelization**:
+   - Unlike recurrent neural networks (RNNs), transformers do not rely on sequential processing, allowing for much more parallelization during training, which significantly speeds up the process.
+
+2. **Handling Long Dependencies**:
+   - The self-attention mechanism allows transformers to handle long-range dependencies more effectively than RNNs and LSTMs, which can struggle with distant dependencies due to vanishing gradients.
+
+3. **Scalability**:
+   - Transformers have shown to scale well with the availability of large datasets and computational resources, leading to significant improvements in performance as the model size increases.
+
+ Applications
+
+- **Natural Language Processing**: Tasks such as translation, text summarization, and sentiment analysis.
+- **Computer Vision**: Vision Transformers (ViTs) have been used for image classification and object detection.
+- **Speech Recognition**: Transformers have been applied to model speech data and transcribe audio recordings.
+
+ Popular Transformer Models
+
+- **BERT (Bidirectional Encoder Representations from Transformers)**: Pre-trained on large text corpora to generate contextual embeddings for NLP tasks.
+- **GPT (Generative Pre-trained Transformer)**: A series of models designed for generating coherent and contextually relevant text.
+- **T5 (Text-To-Text Transfer Transformer)**: Converts all NLP tasks into a text-to-text format, providing a unified framework for diverse tasks.
+
+In summary, the transformer model has become the foundation for many state-of-the-art approaches in NLP and beyond due to its ability to handle complex dependencies and its efficiency in training and inference.
