@@ -60,12 +60,14 @@ In this work, we will take the cross-attention maps in the 3rd layer of the mult
 \subsection{Fixed Masking Ratio}
 We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not train at all. 
 {\color{red} may need refinement}
-For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern. Table 3.1 shows the results for masking with a fixed ratio, and table x shows the time variant masking ratio results.
+For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern. Table 3.1 shows the results for masking with a fixed ratio, and \ref{tb:fixed_mlm} shows the time variant masking ratio results.
 
 
 \begin{table}[htbp]
 \centering
   \caption{Result for masking fixed masking ratio}
+  \label{tb:fixed_mlm}
+  
   \begin{tabular}{rcccc}
     masking ratio & r1 & r5 & r10 & mAP\\ \hline
     15\% & 76.51 & \textbf{90.20} & \textbf{94.25} & 69.38 \\
@@ -137,6 +139,23 @@ Sensitivity aware aims to make the model sensitive to specific transformations i
   \label{img:mrtd_loss}
 \end{figure}
 
+
+Below shows the time variant masking ratio on m-RTD
+
+\begin{table}[htbp]
+  \centering
+  \caption{Result for time variant masking ratio}
+  \begin{tabular}{rcccc}
+    \centering
+    masking ratio & r1 & r5 & r10 & mAP\\ \hline
+    linear increase & 76.62 & 89.88 & 93.62 & \textbf{70.36} \\
+    linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
+    cosine increase & 75.91 & 89.85 & 93.89 & 68.40 \\
+    cosine decrease & 75.99 & 90.25 & 94.01 & 68.73 \\
+  \end{tabular}
+\end{table}
+
+
 Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proven to be beneficial for pre-training (\cite{liu2019robertarobustlyoptimizedbert}). 
 
 \section{Attention Visualization}
@@ -159,44 +178,84 @@ One significant advantage of this method is its class-discriminative nature. Gra
 Below are the results achieved from the MLM with different masking ratio.
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/placeholder.png}
-  \caption{placeholder for visual grounding on MLM}
-  \label{mlm_1}
-\end{figure}
-
-\ref{mtrd_1,mtrd_2,mtrd_3,mtrd_4,mtrd_5,mtrd_6} shows the results achieved from the m-RTD with different masking ratio.
-\begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
   \caption{Visual grounding for masking rate of 15}
-  \label{mtrd_1}
+  \label{fig:mlm_1}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
   \caption{Visual grounding for masking rate of 20}
-  \label{mtrd_2}
+  \label{fig:mlm_2}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
   \caption{Visual grounding for masking rate of 25} 
-  \label{mtrd_3} 
+  \label{fig:mlm_3} 
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
   \caption{Visual grounding for masking rate of 30}
-  \label{mtrd_4}
+  \label{fig:mlm_4}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}
   \caption{Visual grounding for masking rate of 35}
-  \label{mtrd_5}
+  \label{fig:mlm_5}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
   \caption{Visual grounding for masking rate of 40}
-  \label{mtrd_6}
+  \label{fig:mlm_6}
+\end{figure}
+
+
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/placeholder.png}
+  \caption{placeholder for visual grounding on MLM}
+  \label{mlm_1}
+\end{figure}
+
+
+
+\ref{mtrd_1,mtrd_2,mtrd_3,mtrd_4,mtrd_5,mtrd_6} shows the results achieved from the m-RTD with different masking ratio.
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
+  \caption{Visual grounding for masking rate of 15}
+  \label{fig:mtrd_1}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
+  \caption{Visual grounding for masking rate of 20}
+  \label{fig:mtrd_2}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
+  \caption{Visual grounding for masking rate of 25} 
+  \label{fig:mtrd_3} 
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
+  \caption{Visual grounding for masking rate of 30}
+  \label{fig:mtrd_4}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}
+  \caption{Visual grounding for masking rate of 35}
+  \label{fig:mtrd_5}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
+  \caption{Visual grounding for masking rate of 40}
+  \label{fig:mtrd_6}
 \end{figure}
