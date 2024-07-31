@@ -9,6 +9,11 @@ Our experiment aims to build on these insights by evaluating the effects of diff
 % this part might not required
 In this experiment, we investigate the effect of the performance towards the time variant masking ratio on replaced token detection task. To evaluate the performance, we compute the feature similarity score for all image-text pairs. Then, we take the top-$k$ candidates and calculate their ITM score $s_{itm}$ for ranking. 
 
+To an extent, we are visualizing the attention to further discuss the results. To visualize, we use 
+To an extent, we visualize where each word is focusing in the image by \acrfull{gradcam} (\cite{gradcam}).
+\acrshort{gradcam} is a visual explanation method which originally made for \acrfull{cnn}. \acrshort{gradcam} generates a coarse localization map that highlights important regions in an image to predict the specific class. Grad-CAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight the feature maps, which produces a heatmap that shows areas of the image that are most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
+
+
 \section{Dataset}
 
 \begin{figure}[htbp]
@@ -47,8 +52,9 @@ Given a masked text \( T_{msk} \), where each token in the input text \( T_s \) 
 % explanation about what we do with masking ratio
 In natural language pre-training, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
 
-Furthermore, we will evaluate the results by visual grounding with Grad-CAM (\cite{gradcam}) for Image text matching. This method is originally proposed for visual explanation in convolutional neural network (CNN). Grad-CAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight the feature maps, which produces a heatmap that shows areas of the image that are most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
+% Furthermore, we will evaluate the results by visual grounding with Grad-CAM (\cite{gradcam}) for Image text matching. This method is originally proposed for visual explanation in convolutional neural network (CNN). Grad-CAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight the feature maps, which produces a heatmap that shows areas of the image that are most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
 
+{\color{red} explain about how the gradcam is working in this model}
 In this work, we will take the cross-attention maps in the 3rd layer of the multi-modal encoder (which is a layer specialized in grounding). The image is randomly taken from the test dataset, and input text will be defined with simple information.
 
 \subsection{Fixed Masking Ratio}
@@ -99,7 +105,6 @@ M_{cosine decrease}\left(t\right) &=& P*\left(1+cos\left(\pi*t/T\right)\right) +
   \end{tabular}
 \end{table}
 
-{\color{red} fixed until here}
 \section{Masking Ratio for Replaced Token Detection}
 RaSa utilizes a loss function called replaced token detection to create a task called sensitivity aware learning.
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
@@ -114,11 +119,23 @@ Sensitivity aware aims to make the model sensitive to specific transformations i
     15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
     20\% & 75.58 & 90.35 & 93.91 & 68.73 \\
     25\% & 75.63 & 90.09 & 93.83 & 68.76 \\
-    30\% & 75.57 & 93.92 & 93.92 & 68.81 \\
+    30\% & 75.57 & \textbf{93.92} & 93.92 & \textbf{68.81} \\
     35\% & 75.03 & 90.14 & 93.89 & 68.57 \\
-    40\% & 75.80 & 90.27 & 93.97 & 68.73
+    40\% & \textbf{75.80} & 90.27 & \textbf{93.97} & 68.73
   \end{tabular}
 \end{table}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{img/mrtd_prd_loss.png}
+  \caption{Prediction loss in training steps}
+  \label{img:mrtd_prd_loss}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{img/mrtd_loss.png}
+  \caption{MRTD Loss in training steps}
+  \label{img:mrtd_loss}
+\end{figure}
 
 Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proven to be beneficial for pre-training (\cite{liu2019robertarobustlyoptimizedbert}). 
 
