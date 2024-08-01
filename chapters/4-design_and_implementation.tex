@@ -156,8 +156,6 @@ Below shows the time variant masking ratio on m-RTD
 \end{table}
 
 
-Predicting more means the model learns from more training signals, so higher prediction rates boost the model performance. From another perspective, each prediction at each masked token leads to a loss gradient, which is averaged to optimize the weights of the model. Averaging across more predictions has a similar effect to increasing the batch size, which is proven to be beneficial for pre-training (\cite{liu2019robertarobustlyoptimizedbert}). 
-
 \section{Attention Visualization}
 To be able to see where the model is paying attention to, we use the attention matrix in cross attention module. 
 
