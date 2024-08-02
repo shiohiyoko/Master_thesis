@@ -39,7 +39,7 @@ In this section, we introduce the experimental methods designed to evaluate the 
 
 % explain about the parameters based on the model image and loss function
 
-\subsection{Masking Ratio for Masked Language Modeling} 
+\section{Masking Ratio for Masked Language Modeling} 
 A Masked Language Model (MLM) is a type of neural network model used primarily for natural language processing tasks, including (\cite{devlin2018bert} and \cite{Bai2023RaSaRA}). MLMs are trained on text data where some of the words in the input sentences are replaced with a special token (often "[MASK]"), and the model's objective is to predict the original words that were masked. This training method helps the model learns to capture the semantics and syntax of the language, making it effective for various NLP tasks such as text classification, sentiment analysis, and machine translation.
 
 During training, a portion of the input tokens are randomly masked, and the model learns to predict these masked tokens based on the surrounding context. For example, in the sentence "The cat sat on the [MASK]," the model should predict "mat" if it has learned the context correctly. For each image and text pair ($I,T^S$), MLM loss will be formulated as:
@@ -112,6 +112,9 @@ RaSa utilizes a loss function called replaced token detection to create a task c
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
 {\color{red}further explanation about sensitivity aware}
 
+\subsection{Fixed Masking Ratio}
+We will train the m-RTD with the same method as the previous section. 
+
 
 \begin{table}[htbp]
   \centering
@@ -140,6 +143,7 @@ Sensitivity aware aims to make the model sensitive to specific transformations i
 \end{figure}
 
 
+\subsection{Time Variant Masking Ratio}
 Below shows the time variant masking ratio on m-RTD
 
 \begin{table}[htbp]
@@ -148,7 +152,7 @@ Below shows the time variant masking ratio on m-RTD
   \begin{tabular}{rcccc}
     \centering
     masking ratio & r1 & r5 & r10 & mAP\\ \hline
-    linear increase & 76.62 & 89.88 & 93.62 & \textbf{70.36} \\
+    linear increase & 76.20 & 90.11 & 93.94 & 70.22 \\
     linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
     cosine increase & 75.91 & 89.85 & 93.89 & 68.40 \\
     cosine decrease & 75.99 & 90.25 & 94.01 & 68.73 \\
@@ -176,47 +180,39 @@ One significant advantage of this method is its class-discriminative nature. Gra
 Below are the results achieved from the MLM with different masking ratio.
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm/checkpoint_15_flat.png}
   \caption{Visual grounding for masking rate of 15}
   \label{fig:mlm_1}
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_20_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm/checkpoint_20_flat.png}
   \caption{Visual grounding for masking rate of 20}
   \label{fig:mlm_2}
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_25_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm/checkpoint_25_flat.png}
   \caption{Visual grounding for masking rate of 25} 
   \label{fig:mlm_3} 
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_30_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm/checkpoint_30_flat.png}
   \caption{Visual grounding for masking rate of 30}
   \label{fig:mlm_4}
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_35_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm/checkpoint_35_flat.png}
   \caption{Visual grounding for masking rate of 35}
   \label{fig:mlm_5}
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm/checkpoint_40_flat.png}
   \caption{Visual grounding for masking rate of 40}
   \label{fig:mlm_6}
-\end{figure}
-
-
-
-\begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/placeholder.png}
-  \caption{placeholder for visual grounding on MLM}
-  \label{mlm_1}
 \end{figure}
 
 
