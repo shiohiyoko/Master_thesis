@@ -35,7 +35,7 @@ The dataset we are using is CUHK-PEDES (\cite{li2017personsearchnaturallanguage}
 The datasets contain image and corresponding natural language description as shown in Fig\ref{fig:cuhk_pedes}. The image source for CUHK-PEDES are from CUHK03, Market-1501, SSM, VIPER, and CUHK01. The annotations for each image are done by Amazon Mechanical Turk (\acrshort{amt}) through crowd sourcing, where employees describe each image with two sentence. Each sentence includes rich descriptions about a person's appearance, action poses, and interactions.
 
 \section{Methods}
-In this section, we introduce the experimental methods designed to evaluate the performance of \acrshort{vlm}. Recent state-of-the-art VLMs, such as the one described by \cite{Bai2023RaSaRA} in their work `RaSa', utilize an attention mechanism to extract and align features from both images and text using cross-modality encoders. Achieving optimal results necessitates not only robust feature extraction but also the development of sophisticated textual representations to enhance the interpretation of visual data. Therefore, our objective is to train the visual-language model from RaSa by employing diverse strategies for textual information representation. Specifically, we will investigate two distinct methods to determine their impact on model performance.
+In this section, we introduce the experimental methods designed to evaluate the performance of \acrshort{vlm}. Recent state-of-the-art \acrshort{vlm}, such as the one described by \cite{Bai2023RaSaRA} in their work `RaSa', utilize an attention mechanism to extract and align features from both images and text using cross-modality encoders. Achieving optimal results necessitates not only robust feature extraction but also the development of sophisticated textual representations to enhance the interpretation of visual data. Therefore, our objective is to train the visual-language model from RaSa by employing diverse strategies for textual information representation. Specifically, we will investigate two distinct methods to determine their impact on model performance.
 
 % explain about the parameters based on the model image and loss function
 
@@ -60,7 +60,7 @@ In this work, we will take the cross-attention maps in the 3rd layer of the mult
 \subsection{Fixed Masking Ratio}
 We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not train at all. 
 {\color{red} may need refinement}
-For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern. Table 3.1 shows the results for masking with a fixed ratio, and \ref{tb:fixed_mlm} shows the time variant masking ratio results.
+For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern. Table \ref{tb:fixed_mlm} shows the results for masking with a fixed ratio.
 
 
 \begin{table}[htbp]
@@ -97,6 +97,7 @@ M_{cosine decrease}\left(t\right) &=& P*\left(1+cos\left(\pi*t/T\right)\right) +
 \begin{table}[htbp]
   \centering
   \caption{Result for time variant masking ratio}
+  \label{tb:time_variant_mlm}
   \begin{tabular}{rcccc}
     \centering
     masking ratio & r1 & r5 & r10 & mAP\\ \hline
@@ -166,7 +167,6 @@ To be able to see where the model is paying attention to, we use the attention m
 \cite{gradcam} present a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image crucial for predicting a specific concept.
 
 Grad-CAM utilizes gradients flowing into the final convolutional layer to produce a localization map. It is applicable to various CNN architectures, including those with fully-connected layers (like VGG), and models for structured outputs. When combined with pixel-space gradient visualizations, Grad-CAM creates Guided Grad-CAM, which offers high-resolution, class-discriminative visualizations.
-
 Following steps enables to obtain the class-discriminative localization map $L^c_{Grad-CAM} = \in\Re^{u \times v}$ of class $c$ from the image width $u$ and height $v$. 
 
 First, we define the neuron importance weights $\alpha^c_k$. Then, we calculate the gradient of the score for class c, $y_c$(before softmax), with respect to the feature map activations $A_k$ of a convolutional layer, i.e., $\frac{\delta y^c}{\delta A^k}$. 
@@ -180,37 +180,37 @@ One significant advantage of this method is its class-discriminative nature. Gra
 Below are the results achieved from the MLM with different masking ratio.
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mlm/checkpoint_15_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_15_flat.png}
   \caption{Visual grounding for masking rate of 15}
   \label{fig:mlm_1}
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mlm/checkpoint_20_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_20_flat.png}
   \caption{Visual grounding for masking rate of 20}
   \label{fig:mlm_2}
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mlm/checkpoint_25_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_15_flat.png}
   \caption{Visual grounding for masking rate of 25} 
   \label{fig:mlm_3} 
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mlm/checkpoint_30_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_30_flat.png}
   \caption{Visual grounding for masking rate of 30}
   \label{fig:mlm_4}
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mlm/checkpoint_35_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_35_flat.png}
   \caption{Visual grounding for masking rate of 35}
   \label{fig:mlm_5}
 \end{figure}
 
 \begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/mlm/checkpoint_40_flat.png}
+  \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_40_flat.png}
   \caption{Visual grounding for masking rate of 40}
   \label{fig:mlm_6}
 \end{figure}
@@ -218,6 +218,8 @@ Below are the results achieved from the MLM with different masking ratio.
 
 
 \ref{mtrd_1,mtrd_2,mtrd_3,mtrd_4,mtrd_5,mtrd_6} shows the results achieved from the m-RTD with different masking ratio.
+
+
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
   \caption{Visual grounding for masking rate of 15}
