@@ -1,5 +1,5 @@
 \chapter{Proposed Experiments}
-
+% first explain about the parameters we are using, and then explain about the schedule for parameter
 The purpose of this experiment is to examine the hypothesis that a time-variant masking ratio would effects the prediction accuracy in text-based person retrieval tasks. We approach this by exploring the relationship between the sensitivity-aware representation learning, as investigated by \cite{Bai2023RaSaRA} in their work "RaSa," which focuses on improving representation learning for image and text inputs by detecting replaced tokens from the combined text and image inputs. Their results demonstrated significant improvements in prediction performance. They used masked language modeling to combine the image and text features to match the information, but the masking ratio was fixed to 15\% during the whole process.
 
 To delve deeper into the impact of masking ratios, \cite{wettig-etal-2023-mask} suggested that larger models benefit from adopting a higher masking rate rather than the  conventional 15\% of tokens. Additionally, \cite{yang2023learningbettermaskingbetter} proposed a time-variant masking ratio decay strategy along with POS-tagging weighted masking. Their findings indicated that the time-variant masking decay method significantly outperformed the time-invariant masking ratio in terms of F1 score on the SQuAD dataset during the pre-training of the BERT-large model.
@@ -39,7 +39,8 @@ In this section, we introduce the experimental methods designed to evaluate the 
 
 % explain about the parameters based on the model image and loss function
 
-\section{Masking Ratio for Masked Language Modeling} 
+\section{Parameters}
+\subsection{Masked Language Modeling} 
 A Masked Language Model (MLM) is a type of neural network model used primarily for natural language processing tasks, including (\cite{devlin2018bert} and \cite{Bai2023RaSaRA}). MLMs are trained on text data where some of the words in the input sentences are replaced with a special token (often "[MASK]"), and the model's objective is to predict the original words that were masked. This training method helps the model learns to capture the semantics and syntax of the language, making it effective for various \acrshort{nlp} tasks such as text classification, sentiment analysis, and machine translation.
 
 During training, a portion of the input tokens are randomly masked, and the model learns to predict these masked tokens based on the surrounding context. For example, in the sentence "The cat sat on the [MASK]," the model should predict "mat" if it has learned the context correctly. For each image and text pair ($I,T^S$), MLM loss will be formulated as:
@@ -49,38 +50,7 @@ During training, a portion of the input tokens are randomly masked, and the mode
 
 Given a masked text \( T_{msk} \), where each token in the input text \( T_s \) is randomly masked with a probability \( p_m \), \( y_{mlm} \) represents a one-hot vector indicating the ground truth of the masked token. The function \( \phi_{mlm}(I, T_{msk}) \) denotes the predicted probability for the masked token, based on the context provided by the masked text \( T_{msk} \) and the paired image \( I \).
 
-% explanation about what we do with masking ratio
-In \acrshort{nlp}, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. 
-In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
-
-% Furthermore, we will evaluate the results by visual grounding with Grad-CAM (\cite{gradcam}) for Image text matching. This method is originally proposed for visual explanation in convolutional neural network (CNN). Grad-CAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight the feature maps, which produces a heatmap that shows areas of the image that are most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
-
-{\color{red} explain about how the gradcam is working in this model}
-In this work, we will take the cross-attention maps in the 3rd layer of the multi-modal encoder (which is a layer specialized in grounding). The image is randomly taken from the test dataset, and input text will be defined with simple information.
-
-\subsection{Fixed Masking Ratio}
-We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not mask any tokens, which the model will not train at all. 
-{\color{red} may need refinement}
-For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern.
-
-
-\subsection{Time Variant Masking Ratio}
-Time variant strategy will have the cosine curve and linear curve to see the result. The time variant will have four different methods, linear increase, linear decrease, cosine increase, and cosine decrease. The equations are shown as follows:
-\begin{eqnarray}
-M_{linear increase}\left( t \right) &=& P*t/T \\
-M_{linear decrease}\left( t \right) &=& P*\left(1-t/T\right) \\
-M_{cosine increase}\left(t\right) &=& P*\left(1-cos\left(\pi*t/T\right)\right) + 0.02 \\
-M_{cosine decrease}\left(t\right) &=& P*\left(1+cos\left(\pi*t/T\right)\right) + 0.02 
-\end{eqnarray}
-
-\begin{figure}[htbp]
-  \includegraphics[width=\linewidth]{img/Schedule_masking_ratio.png}
-  \caption{Masking Ratio Schedule for each methods}
-  \label{img:masking_ratio_scheduler}
-\end{figure}
-
-
-\section{Masking Ratio for Replaced Token Detection}
+\subsection{Masking Ratio for Replaced Token Detection}
 RaSa utilizes a loss function called replaced token detection to create a task called sensitivity aware learning.
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
 
@@ -91,18 +61,42 @@ Sensitivity aware aims to make the model sensitive to specific transformations i
   \label{img:rasa_sa}
 \end{figure}
 
+For \acrshort{mrtd} we will experiment with the same masking schedule as we had for \acrshor{mlm}. The masking ratio for \acrshort{mlm} will be set to 15\%, \cite{Bai2023RaSaRA} was using this parameter, and the masking ratio for \acrshort{mrtd} will have fixed and time variant.
+
+% explanation about what we do with masking ratio
+In \acrshort{nlp}, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. 
+In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
+
+% Furthermore, we will evaluate the results by visual grounding with Grad-CAM (\cite{gradcam}) for Image text matching. This method is originally proposed for visual explanation in convolutional neural network (CNN). Grad-CAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight the feature maps, which produces a heatmap that shows areas of the image that are most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
+
 \subsection{Fixed Masking Ratio}
-We will train the m-RTD with the same method as the previous section. 
-
-
+We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not mask any tokens, which the model will not train at all. 
+{\color{red} may need refinement}
+For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern.
 
 
 \subsection{Time Variant Masking Ratio}
-Below shows the time variant masking ratio on m-RTD
+Time variant strategy will have the cosine curve and linear curve to see the result. The time variant will have four different methods, linear increase, linear decrease, cosine increase, and cosine decrease. The equations are shown \ref{eq:masking_schedule}. 
+\begin{eqnarray}
+M_{linear increase}\left( t \right) &=& P*t/T \\
+M_{linear decrease}\left( t \right) &=& P*\left(1-t/T\right) \\
+M_{cosine increase}\left(t\right) &=& P*\left(1-cos\left(\pi*t/T\right)\right) + 0.02 \\
+M_{cosine decrease}\left(t\right) &=& P*\left(1+cos\left(\pi*t/T\right)\right) + 0.02 
+\label{eq:masking_schedule}
+\end{eqnarray}
 
+% \begin{figure}[htbp]
+%   \includegraphics[width=\linewidth]{img/Schedule_masking_ratio.png}
+%   \caption{Masking Ratio Schedule for each methods}
+%   \label{img:masking_ratio_scheduler}
+% \end{figure}
 
 
 \section{Attention Visualization}
+
+{\color{red} explain about how the gradcam is working in this model}
+In this work, we will take the cross-attention maps in the 3rd layer of the multi-modal encoder (which is a layer specialized in grounding). The image is randomly taken from the test dataset, and input text will be defined with simple information.
+
 To be able to see where the model is paying attention to, we use the attention matrix in cross attention module. 
 
 \cite{gradcam} present a method for providing visual explanations for the decisions made by Convolutional Neural Networks (CNNs). This method, called Gradient-weighted Class Activation Mapping (Grad-CAM), generates a coarse localization map that highlights important regions in an image crucial for predicting a specific concept.
