@@ -39,11 +39,18 @@ In this section, we introduce the experimental methods designed to evaluate the 
 
 % explain about the parameters based on the model image and loss function
 
+{\color{red} changed a lot here fix it}
 \section{Parameters}
 \subsection{Masked Language Modeling} 
 A Masked Language Model (MLM) is a type of neural network model used primarily for natural language processing tasks, including (\cite{devlin2018bert} and \cite{Bai2023RaSaRA}). MLMs are trained on text data where some of the words in the input sentences are replaced with a special token (often "[MASK]"), and the model's objective is to predict the original words that were masked. This training method helps the model learns to capture the semantics and syntax of the language, making it effective for various \acrshort{nlp} tasks such as text classification, sentiment analysis, and machine translation.
 
-During training, a portion of the input tokens are randomly masked, and the model learns to predict these masked tokens based on the surrounding context. For example, in the sentence "The cat sat on the [MASK]," the model should predict "mat" if it has learned the context correctly. For each image and text pair ($I,T^S$), MLM loss will be formulated as:
+\begin{figure}
+  \includegraphics[width=\linewidth]{img/mlm_flow.png}
+  \caption{Figure of how the mlm is working}
+  \label{fig:mlm_flow}
+\end{figure}
+
+During training, a portion of the input tokens are randomly masked, and the model learns to predict these masked tokens based on the surrounding context. For example, as the Fig\ref{fig:mlm_flow} shows that the sentence "The cat sat on the [MASK]," the model should predict "mat" if it has learned the context correctly. For each image and text pair ($I,T^S$), MLM loss will be formulated as:
 \[
   L_{mlm} = \mathbb{E}_{p \left( I,T^{msk}\right) }\mathrm{H}\left(y^{mlm}, \phi^{mlm}\left(I,T^{msk}\right)\right)
 \]
@@ -61,7 +68,7 @@ Sensitivity aware aims to make the model sensitive to specific transformations i
   \label{img:rasa_sa}
 \end{figure}
 
-For \acrshort{mrtd} we will experiment with the same masking schedule as we had for \acrshor{mlm}. The masking ratio for \acrshort{mlm} will be set to 15\%, \cite{Bai2023RaSaRA} was using this parameter, and the masking ratio for \acrshort{mrtd} will have fixed and time variant.
+For \acrshort{mrtd} we will experiment with the same masking schedule as we had for \acrshort{mlm}. The masking ratio for \acrshort{mlm} will be set to 15\%, \cite{Bai2023RaSaRA} was using this parameter, and the masking ratio for \acrshort{mrtd} will have fixed and time variant.
 
 % explanation about what we do with masking ratio
 In \acrshort{nlp}, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. 
