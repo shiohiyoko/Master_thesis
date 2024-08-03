@@ -40,7 +40,7 @@ In this section, we introduce the experimental methods designed to evaluate the 
 % explain about the parameters based on the model image and loss function
 
 \section{Masking Ratio for Masked Language Modeling} 
-A Masked Language Model (MLM) is a type of neural network model used primarily for natural language processing tasks, including (\cite{devlin2018bert} and \cite{Bai2023RaSaRA}). MLMs are trained on text data where some of the words in the input sentences are replaced with a special token (often "[MASK]"), and the model's objective is to predict the original words that were masked. This training method helps the model learns to capture the semantics and syntax of the language, making it effective for various NLP tasks such as text classification, sentiment analysis, and machine translation.
+A Masked Language Model (MLM) is a type of neural network model used primarily for natural language processing tasks, including (\cite{devlin2018bert} and \cite{Bai2023RaSaRA}). MLMs are trained on text data where some of the words in the input sentences are replaced with a special token (often "[MASK]"), and the model's objective is to predict the original words that were masked. This training method helps the model learns to capture the semantics and syntax of the language, making it effective for various \acrshort{nlp} tasks such as text classification, sentiment analysis, and machine translation.
 
 During training, a portion of the input tokens are randomly masked, and the model learns to predict these masked tokens based on the surrounding context. For example, in the sentence "The cat sat on the [MASK]," the model should predict "mat" if it has learned the context correctly. For each image and text pair ($I,T^S$), MLM loss will be formulated as:
 \[
@@ -50,7 +50,8 @@ During training, a portion of the input tokens are randomly masked, and the mode
 Given a masked text \( T_{msk} \), where each token in the input text \( T_s \) is randomly masked with a probability \( p_m \), \( y_{mlm} \) represents a one-hot vector indicating the ground truth of the masked token. The function \( \phi_{mlm}(I, T_{msk}) \) denotes the predicted probability for the masked token, based on the context provided by the masked text \( T_{msk} \) and the paired image \( I \).
 
 % explanation about what we do with masking ratio
-In natural language pre-training, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
+In \acrshort{nlp}, masked language modeling is utilized to understand the context of an input sentence. This same task is applied to recent vision-language models, where the masked token is predicted using both the image and the remaining text information. Although this method can yield good performance, the typical ratio for masking words in a sentence is fixed at 15\%. 
+In our study, we aim to identify the optimal masking ratio by experimenting with time-invariant masking ratios ranging from 15\% to 40\%. Additionally, we will explore time-variant masking strategies based on previous findings to further enhance model performance.
 
 % Furthermore, we will evaluate the results by visual grounding with Grad-CAM (\cite{gradcam}) for Image text matching. This method is originally proposed for visual explanation in convolutional neural network (CNN). Grad-CAM utilizes gradients flowing into the convolutional layer to produce a localization map. The resulting gradient information is then used to weight the feature maps, which produces a heatmap that shows areas of the image that are most relevant to the prediction. The benefits of Grad-CAM is that the visualization is done by the gradient information, which does not require architectural changes or re-training of the network.
 
@@ -58,26 +59,10 @@ In natural language pre-training, masked language modeling is utilized to unders
 In this work, we will take the cross-attention maps in the 3rd layer of the multi-modal encoder (which is a layer specialized in grounding). The image is randomly taken from the test dataset, and input text will be defined with simple information.
 
 \subsection{Fixed Masking Ratio}
-We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not train at all. 
+We will train the model with constant masking ratio with range of 15\% to 40\% by 5\% steps with the dataset of CUHK-PEDES. Then, from the results, we will take the highest mean Average Precision (mAP) from the constant masking ratio and use that value with the minimum masking ratio. The minimum ratio will be 2\% since 0\% masking ratio will not mask any tokens, which the model will not train at all. 
 {\color{red} may need refinement}
-For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern. Table \ref{tb:fixed_mlm} shows the results for masking with a fixed ratio.
+For all training tasks, the number of epochs is set to 30, and batch size is 13. The optimization methods used is adamW, the learning rate is set to $1.0e^4$ at first, and then decreases to $1.0e^5$ following a cosine curve pattern.
 
-
-\begin{table}[htbp]
-\centering
-  \caption{Result for masking fixed masking ratio}
-  \label{tb:fixed_mlm}
-  
-  \begin{tabular}{rcccc}
-    masking ratio & r1 & r5 & r10 & mAP\\ \hline
-    15\% & 76.51 & \textbf{90.20} & \textbf{94.25} & 69.38 \\
-    20\% & 76.64 & 89.90 & 93.70 & 70.27 \\
-    25\% & 76.23 & 89.86 & 93.79 & 70.22 \\
-    30\% & \textbf{76.72} & 89.77 & 93.60 & \textbf{70.30} \\
-    35\% & 76.61 & 89.77 & 93.47 & 70.26 \\
-    40\% & 76.56 & 89.88 & 93.47 & 70.26
-  \end{tabular}
-\end{table}
 
 \subsection{Time Variant Masking Ratio}
 Time variant strategy will have the cosine curve and linear curve to see the result. The time variant will have four different methods, linear increase, linear decrease, cosine increase, and cosine decrease. The equations are shown as follows:
@@ -94,71 +79,27 @@ M_{cosine decrease}\left(t\right) &=& P*\left(1+cos\left(\pi*t/T\right)\right) +
   \label{img:masking_ratio_scheduler}
 \end{figure}
 
-\begin{table}[htbp]
-  \centering
-  \caption{Result for time variant masking ratio}
-  \label{tb:time_variant_mlm}
-  \begin{tabular}{rcccc}
-    \centering
-    masking ratio & r1 & r5 & r10 & mAP\\ \hline
-    linear increase & 76.62 & 89.88 & 93.62 & \textbf{70.36} \\
-    linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
-    cosine increase & 76.54 & 90.04 & \textbf{94.02} & 70.15 \\
-    cosine decrease & 76.21 & \textbf{90.09} & 93.65 & 70.21 \\
-  \end{tabular}
-\end{table}
 
 \section{Masking Ratio for Replaced Token Detection}
 RaSa utilizes a loss function called replaced token detection to create a task called sensitivity aware learning.
 Sensitivity aware aims to make the model sensitive to specific transformations in the data, particularly textual changes. While many models aim to learn invariant representations that are robust to various data augmentations, RaSa takes it further by encouraging the model to detect and respond to sensitive transformations, such as word replacements in text. This is done using a Momentum-based Replaced Token Detection (M-RTD) task, where the model learns to detect whether a token in the text has been replaced. This sensitivity to changes enhances the robustness and discrimination power of the representations learned by the model.
+
 {\color{red}further explanation about sensitivity aware}
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/rasa_sensitivity_aware.png}
+  \caption{The figure of sensitivity aware. Source from \cite{Bai2023RaSaRA} }
+  \label{img:rasa_sa}
+\end{figure}
 
 \subsection{Fixed Masking Ratio}
 We will train the m-RTD with the same method as the previous section. 
 
 
-\begin{table}[htbp]
-  \centering
-  \caption{Result for fixed masking ratio on m-RTD}
-  \begin{tabular}{rcccc}
-    masking ratio & r1 & r5 & r10 & mAP \\ \hline
-    15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
-    20\% & 75.58 & 90.35 & 93.91 & 68.73 \\
-    25\% & 75.63 & 90.09 & 93.83 & 68.76 \\
-    30\% & 75.57 & \textbf{93.92} & 93.92 & \textbf{68.81} \\
-    35\% & 75.03 & 90.14 & 93.89 & 68.57 \\
-    40\% & \textbf{75.80} & 90.27 & \textbf{93.97} & 68.73
-  \end{tabular}
-\end{table}
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{img/mrtd_prd_loss.png}
-  \caption{Prediction loss in training steps}
-  \label{img:mrtd_prd_loss}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{img/mrtd_loss.png}
-  \caption{MRTD Loss in training steps}
-  \label{img:mrtd_loss}
-\end{figure}
 
 
 \subsection{Time Variant Masking Ratio}
 Below shows the time variant masking ratio on m-RTD
 
-\begin{table}[htbp]
-  \centering
-  \caption{Result for time variant masking ratio}
-  \begin{tabular}{rcccc}
-    \centering
-    masking ratio & r1 & r5 & r10 & mAP\\ \hline
-    linear increase & 76.20 & 90.11 & 93.94 & 70.22 \\
-    linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
-    cosine increase & 75.91 & 89.85 & 93.89 & 68.40 \\
-    cosine decrease & 75.99 & 90.25 & 94.01 & 68.73 \\
-  \end{tabular}
-\end{table}
 
 
 \section{Attention Visualization}
