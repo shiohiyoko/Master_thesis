@@ -11,8 +11,8 @@ This section will introduce the results from the experiments.
 \subsection{Masking Ratio for Masked Language Modeling}
 The results from masking ratio for \acrshort{mlm} is shown on table \ref{tb:fixed_mlm}. From table \ref{tb:fixed_mlm} the metric measures the percentage of times the correct image is among the top K retrieved images for a given text query. Common values for K include 1, 5, and 10, represented as R@1, R@5, and R@10 respectively. The highest results for each metrics are shown bold.
 
-\subsubsection{Fixed Masking Ratio}
 The results from table \ref{tb:fixed_mlm} shows that prediction accuracy differs below 2\%. For R@1 masking ratio of 30\% had the highest accuracy, but 15\% marked the highest for r@5 and r@10. 0.3~0.55\% difference was observed from the results in table \ref{tb:fixed_mlm}, and no change in performance was observed by changing the mask rate.
+For the time variant masking ratio also did not change the results at all. Table \ref{tb:time_variant_mlm} shows that the masking ratio did not affect drastically to the prediction. \cite{Bai2023RaSaRA} used 15\% of masking ratio for their methods, but even though the accuracy did not get better.
 
 \begin{table}[htbp]
     \centering
@@ -30,7 +30,6 @@ The results from table \ref{tb:fixed_mlm} shows that prediction accuracy differs
     \end{tabular}
 \end{table}
 
-\subsubsection{Timevariant Masking Ratio}
 \begin{table}[htbp]
   \centering
   \caption{Result for time variant masking ratio}
@@ -47,8 +46,8 @@ The results from table \ref{tb:fixed_mlm} shows that prediction accuracy differs
 
 
 \subsection{Masking Ratio for Momentum-based Replaced Token Detection}
+The results for \acrshort{mrtd} is shown in table \ref{tb:mrtd_fixed} for fixed masking ratio and table \ref{tb:mrtd_time_variant} for time variant masking ratio. 
 
-\subsubsection{Fixed Masking Ratio}
 \begin{figure}
     \includegraphics[width=\linewidth]{img/mrtd_prd_loss.png}
     \caption{Prediction loss in training steps}
@@ -64,6 +63,7 @@ The results from table \ref{tb:fixed_mlm} shows that prediction accuracy differs
 \begin{table}[htbp]
   \centering
   \caption{Result for fixed masking ratio on m-RTD}
+  \label{tb:mrtd_fixed}
   \begin{tabular}{rcccc}
     masking ratio & r@1 & r@5 & r@10 & mAP \\ \hline
     15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
@@ -75,10 +75,10 @@ The results from table \ref{tb:fixed_mlm} shows that prediction accuracy differs
   \end{tabular}
 \end{table}
 
-\subsubsection{Time Variant Masking Ratio}
 \begin{table}[htbp]
   \centering
   \caption{Result for time variant masking ratio}
+  \label{tb:mrtd_time_variant}
   \begin{tabular}{rcccc}
     \centering
     masking ratio & r@1 & r@5 & r@10 & mAP\\ \hline
