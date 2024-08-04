@@ -9,7 +9,10 @@ In this chapter, the results from the experiment will be discussed.
 This section will introduce the results from the experiments.
 
 \subsection{Masking Ratio for Masked Language Modeling}
-The results from masking ratio for \acrshort{mlm} is shown on figure\ref{tb:fixed_mlm}.
+The results from masking ratio for \acrshort{mlm} is shown on table \ref{tb:fixed_mlm}. From table \ref{tb:fixed_mlm} the metric measures the percentage of times the correct image is among the top K retrieved images for a given text query. Common values for K include 1, 5, and 10, represented as R@1, R@5, and R@10 respectively. The highest results for each metrics are shown bold.
+
+\subsubsection{Fixed Masking Ratio}
+The results from table \ref{tb:fixed_mlm} shows that prediction accuracy differs below 2\%. For R@1 masking ratio of 30\% had the highest accuracy, but 15\% marked the highest for r@5 and r@10. 0.3~0.55\% difference was observed from the results in table \ref{tb:fixed_mlm}, and no change in performance was observed by changing the mask rate.
 
 \begin{table}[htbp]
     \centering
@@ -17,33 +20,35 @@ The results from masking ratio for \acrshort{mlm} is shown on figure\ref{tb:fixe
     \label{tb:fixed_mlm}
     
     \begin{tabular}{rcccc}
-    masking ratio & r1 & r5 & r10 & mAP\\ \hline
-    15\% & 76.51 & \textbf{90.20} & \textbf{94.25} & 69.38 \\
-    20\% & 76.64 & 89.90 & 93.70 & 70.27 \\
-    25\% & 76.23 & 89.86 & 93.79 & 70.22 \\
-    30\% & \textbf{76.72} & 89.77 & 93.60 & \textbf{70.30} \\
-    35\% & 76.61 & 89.77 & 93.47 & 70.26 \\
-    40\% & 76.56 & 89.88 & 93.47 & 70.26
+      masking ratio & r@1 & r@5 & r@10 & mAP\\ \hline
+      15\% & 76.51 & \textbf{90.20} & \textbf{94.25} & 69.38 \\
+      20\% & 76.64 & 89.90 & 93.70 & 70.27 \\
+      25\% & 76.23 & 89.86 & 93.79 & 70.22 \\
+      30\% & \textbf{76.72} & 89.77 & 93.60 & \textbf{70.30} \\
+      35\% & 76.61 & 89.77 & 93.47 & 70.26 \\
+      40\% & 76.56 & 89.88 & 93.47 & 70.26
     \end{tabular}
 \end{table}
 
+\subsubsection{Timevariant Masking Ratio}
 \begin{table}[htbp]
+  \centering
+  \caption{Result for time variant masking ratio}
+  \label{tb:time_variant_mlm}
+  \begin{tabular}{rcccc}
     \centering
-    \caption{Result for time variant masking ratio}
-    \label{tb:time_variant_mlm}
-    \begin{tabular}{rcccc}
-      \centering
-      masking ratio & r1 & r5 & r10 & mAP\\ \hline
-      linear increase & 76.62 & 89.88 & 93.62 & \textbf{70.36} \\
-      linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
-      cosine increase & 76.54 & 90.04 & \textbf{94.02} & 70.15 \\
-      cosine decrease & 76.21 & \textbf{90.09} & 93.65 & 70.21 \\
-    \end{tabular}
-  \end{table}
+    masking ratio & r@1 & r@5 & r@10 & mAP\\ \hline
+    linear increase & 76.62 & 89.88 & 93.62 & \textbf{70.36} \\
+    linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
+    cosine increase & 76.54 & 90.04 & \textbf{94.02} & 70.15 \\
+    cosine decrease & 76.21 & \textbf{90.09} & 93.65 & 70.21 \\
+  \end{tabular}
+\end{table}
 
 
 \subsection{Masking Ratio for Momentum-based Replaced Token Detection}
 
+\subsubsection{Fixed Masking Ratio}
 \begin{figure}
     \includegraphics[width=\linewidth]{img/mrtd_prd_loss.png}
     \caption{Prediction loss in training steps}
@@ -60,7 +65,7 @@ The results from masking ratio for \acrshort{mlm} is shown on figure\ref{tb:fixe
   \centering
   \caption{Result for fixed masking ratio on m-RTD}
   \begin{tabular}{rcccc}
-    masking ratio & r1 & r5 & r10 & mAP \\ \hline
+    masking ratio & r@1 & r@5 & r@10 & mAP \\ \hline
     15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
     20\% & 75.58 & 90.35 & 93.91 & 68.73 \\
     25\% & 75.63 & 90.09 & 93.83 & 68.76 \\
@@ -70,18 +75,21 @@ The results from masking ratio for \acrshort{mlm} is shown on figure\ref{tb:fixe
   \end{tabular}
 \end{table}
 
+\subsubsection{Time Variant Masking Ratio}
 \begin{table}[htbp]
+  \centering
+  \caption{Result for time variant masking ratio}
+  \begin{tabular}{rcccc}
     \centering
-    \caption{Result for time variant masking ratio}
-    \begin{tabular}{rcccc}
-      \centering
-      masking ratio & r1 & r5 & r10 & mAP\\ \hline
-      linear increase & 76.20 & 90.11 & 93.94 & 70.22 \\
-      linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
-      cosine increase & 75.91 & 89.85 & 93.89 & 68.40 \\
-      cosine decrease & 75.99 & 90.25 & 94.01 & 68.73 \\
-    \end{tabular}
-  \end{table}
+    masking ratio & r@1 & r@5 & r@10 & mAP\\ \hline
+    linear increase & 76.20 & 90.11 & 93.94 & 70.22 \\
+    linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
+    cosine increase & 75.91 & 89.85 & 93.89 & 68.40 \\
+    cosine decrease & 75.99 & 90.25 & 94.01 & 68.73 \\
+  \end{tabular}
+\end{table}
+
+
 \section{Discussion}
 \subsection{Impact of Masking Ratio}
 
