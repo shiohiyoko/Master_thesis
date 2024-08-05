@@ -122,6 +122,24 @@ The analysis of training dynamics reveals that varying the masking ratio affects
 The results underscore the importance of the fine-tuning phase in aligning the pre-trained VLMs to specific tasks. While the pre-training phase establishes a robust foundational knowledge base, fine-tuning optimizes the model for task-specific performance. The experiments indicate that fine-tuning with a well-designed masking strategy can significantly enhance the accuracy of text-based person retrieval models.
 
 
+
+
+
+The impact of masking ratios on model performance has been explored extensively through various experiments. The fixed and time-variant masking ratios were evaluated using metrics such as Recall at K (R@K) and mean Average Precision (mAP). The Grad-CAM visualizations further provided insights into the areas of the image the model focused on during prediction, offering a better understanding of how different masking ratios affect visual grounding.
+
+Results from Masking Ratios
+Tables 4.1 and 4.2 summarize the results for fixed and time-variant masking ratios, respectively. Notably, the model showed only minimal variations in performance across different masking ratios. For instance, a 30% fixed masking ratio achieved the highest R@1 score of 76.72, while a 15% ratio performed best for R@5 and R@10, achieving scores of 90.20 and 94.25, respectively. The differences in mAP were marginal, indicating that the choice of masking ratio has a limited impact on the model's overall performance​(main)​.
+
+In terms of time-variant masking ratios, the linear increase strategy resulted in the highest mAP of 70.36, although the variations were again minimal. This suggests that while different masking strategies can affect specific performance metrics slightly, the overall impact remains limited​(main)​.
+
+Visual Grounding with Grad-CAM
+The use of Grad-CAM for visual grounding provided crucial insights into how the model's attention changes with different masking ratios. The Grad-CAM method generates localization maps that highlight the regions of an image most relevant to the model's predictions. By analyzing these maps, it was observed that the areas of focus shifted slightly with changes in masking ratios.
+
+For example, at a lower masking ratio (e.g., 15%), the model tended to focus on more specific details within the image, whereas higher masking ratios (e.g., 40%) led to broader attention spans across larger regions. This shift in attention could explain the slight variations in performance metrics observed across different masking ratios​(main)​.
+
+The visualizations also indicated that the model's ability to ground text descriptions to corresponding image regions was relatively stable, even with different masking strategies. This stability reinforces the observation that masking ratio variations have a limited but nuanced impact on model performance and visual grounding capabilities.
+
+
 % -- results line 
 % talk about my work
 %   check the numbers, use the visual grounding 
