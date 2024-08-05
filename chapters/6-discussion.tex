@@ -10,7 +10,6 @@ This section will introduce the results from the experiments.
 
 \subsection{Masking Ratio for Masked Language Modeling}
 The results from masking ratio for \acrshort{mlm} is shown on table \ref{tb:fixed_mlm}. From table \ref{tb:fixed_mlm} the metric measures the percentage of times the correct image is among the top K retrieved images for a given text query. Common values for K include 1, 5, and 10, represented as R@1, R@5, and R@10 respectively. The highest results for each metrics are shown bold.
-
 The results from table \ref{tb:fixed_mlm} shows that prediction accuracy differs below 2\%. For R@1 masking ratio of 30\% had the highest accuracy, but 15\% marked the highest for r@5 and r@10. 0.3~0.55\% difference was observed from the results in table \ref{tb:fixed_mlm}, and no change in performance was observed by changing the mask rate.
 For the time variant masking ratio also did not change the results at all. Table \ref{tb:time_variant_mlm} shows that the masking ratio did not affect drastically to the prediction. \cite{Bai2023RaSaRA} used 15\% of masking ratio for their methods, but even though the accuracy did not get better.
 
@@ -46,7 +45,17 @@ For the time variant masking ratio also did not change the results at all. Table
 
 
 \subsection{Masking Ratio for Momentum-based Replaced Token Detection}
-The results for \acrshort{mrtd} is shown in table \ref{tb:mrtd_fixed} for fixed masking ratio and table \ref{tb:mrtd_time_variant} for time variant masking ratio. 
+% The results for \acrshort{mrtd} is shown in table \ref{tb:mrtd_fixed} for fixed masking ratio and table \ref{tb:mrtd_time_variant} for time variant masking ratio. From table \ref{tb:mrtd_fixed} 
+
+% The performance from table \ref{tb:fixed_mlm} shows that r@1 had the best performance at a 40\% masking ratio with a value of 75.80. For r@5, 30\% masking ratio reached the highest value of 93.92\%. R@10 did not make any better progress from r@5 which scored 93.97\%. From mAP the 30\% masking ratio scored the highest, but the difference was lower than 1\%.  This suggests that the model's performance can vary slightly depending on the specific evaluation metric prioritized. 
+
+% The model performance was also consistent across time variant masking ratio from table \ref{tb:mrtd_time_variant}. R@1 had better performance compared with fixed masking ratio, but overall, not much of a improvements was observed. 
+
+The results for \acrshort{mrtd} are shown in Table \ref{tb:fixed_mlm} for fixed masking ratio and Table \ref{tb:mrtd_time_variant} for time variant masking ratio.
+
+From Table \ref{tb:mrtd_fixed}, the performance indicates that r@1 achieved the best performance at a 40\% masking ratio with a value of 75.80. For r@5, the highest value of 93.9 was reached at a 30\% masking ratio. r@10 reached a peak value of 93.97 at a 40\% masking ratio, only marginally higher than the value at 30\%. In terms of mAP, the 30\% masking ratio scored the highest at 68.81, though the differences among masking ratios were relatively small, less than 1\%. This suggests that the model's performance can vary slightly depending on the specific evaluation metric prioritized.
+
+The model's performance was also consistent across the time variant masking ratios shown in Table \ref{tb:time_variant_mlm}. r@1 had a better performance compared with the fixed masking ratio, with the highest value being 76.46 for linear decrease. However, overall improvements were minimal.
 
 \begin{figure}
     \includegraphics[width=\linewidth]{img/mrtd_prd_loss.png}
@@ -83,9 +92,9 @@ The results for \acrshort{mrtd} is shown in table \ref{tb:mrtd_fixed} for fixed 
     \centering
     masking ratio & r@1 & r@5 & r@10 & mAP\\ \hline
     linear increase & 76.20 & 90.11 & 93.94 & 70.22 \\
-    linear decrease & \textbf{76.70} & 89.85 & 93.58 & 70.21 \\
+    linear decrease & \textbf{76.46} & 89.78 & 93.62 & \textbf{70.34} \\
     cosine increase & 75.91 & 89.85 & 93.89 & 68.40 \\
-    cosine decrease & 75.99 & 90.25 & 94.01 & 68.73 \\
+    cosine decrease & 75.99 & \textbf{90.25} & \textbf{94.01} & 68.73 \\
   \end{tabular}
 \end{table}
 
@@ -95,7 +104,6 @@ The results for \acrshort{mrtd} is shown in table \ref{tb:mrtd_fixed} for fixed 
 
 The experiments demonstrate that the effect of changing the masking ratio trivial towards the performance of \acrshort{rasa}. 
 The effect of prediction for different masking ratio has been researched by \cite{yang2023learningbettermaskingbetter} in pre-training steps, which they used for \acrshort{nlp} tasks. However, there are no papers which evaluates in the fine-tuning step so far.
-
 
 The experiments demonstrate that the effect of changing the masking ratio trivial towards the performance of \acrshort{rasa}. From Table\ref{tb:fixed_mlm} shows that the prediction does not change at all. \cite{yang2023learningbettermaskingbetter} did a work of changing the masking ratio at pre-training task, but no other papers worked on changing the masking ratio on fine-tuning phase. 
 Although \cite{yang2023learningbettermaskingbetter} pointed out that their work gave significant improvements in pre-training phase, but the results from our experiment tells that changing the masking ratio on fine-tuning part does not make an improvements with different masking ratio.
@@ -108,6 +116,7 @@ The results are not the way we expected to have. \acrshort{mlm} is the important
 \section{Training Metrics}
 
 The analysis of training dynamics reveals that varying the masking ratio affects the learning process in nuanced ways. With a higher masking ratio, the model is forced to infer more missing information, which can lead to better generalization but at the cost of increased computational complexity. Conversely, lower masking ratios may result in faster convergence but could limit the model's ability to learn comprehensive representations. The trade-off between inference accuracy and computational efficiency is a critical consideration in the design of effective VLMs.
+
 
 \section{Fine Tuning and Pre Training}
 
