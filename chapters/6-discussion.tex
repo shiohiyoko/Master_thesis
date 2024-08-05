@@ -9,8 +9,8 @@ In this chapter, the results from the experiment will be discussed.
 This section will introduce the results from the experiments.
 
 \subsection{Masking Ratio for Masked Language Modeling}
-The results from masking ratio for \acrshort{mlm} is shown on table \ref{tb:fixed_mlm}. From table \ref{tb:fixed_mlm} the metric measures the percentage of times the correct image is among the top K retrieved images for a given text query. Common values for K include 1, 5, and 10, represented as R@1, R@5, and R@10 respectively. The highest results for each metrics are shown bold.
-The results from table \ref{tb:fixed_mlm} shows that prediction accuracy differs below 2\%. For R@1 masking ratio of 30\% had the highest accuracy, but 15\% marked the highest for r@5 and r@10. 0.3~0.55\% difference was observed from the results in table \ref{tb:fixed_mlm}, and no change in performance was observed by changing the mask rate.
+The results from masking ratio for \acrshort{mlm} is shown on Table \ref{tb:fixed_mlm}. From Table \ref{tb:fixed_mlm} the metric measures the percentage of times the correct image is among the top K retrieved images for a given text query. Common values for K include 1, 5, and 10, represented as R@1, R@5, and R@10 respectively. The highest results for each metrics are shown bold.
+The results from Table \ref{tb:fixed_mlm} shows that prediction accuracy differs below 2\%. For R@1 masking ratio of 30\% had the highest accuracy, but 15\% marked the highest for r@5 and r@10. 0.3~0.55\% difference was observed from the results in Table \ref{tb:fixed_mlm}, and no change in performance was observed by changing the mask rate.
 For the time variant masking ratio also did not change the results at all. Table \ref{tb:time_variant_mlm} shows that the masking ratio did not affect drastically to the prediction. \cite{Bai2023RaSaRA} used 15\% of masking ratio for their methods, but even though the accuracy did not get better.
 
 \begin{table}[htbp]
@@ -106,8 +106,7 @@ The experiments demonstrate that the effect of changing the masking ratio trivia
 The effect of prediction for different masking ratio has been researched by \cite{yang2023learningbettermaskingbetter} in pre-training steps, which they used for \acrshort{nlp} tasks. However, there are no papers which evaluates in the fine-tuning step so far.
 
 The experiments demonstrate that the effect of changing the masking ratio trivial towards the performance of \acrshort{rasa}. From Table\ref{tb:fixed_mlm} shows that the prediction does not change at all. \cite{yang2023learningbettermaskingbetter} did a work of changing the masking ratio at pre-training task, but no other papers worked on changing the masking ratio on fine-tuning phase. 
-Although \cite{yang2023learningbettermaskingbetter} pointed out that their work gave significant improvements in pre-training phase, but the results from our experiment tells that changing the masking ratio on fine-tuning part does not make an improvements with different masking ratio.
-From Table\ref{tb:fixed_mlm}, the 
+Although \cite{yang2023learningbettermaskingbetter} pointed out that their work gave significant improvements in pre-training phase, but the results from our experiment tells that changing the masking ratio on fine-tuning does not make an improvements.
 
 The experiments demonstrate that the masking ratio plays a significant role in the performance of VLMs. A fixed masking ratio, while effective, may not provide the optimal balance needed for different stages of training. The introduction of a time-variant masking ratio allows the model to adaptively focus on different aspects of the data, potentially enhancing its ability to learn robust representations. This adaptive approach appears to improve the model's capacity to handle the complexities inherent in text-based person retrieval tasks.
 The results are not the way we expected to have. \acrshort{mlm} is the important loss function towards \acrshort{vlm} and NLP models. 
