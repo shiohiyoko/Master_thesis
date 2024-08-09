@@ -102,17 +102,56 @@ The model's performance was also consistent across the time variant masking rati
 \section{Discussion}
 \subsection{Impact of Masking Ratio}
 
-The experiments demonstrate that the effect of changing the masking ratio trivial towards the performance of \acrshort{rasa}. \cite{yang2023learningbettermaskingbetter} demonstrated in their work that in pre-training, when the masking ratio is time-variant, the model adaptively focus on different aspects of the data, potentially enhancing its ability to learn robust representations. This adaptive approach appears to improve the model's capacity to handle the complexities inherent in text-based person retrieval tasks. However, the results from our experiment tells that changing the masking ratio on fine-tuning does not make an improvements. 
+The experiments demonstrate that the effect of changing the masking ratio trivial towards the performance of \acrshort{rasa}. \cite{yang2023learningbettermaskingbetter} demonstrated in their work that in pre-training, when the masking ratio is time-variant, the model adaptively focus on different aspects of the data, potentially enhancing its ability to learn robust representations. This adaptive approach appears to improve the model's capacity to handle the complexities inherent in text-based person retrieval tasks. However, the results from our experiment tells that changing the masking ratio on fine-tuning did not make an improvements. 
 
-Impact of Pre-Training
-Previous methodologies have highlighted the importance of pre-training steps in model development. During pre-training, the model learns to extract and integrate information from different modalities effectively. This stage significantly impacts the model's knowledge base, as it builds the foundational understanding necessary for downstream tasks. The analysis of pre-training steps in earlier work has shown that these steps are critical for the model's ability to generalize and perform well on diverse tasks.
+Tables \ref{tb:fixed_mlm} and \ref{tb:time_variant_mlm} summarize the results for fixed and time-variant masking ratios in \acrshort{mlm}, respectively. Notably, the model showed only minimal variations in performance across different masking ratios. For instance, a 30\% fixed masking ratio achieved the highest R@1 score of 76.72, while a 15\% ratio performed best for R@5 and R@10, achieving scores of 90.20 and 94.25, respectively. The differences in mAP were marginal, indicating that the choice of masking ratio has a limited impact on the model's overall performance.
 
-Fine-Tuning and Task-Specific Training
-Fine-tuning involves training the model to generate answers for specific tasks, essentially fitting the model to a particular method or dataset. While this step is crucial for optimizing the model's performance on specific tasks, it does not fundamentally alter the model's underlying knowledge. The primary function of fine-tuning is to adapt the pre-trained model to the nuances of the target task, ensuring that it can apply its learned knowledge effectively.
+In terms of time-variant masking ratios, the linear increase strategy resulted in the highest mAP of 70.36, although the variations were again minimal. This suggests that while different masking strategies can affect specific performance metrics slightly, the overall impact remains limited.
 
-Fitting the Model to the Task
-Fine-tuning is pivotal in achieving high performance on specific tasks because it tailors the model's capabilities to meet the requirements of the task at hand. However, the actual knowledge and understanding acquired during pre-training remain unchanged. Thus, the effectiveness of fine-tuning is highly dependent on the quality and relevance of the training data and tasks used during this stage. Selecting appropriate fine-tuning tasks that align with the target application is crucial for optimizing the model's performance.
+The use of Grad-CAM for visual grounding provided crucial insights into how the model's attention changes with different masking ratios. The Grad-CAM method generates localization maps that highlight the regions of an image most relevant to the model's predictions. By analyzing these maps, it was observed that the areas of focus shifted slightly with changes in masking ratios.
 
+For example, at a lower masking ratio (Fig \ref{fig:mlm_1}), the model tended to focus on more specific details within the image, whereas higher masking ratios (Fig \ref{fig:mlm_6}) led to broader attention spans across larger regions. However, it can be confirmed that when the mask rate is changed, the attention parts in the image that is  indicated by the words remain unchanged.
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_15_flat.png}
+  \caption{Visual grounding for masking rate of 15 in \acrshort{mlm}}
+  \label{fig:mlm_1}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_40_flat.png}
+  \caption{Visual grounding for masking rate of 40 in \acrshort{mlm}}
+  \label{fig:mlm_6}
+\end{figure}
+
+Similarly, in the case of the modified replacement token detection (m-rtd) approach, we did not observe any improvement in performance. The rationale behind this method was that by altering the masking rate, we could affect the number of words predicted during each training session. Specifically, we hypothesized that increasing the masking rate would lead to a greater volume of data being processed, which in turn would enhance the overall optimization and efficiency of the training process. This was based on the assumption that a higher masking rate would provide the model with more opportunities to learn from a larger set of masked tokens.
+
+Despite this theoretical expectation, the experimental results did not align with our predictions. We found that even with a higher masking rate, there was almost no significant change in the performance of the model. Fig \ref{fig:mtrd_1,fig:mtrd_6} shows that the attention region did not affect from the masking ratio. This outcome suggests that simply increasing the amount of masked data does not necessarily translate to better optimization or improved learning in this context. It highlights the complexity of the learning dynamics in such models and indicates that other factors might be at play that influence the effectiveness of the training process.
+
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_15_flat.png}
+  \caption{Visual grounding for masking rate of 15 in \acrshort{mrtd}}
+  \label{fig:mtrd_1}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/mrtd_masking_ratio/mrtd-checkpoint_40_flat.png}
+  \caption{Visual grounding for masking rate of 40 in \acrshort{mrtd}}
+  \label{fig:mtrd_6}
+\end{figure}
+
+Previous methodologies (\cite{devlin2018bert}) have highlighted the importance of pre-training steps in model development. During pre-training, the model learns to extract and integrate information from different modalities effectively. This stage significantly impacts the model's knowledge base, as it builds the foundational understanding necessary for downstream tasks. The analysis of pre-training steps in earlier work has shown that these steps are critical for the model's ability to generalize and perform well on diverse tasks.
+
+% Fine-tuning is pivotal in achieving high performance on specific tasks because it tailors the model's capabilities to meet the requirements of the task at hand. However, the actual knowledge and understanding acquired during pre-training remain unchanged. Thus, the effectiveness of fine-tuning is highly dependent on the quality and relevance of the training data and tasks used during this stage. Selecting appropriate fine-tuning tasks that align with the target application is crucial for optimizing the model's performance.
+Fine-tuning trains a model to produce an answer to a specific task, essentially adapting the model to a particular method or data set. This step is important to optimize the model's performance for a particular task, but does not fundamentally change the underlying knowledge of the model. The main function of fine tuning is to adapt the pre-trained model to the nuances of the target task so that the learned knowledge can be applied effectively. \ref{fig:rasa_comparison} is a result from \cite{Bai2023RaSaRA} with different settings from their model. Their work shows that the performance has improved with each additional feature. Therefore, from the results we have achieved, it is more effective to devise a method of extracting features suitable for the target task than to improve performance by changing the masking rate of the hyperparameters this time.
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{img/rasa_comparison.png}
+  \caption{RaSa comparison with a different setting. ITM learns from all positive pairs without a probabilistic inputting. s-ITM learns from only strong positive pairs and discards all weak positive pairs. p-ITM uses a probabilistic inputting of strong and weak positive pairs. f-RTD adopts \cite{sanh2020distilbertdistilledversionbert} as a fixed generator to produce the replaced tokens. oRTD uses the online model as the generator, while m-RTD is based on the momentum model. Source from \cite{Bai2023RaSaRA}}
+  \label{fig:rasa_comparison}
+\end{figure}
 
 
 % -- results line 
