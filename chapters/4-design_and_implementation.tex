@@ -89,6 +89,11 @@ We will train the model with constant masking ratio with range of 15\% to 40\% b
 
 \subsection{Time Variant Masking Ratio}
 
+{\color{red} why do i need this}
+use the time variant thesis to explain why i need this
+To furthermore, we investigate the accuracy difference when the masking ratio is time variant in fine-tuning.
+\cite{yang2023learningbettermaskingbetter} have found that using a time-variant masking ratio, specifically a decaying masking ratio, improved pre-training efficiency and effectiveness. They observed that a higher masking ratio in the early stages of training resulted in better initial downstream performance, but a lower masking ratio later allowed the model to catch up and even surpass the performance in certain scenarios. Based on these results, we will experiment to see if the same performance improvement can be seen in the fine-tuning of the VLM.
+
 Time variant strategy will have the cosine curve and linear curve to see the result. The time variant will have four different methods, linear increase, linear decrease, cosine increase, and cosine decrease. The equations are shown \ref{eq:masking_schedule}. 
 \begin{eqnarray}
 M_{linear increase}\left( t \right) &=& P*t/T \\

@@ -10,12 +10,15 @@ This section will introduce the results from the experiments.
 
 \subsection{Masking Ratio for Masked Language Modeling}
 The results from masking ratio for \acrshort{mlm} is shown on Table \ref{tb:fixed_mlm}. From Table \ref{tb:fixed_mlm} the metric measures the percentage of times the correct image is among the top K retrieved images for a given text query. Common values for K include 1, 5, and 10, represented as R@1, R@5, and R@10 respectively. The highest results for each metrics are shown bold.
-The results from Table \ref{tb:fixed_mlm} shows that prediction accuracy differs below 2\%. For R@1 masking ratio of 30\% had the highest accuracy, but 15\% marked the highest for r@5 and r@10. 0.3~0.55\% difference was observed from the results in Table \ref{tb:fixed_mlm}, and no change in performance was observed by changing the mask rate.
-For the time variant masking ratio also did not change the results at all. Table \ref{tb:time_variant_mlm} shows that the masking ratio did not affect drastically to the prediction. \cite{Bai2023RaSaRA} used 15\% of masking ratio for their methods, but even though the accuracy did not get better.
+The results from Table \ref{tb:fixed_mlm} shows that prediction accuracy differs below 2\%. For R@1 masking ratio of 30\% had the highest accuracy, but 15\% marked the highest for r@5 and r@10. There was 0.3\% to 0.55\% difference was observed from the results in Table \ref{tb:fixed_mlm}, and no change in performance was observed by changing the mask rate.
+Table \ref{tb:time_variant_mlm} shows that the masking ratio did not affect drastically to the prediction. 
+%For the time variant masking ratio also did not change the results at all. 
+
+\cite{Bai2023RaSaRA} used 15\% of masking ratio for their methods, but even though the accuracy did not get better.
 
 \begin{table}[htbp]
     \centering
-    \caption{Result for masking fixed masking ratio}
+    \caption{Result for masking fixed masking ratio in \acrshort{mlm}}
     \label{tb:fixed_mlm}
     
     \begin{tabular}{rcccc}
@@ -31,7 +34,7 @@ For the time variant masking ratio also did not change the results at all. Table
 
 \begin{table}[htbp]
   \centering
-  \caption{Result for time variant masking ratio}
+  \caption{Result for time variant masking ratio in \acrshort{mlm}}
   \label{tb:time_variant_mlm}
   \begin{tabular}{rcccc}
     \centering
@@ -78,7 +81,7 @@ The model's performance was also consistent across the time variant masking rati
     15\% & 75.42 & 90.20 & 93.83 & 68.56 \\
     20\% & 75.58 & 90.35 & 93.91 & 68.73 \\
     25\% & 75.63 & 90.09 & 93.83 & 68.76 \\
-    30\% & 75.57 & \textbf{93.92} & 93.92 & \textbf{68.81} \\
+    30\% & 75.57 & \textbf{90.37} & 93.92 & \textbf{68.81} \\
     35\% & 75.03 & 90.14 & 93.89 & 68.57 \\
     40\% & \textbf{75.80} & 90.27 & \textbf{93.97} & 68.73
   \end{tabular}
@@ -86,7 +89,7 @@ The model's performance was also consistent across the time variant masking rati
 
 \begin{table}[htbp]
   \centering
-  \caption{Result for time variant masking ratio}
+  \caption{Result for time variant masking ratio from 2\% to 40\%}
   \label{tb:mrtd_time_variant}
   \begin{tabular}{rcccc}
     \centering
@@ -102,15 +105,17 @@ The model's performance was also consistent across the time variant masking rati
 \section{Discussion}
 \subsection{Impact of Masking Ratio}
 
-The experiments demonstrate that the effect of changing the masking ratio trivial towards the performance of \acrshort{rasa}. \cite{yang2023learningbettermaskingbetter} demonstrated in their work that in pre-training, when the masking ratio is time-variant, the model adaptively focus on different aspects of the data, potentially enhancing its ability to learn robust representations. This adaptive approach appears to improve the model's capacity to handle the complexities inherent in text-based person retrieval tasks. However, the results from our experiment tells that changing the masking ratio on fine-tuning did not make an improvements. 
+The experiments demonstrate that the effect of changing the masking ratio trivial towards the performance of \acrshort{rasa}. \cite{yang2023learningbettermaskingbetter} demonstrated in their work that in pre-training, when the masking ratio is decreasing, the model adaptively focus on different aspects of the data, potentially enhancing its ability to learn robust representations. This adaptive approach improved the model's capacity to handle the complexities inherent in \acrshort{vlm}. However, the results from our experiment tells that changing the masking ratio on fine-tuning did not make an improvements. 
 
 Tables \ref{tb:fixed_mlm} and \ref{tb:time_variant_mlm} summarize the results for fixed and time-variant masking ratios in \acrshort{mlm}, respectively. Notably, the model showed only minimal variations in performance across different masking ratios. For instance, a 30\% fixed masking ratio achieved the highest R@1 score of 76.72, while a 15\% ratio performed best for R@5 and R@10, achieving scores of 90.20 and 94.25, respectively. The differences in mAP were marginal, indicating that the choice of masking ratio has a limited impact on the model's overall performance.
 
 In terms of time-variant masking ratios, the linear increase strategy resulted in the highest mAP of 70.36, although the variations were again minimal. This suggests that while different masking strategies can affect specific performance metrics slightly, the overall impact remains limited.
 
-The use of Grad-CAM for visual grounding provided crucial insights into how the model's attention changes with different masking ratios. The Grad-CAM method generates localization maps that highlight the regions of an image most relevant to the model's predictions. By analyzing these maps, it was observed that the areas of focus shifted slightly with changes in masking ratios.
+Fig \ref{fig:mlm_1} and \ref{fig:mlm_6} provided crucial insights into how the model's attention changes with different masking ratios. The \acrshort{gradcam} method generates localization maps that highlight the regions of an image most relevant to the model's predictions. By analyzing these maps, it was observed that the areas of focus shifted slightly with changes in masking ratios.
 
+{\color{red} explain further}
 For example, at a lower masking ratio (Fig \ref{fig:mlm_1}), the model tended to focus on more specific details within the image, whereas higher masking ratios (Fig \ref{fig:mlm_6}) led to broader attention spans across larger regions. However, it can be confirmed that when the mask rate is changed, the attention parts in the image that is  indicated by the words remain unchanged.
+
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_15_flat.png}
@@ -126,7 +131,7 @@ For example, at a lower masking ratio (Fig \ref{fig:mlm_1}), the model tended to
 
 Similarly, in the case of the modified replacement token detection (m-rtd) approach, we did not observe any improvement in performance. The rationale behind this method was that by altering the masking rate, we could affect the number of words predicted during each training session. Specifically, we hypothesized that increasing the masking rate would lead to a greater volume of data being processed, which in turn would enhance the overall optimization and efficiency of the training process. This was based on the assumption that a higher masking rate would provide the model with more opportunities to learn from a larger set of masked tokens.
 
-Despite this theoretical expectation, the experimental results did not align with our predictions. We found that even with a higher masking rate, there was almost no significant change in the performance of the model. Fig \ref{fig:mtrd_1,fig:mtrd_6} shows that the attention region did not affect from the masking ratio. This outcome suggests that simply increasing the amount of masked data does not necessarily translate to better optimization or improved learning in this context. It highlights the complexity of the learning dynamics in such models and indicates that other factors might be at play that influence the effectiveness of the training process.
+Despite this expectation, the experimental results did not align with our hypothesis. We found that even with a higher masking rate, there was almost no significant change in the performance of the model. Fig \ref{fig:mtrd_1} and \ref{fig:mtrd_6} shows that the attention region did not affect from the masking ratio. This outcome suggests that simply increasing the amount of masked data does not necessarily translate to better optimization or improved learning in this context. It highlights the complexity of the learning dynamics in such models and indicates that other factors might be at play that influence the effectiveness of the training process.
 
 
 \begin{figure}[htbp]
