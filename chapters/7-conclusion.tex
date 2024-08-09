@@ -1,2 +1,7 @@
 \chapter{Conclusions}
-conclusion will be written in semi final.
+In this study, we explored the impact of various masking strategies on the performance and attention mechanisms of \acrfull{vlm} in the context of text-based person retrieval tasks using the CUHK-PEDES dataset. Our experiments revealed that while different masking ratios can influence specific performance metrics, such as \acrfull{map}, the overall effect on the model's accuracy and robustness remains limited.
+
+The analysis of attention patterns showed that at lower masking ratios, the model tends to focus on finer details within the image, whereas higher masking ratios lead to broader attention across larger image regions. However, a key observation was that the attention to image regions indicated by corresponding words in the text remains stable across different masking strategies. This consistency underscores the model's ability to maintain robust and meaningful connections between textual descriptions and visual features, even when varying the level of masked data during training.
+
+These findings contribute to a deeper understanding of how \acrshort{vlm} process and align multi-modal data, highlighting the importance of attention mechanisms in maintaining consistency and robustness in image-text retrieval tasks. Future work could extend this research by exploring more sophisticated masking techniques or applying these insights to other datasets and domains. Additionally, improving model interpretability and further enhancing the robustness of \acrshort{vlm} could lead to more reliable and effective applications in real-world scenarios.
+

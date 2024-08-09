@@ -1,11 +1,11 @@
 \chapter{Related Studies }
 {\color{red} need to think about this a little further}
-To provide a comprehensive understanding of the context and foundation for this research, we review related studies that have explored multi-modal representation and the impact of masking ratios in Vision-Language Models.
+To provide a comprehensive understanding of the context and foundation for this research, we review related studies that have explored multi-modal representation and the impact of masking ratios in \acrfull{vlm}.
 
 % ------------------------------------------------------------ %
 {\color{red}maybe not required}
 \section{Research Methodology}
-We first delve into the existing literature, drawing from papers accessible through the "Paper with Code" platform. This platform typically provides research papers along with their associated code implementations. {\color{red}This papers was selected based on its prominence, measured by the reported accuracy and success in the field, as stated in the platform.}
+We first delve into the existing literature, drawing from papers accessible through the "Paper with Code" platform. This platform typically provides research papers along with their associated code implementations. This papers was selected based on its prominence, measured by the reported accuracy and success in the field, as stated in the platform.
 
 Following the identification of the primary paper, the researcher conducts a thorough review of its content, focusing particularly on aspects related to methodology. This involves understanding the proposed techniques, algorithms, and approaches presented in the paper to achieve high accuracy in the context of text-based person searches. The aim is to comprehend the nuances of the existing methodology and identify the key factors contributing to its success.
 
@@ -56,7 +56,7 @@ Various factors were taken into account for the exclusion of documents:
 % ------------------------------------------------------------ %
 
 \section{Vision-language Models}
-Vision-language models have been researched significantly by leveraging end-to-end trainable deep neural networks (DNN). Before the vision-language model, both vision and language were researched with different DNN model structures. 
+\acrshort{vlm} have been researched significantly by leveraging end-to-end trainable \acrfull{dnn}. Before the \acrshort{vlm}, both vision and language were researched with different \acrshort{dnn} model structures. 
 
 The field of vision recognition has been rapidly evolving in recent years. Until now, the vision recognition models have experienced 5 stages (\cite{zhang2024visionlanguagemodelsvisiontasks}): traditional machine learning, deep learning from scratch, supervised pre-training with fine-tuning, unsupervised pre-training with fine-tuning, and vision-language model with pre-training.
 
@@ -67,7 +67,8 @@ To overcome the problems with traditional methods, deep learning methods were de
 Recent studies (\cite{radford2021learning}) have discovered that the features learned from large-scale labeled datasets possess a high degree of versatility and can be effectively transferred to a variety of downstream tasks. This indicates that the patterns and representations captured during the training on these extensive datasets are not only specific to the initial context but are also generalizable, allowing them to be utilized in different, often more specialized applications. The transferability underscores the potential of leveraging pre-trained models to enhance performance and efficiency in a wide range of tasks across various domains. 
 These learning techniques accelerates training models with limited task-specific training datasets while achieving high performance.
 
-Supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still has the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, \cite{he2020momentumcontrastunsupervisedvisual} presented a method called Momentum Contrast (MoCo), which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation without labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. Beyond these foundations, pre-training models no longer rely on labeled datasets, which enables to learn from various training data compared to supervised pre-training. 
+{\color{red} fixed until here }
+Supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still has the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, \cite{he2020momentumcontrastunsupervisedvisual} presented a method called \acrfull{mocos}, which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation without labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. Beyond these foundations, pre-training models no longer rely on labeled datasets, which enables to learn from various training data compared to supervised pre-training. 
 
 Drastic improvements have emerged from natural language processing (\cite{devlin2018bert, brown2020language}), combined with previous vision recognition models. Specifically, a new paradigm called vision-language model pre-training has been proposed for vision recognition. To pre-train, this model does not require labeled datasets, but instead image-text pairs. With this, the training datasets can be found infinitely on the internet. However, the image-text pair on the internet contains information that does not correlate to each other. To train the model with noisy data, VLM is trained with certain vision-language objectives (\cite{radford2021learning, yu2022cocacontrastivecaptionersimagetext}). From these objectives, the VLM matches the embedding of any given images and text, which enables the performance of zero-shot prediction without fine-tuning on downstream visual recognition.
 

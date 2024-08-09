@@ -114,18 +114,18 @@ In terms of time-variant masking ratios, the linear increase strategy resulted i
 Fig \ref{fig:mlm_1} and \ref{fig:mlm_6} provided crucial insights into how the model's attention changes with different masking ratios. The \acrshort{gradcam} method generates localization maps that highlight the regions of an image most relevant to the model's predictions. By analyzing these maps, it was observed that the areas of focus shifted slightly with changes in masking ratios.
 
 {\color{red} explain further}
-For example, at a lower masking ratio (Fig \ref{fig:mlm_1}), the model tended to focus on more specific details within the image, whereas higher masking ratios (Fig \ref{fig:mlm_6}) led to broader attention spans across larger regions. However, it can be confirmed that when the mask rate is changed, the attention parts in the image that is  indicated by the words remain unchanged.
+For example, at a lower masking ratio (Fig \ref{fig:mlm_1}), the model tended to focus on more specific details within the image, whereas higher masking ratios (Fig \ref{fig:mlm_6}) led to broader attention spans across larger regions. For visual grounding for word `man', the lower masking ratio focuses specifically to the mans face, whereas the high masking ratio attention broadens to cover larger regions of the image. Since recognition accuracy does not change with different mask rates, it can be inferred that the model is able to maintain an overall understanding of the image, even if certain details are obscured.  
 
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_15_flat.png}
-  \caption{Visual grounding for masking rate of 15 in \acrshort{mlm}}
+  \caption{Visual grounding for masking ratio of 15 in \acrshort{mlm}}
   \label{fig:mlm_1}
 \end{figure}
 
 \begin{figure}[htbp]
   \includegraphics[width=\linewidth]{img/mlm2/mlm-checkpoint_40_flat.png}
-  \caption{Visual grounding for masking rate of 40 in \acrshort{mlm}}
+  \caption{Visual grounding for masking ratio of 40 in \acrshort{mlm}}
   \label{fig:mlm_6}
 \end{figure}
 
