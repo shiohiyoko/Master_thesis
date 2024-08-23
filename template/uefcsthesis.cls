@@ -479,6 +479,8 @@ footskip=13mm,
       \fi
       \vspace{1.5cm}
       {\large \@author \par}
+      {\large \uef@studentid \par}
+      
       \vfill
       {\large \uef@s@thesistype\\
         \ifuef@imlex

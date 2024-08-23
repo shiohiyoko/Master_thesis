@@ -1,9 +1,8 @@
 \chapter{Related Studies }
-{\color{red} need to think about this a little further}
 To provide a comprehensive understanding of the context and foundation for this research, we review related studies that have explored multi-modal representation and the impact of masking ratios in \acrfull{vlm}.
 
 % ------------------------------------------------------------ %
-{\color{red}maybe not required}
+
 \section{Research Methodology}
 We first delve into the existing literature, drawing from papers accessible through the "Paper with Code" platform. This platform typically provides research papers along with their associated code implementations. This papers was selected based on its prominence, measured by the reported accuracy and success in the field, as stated in the platform.
 
@@ -46,7 +45,6 @@ The Scopus search yielded a total of $20170$ documents. Within this result, we s
 \subsection{Screening}
 
 Various factors were taken into account for the exclusion of documents:
-{\color{red} changes required}
 \begin{enumerate}
     \item problem and goal were too different (e.g., building new hardware, analysis of leaf reflectance);
     \item not sufficiently related to this work (e.g., focused on hyperspectral );
@@ -67,8 +65,7 @@ To overcome the problems with traditional methods, deep learning methods were de
 Recent studies (\cite{radford2021learning}) have discovered that the features learned from large-scale labeled datasets possess a high degree of versatility and can be effectively transferred to a variety of downstream tasks. This indicates that the patterns and representations captured during the training on these extensive datasets are not only specific to the initial context but are also generalizable, allowing them to be utilized in different, often more specialized applications. The transferability underscores the potential of leveraging pre-trained models to enhance performance and efficiency in a wide range of tasks across various domains. 
 These learning techniques accelerates training models with limited task-specific training datasets while achieving high performance.
 
-{\color{red} fixed until here }
-Supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still has the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, \cite{he2020momentumcontrastunsupervisedvisual} presented a method called \acrfull{mocos}, which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation without labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. Beyond these foundations, pre-training models no longer rely on labeled datasets, which enables to learn from various training data compared to supervised pre-training. 
+Supervised pre-training outperformed many of the previous state-of-the-art performance on visual recognition tasks, yet still has the problem of preparing large-scale labeled datasets. To overcome the dependency on labeled data, \cite{he2020momentumcontrastunsupervisedvisual} presented a method called \acrfull{moco}, which builds a dynamic dictionary with a queue and a moving-averaged encoder, enabling the model to learn effective representation without labeled data. Other methods are Simple Framework for Contrastive learning (SimCLR) introduced by \cite{chen2020simpleframeworkcontrastivelearning}. This is a simplified contrastive learning framework for visual representation, avoiding specialized architectures or memory banks. Beyond these foundations, pre-training models no longer rely on labeled datasets, which enables to learn from various training data compared to supervised pre-training. 
 
 Drastic improvements have emerged from natural language processing (\cite{devlin2018bert, brown2020language}), combined with previous vision recognition models. Specifically, a new paradigm called vision-language model pre-training has been proposed for vision recognition. To pre-train, this model does not require labeled datasets, but instead image-text pairs. With this, the training datasets can be found infinitely on the internet. However, the image-text pair on the internet contains information that does not correlate to each other. To train the model with noisy data, VLM is trained with certain vision-language objectives (\cite{radford2021learning, yu2022cocacontrastivecaptionersimagetext}). From these objectives, the VLM matches the embedding of any given images and text, which enables the performance of zero-shot prediction without fine-tuning on downstream visual recognition.
 
@@ -97,7 +94,7 @@ Another method is visual patch masking: patches of an image are masked and the V
 In this section, vision language model used in this thesis is introduced.
 
 \subsection{ALBEF: Align before Fuse}
-Text encoder and image encoders are used to learn the representation in vision-and-language pre-training models (VLP). Most existing VLP models use multi-modal encoders to jointly model visual tokens (image features) and word tokens (text features). Although this method gives a certain level of performance, it faces challenges if the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. 
+Text encoder and image encoders are used to learn the representation in \acrfull{vlp}. Most existing \acrshort{vlp} models use multi-modal encoders to jointly model visual tokens (image features) and word tokens (text features). Although this method gives a certain level of performance, it faces challenges if the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. 
 To tackle this challenge, \cite{li2021align} first aligns image and text representations before fusing them through cross-modal attentions. 
 
 \begin{figure}[htbp]
@@ -112,12 +109,13 @@ The author represented a model with an image encoder, text encoder, and a multi-
 Text encoder is pre-trained by the first 6 layers of $BERT_{base}$. Multi-modal encoder, fusing text and image features, is pre-trained with the last 6 layers of $BERT_{base}$.
 The text encoder transforms an input text $T$ into a sequence of embedding $\{w_{cls}, w_1, ..., w_N\}$. The image features also transform an input image $I$ into a sequence of embedding $\{v_{cls}, v_1, ..., v_M\}$. The text features are fed to a multi-modal encoder, while the image features are fused through cross attention at each layer of the multi-modal encoder.
 
-In the pre-training task, the model has three objectives: image-text contrastive learning (ITC) on the unimodal encoders, masked language modeling (MLM), and image-text matching (ITM).
-\cite{li2021align} utilizes the hard negative mined from ITC to improve ITM.
+In the pre-training task, the model has three objectives: \acrfull{itc} on the unimodal encoders, \acrfull{mlm}, and \acrfull{itm}.
+\cite{li2021align} utilizes the hard negative mined from \acrshort{itc} to improve \acrshort{itm}.
 
-Image text contrastive learning is used to align the representation from the unimodal encoders before fusing. This objective makes it easier for the multi-modal encoder to perform cross-modal learning, as the input features are already aligned in a common space. 
 
-Masked language modeling (MLM) is utilized with both image and text information to determine the masked text. \cite{li2021align} randomly masks 15\% of the input token with specialized token [MASK], which minimizes the cross-entropy loss.
+\acrshort{itc} is used to align the representation from the unimodal encoders before fusing. This objective makes it easier for the multi-modal encoder to perform cross-modal learning, as the input features are already aligned in a common space. 
+
+\acrshort{mlm} is utilized with both image and text information to determine the masked text. \cite{li2021align} randomly masks 15\% of the input token with specialized token [MASK], which minimizes the cross-entropy loss.
 
 \begin{displaymath}
     L_{mlm} = \mathbb{E}_{(I,\hat{T})~D}H(y^{msk}, p^{msk}(I,\hat{T}))
@@ -131,24 +129,25 @@ Contrastive loss is used for alignment, which helps to ground the vision and tex
 
 Vision language models are very popular regions. Many studies have been published with the goal of binding the visual information with the text information. Although a variety of methods have been proposed, but learning a powerful multi-modal representation is still a challenging task. \cite{Bai2023RaSaRA} approaches to this task by two innovations: Relation-aware learning and Sensitivity-aware learning (\cite{Bai2023RaSaRA}).
 
-{\color{red}rephrase the caption}
 \begin{figure}
     \includegraphics[width=\linewidth]{img/weak_positive_relation.png}
-    \caption{Illustration of (a) two types of positive relations for relation-aware learning, where the noise interference in the weak positive pairs is highlighted in red, (b) replaced token detection for sensitivity-aware learning, in which word replacement is used as the sensitive transformation and the replaced words are marked in bold. Source from\cite{Bai2023RaSaRA}}
+    \caption{The illustration includes: (a) two categories of positive relations in relation-aware learning, with noise interference in weak positive pairs emphasized in red, and (b) replaced token detection in sensitivity-aware learning, where word replacement is employed as a sensitivity transformation, with the replaced words shown in bold. Adapted from \cite{Bai2023RaSaRA}.}
     \label{img:rasa}
 \end{figure}
 
-The authors remark that the text and image pair of the same ID have a strong positive pair and weak positive pair. Since the textual description is generated by a single image in the text-based person search dataset, the text will strongly correlate to the image, but won't always align well to other images of the same person as shown in \ref{img:rasa}. Previous methods did not take this intra-variation into account when training, and instead put equal weight for strong and weak positive pairs in learning representations. This led the model to overfitting due to the weak pairs.
+The authors remark that the text and image pair of the same ID have a strong positive pair and weak positive pair. Since the textual description in the text-based person search dataset is derived from a single image, it will strongly correspond to that image but may not always align well with other images of the same person, as illustrated in \ref{img:rasa}.
+Previous methods did not take this intra-variation into account when training, and instead put equal weight for strong and weak positive pairs in learning representations. This led the model to overfitting due to the weak pairs.
 
-To reduce the impact of noise interference from weak positive pairs, the authors introduced a Relation-Aware learning (RA) task. This task consists of a probabilistic Image-Text Matching (p-ITM) component and a Positive Relation Detection (PRD) component. The p-ITM is a variant of the commonly used ITM, designed to differentiate negative and positive pairs by probabilistically considering strong or weak positive inputs. Meanwhile, the PRD explicitly distinguishes between strong and weak positive pairs. In this framework, p-ITM focuses on the consistency between strong and weak positive pairs, whereas PRD emphasizes their differences, effectively acting as a regularization for p-ITM. By incorporating RA, the model can extract valuable information from weak positive pairs through p-ITM and reduce noise interference through PRD, ultimately achieving a balance.
+To mitigate the effect of noise from weak positive pairs, the authors proposed a \acrfull{ra} task. This task is composed of two components: \acrfull{pitm} and \acrfull{prd}. The \acrshort{pitm} component, an adaptation of the standard \acrshort{itm}, is designed to distinguish between negative and positive pairs by probabilistically accounting for both strong and weak positive inputs.
+Meanwhile, the \acrshort{prd} explicitly distinguishes between strong and weak positive pairs. In this framework, \acrshort{pitm} focuses on the consistency between strong and weak positive pairs, whereas \acrshort{prd} emphasizes their differences, effectively acting as a regularization for \acrshort{pitm}. By incorporating \acrshort{ra}, the model can extract valuable information from weak positive pairs through \acrshort{pitm} and reduce noise interference through \acrshort{prd}, ultimately achieving a balance.
 
 Furthermore, improving the robustness of representations often involves learning invariant representations under a set of manually chosen transformations, referred to as insensitive transformations (\cite{caron2021unsupervisedlearningvisualfeatures}). While this approach is recognized, the authors went further by drawing inspiration from the recent success of equivariant contrastive learning (\cite{dangovski2022equivariantcontrastivelearning}). The authors explore sensitive transformations that would degrade performance if applied to learn transformation-invariant representations. Instead of maintaining invariance under insensitive transformations, they encourage the learned representations to be aware of sensitive transformations. 
 % no explanation about momentum model
-To achieve this, the authors proposed a Sensitivity-Aware learning (SA) task. They use word replacement as the sensitive transformation and develop a Momentum-based Replaced Token Detection (m-RTD) pretext task. This task involves detecting whether a token originates from the original textual description or the replacement, as illustrated in Figure 1 (b). The closer the replaced word is to the original one (i.e., the more confusing the word), the more challenging the detection task becomes. Training the model to effectively solve this detection task is expected to enhance its ability to learn better representations.
+To achieve this, the authors proposed a \acrfull{sa} task. They use word replacement as the sensitive transformation and develop a \acrfull{mrtd} pretext task. This task involves detecting whether a token originates from the original textual description or the replacement, as illustrated in Figure 1 (b). The closer the replaced word is to the original one (i.e., the more confusing the word), the more challenging the detection task becomes. Training the model to effectively solve this detection task is expected to enhance its ability to learn better representations.
 
-The authors utilize Masked Language Modeling (MLM) to perform word replacement, leveraging the image and text contextual tokens to predict the masked tokens. Additionally, considering that a momentum model, which is a slow-moving average of the online model, can learn more stable representations than the current online model (\cite{grill2020bootstraplatentnewapproach}), the authors use MLM from the momentum model to generate more confusing words. 
+The authors utilize \acrfull{mlm} to perform word replacement, leveraging the image and text contextual tokens to predict the masked tokens. Additionally, considering that a momentum model, which is a slow-moving average of the online model, can learn more stable representations than the current online model (\cite{grill2020bootstraplatentnewapproach}), the authors use \acrshort{mlm} from the momentum model to generate more confusing words. 
 
-Overall, MLM and m-RTD together form Sensitivity-Aware learning (SA), providing robust surrogate supervision for representation learning.
+Overall, \acrshort{mlm} and \acrshort{mrtd} together form \acrshort{sa}, providing robust surrogate supervision for representation learning.
 
 % In this section we will introduce the masking strategies for masked learning modeling. Existing pre-trained language models tries to have different masking strategies to enhance training efficiency and effectiveness. 
 % Joshi, et al.  introduced SpanBERT which is designed to better represent and predict span of text.
