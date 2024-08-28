@@ -49,9 +49,13 @@
 %% Correct the below with the name of your bibliography file
 \addbibresource{bibliography.bib}
 
+
 \usepackage{newtxtext, newtxmath}
 \usepackage{amsfonts}
-% Fabiano: these are packages added by me:
+% \usepackage[default,oldstyle,scale=0.95]{opensans} %% Alternatively
+%% use the option 'defaultsans' instead of 'default' to replace the
+%% sans serif font only.
+\usepackage[T1]{fontenc}
 \usepackage[dvipsnames]{xcolor}  % enables textcolor
 \usepackage[acronym,toc]{glossaries}  % enables glossaries
 \usepackage{soul}
@@ -60,7 +64,7 @@
 \captionsetup{compatibility=false}
 
 %% Replace all capital text with your own information.
-\title{Effect of Masking Strategies in Masked Language Modeling Used for Text-based Person Search} % Title of the thesis
+\title{Effect of Masking Strategies in Masked Language Modeling for Text-based Person Search} % Title of the thesis
 \author{Yuya}{Takagi} % Your name
 \date{\thismonth} % The month and year of handing in your thesis, or \thismonth of automatic
 \city{Toyohashi} % Either Kuopio or Joensuu
@@ -79,11 +83,15 @@
 \setstring{universityname}{Toyohashi University of Technology}
 \setstring{facultyname}{}
 \setstring{departmentname}{Department of Computer Science}
-% \setstring{studentid}{y203344}
 \studentid{203344}
+
 % \setstring{universityname}{Jean Monnet University}
-% \setstring{facultyname}{Faculty of Science}
+% \setstring{facultyname}{Faculty of Science and Technology}
 % \setstring{departmentname}{Department of Computer Science}
+
+% \setstring{universityname}{University of Eastern Finland}
+% \setstring{facultyname}{Faculty of Science and Forestry}
+% \setstring{departmentname}{School of Computing}
 
 
 %% If you need to use different languages, use \setstring[lang]{<stringname>}{<text>}.
@@ -97,6 +105,7 @@
 %     name=mathematics,
 %     description={Mathematics is what mathematicians do}
 % }
+
 \newacronym{vlm}{VLM}{Vision Language Models}
 \newacronym{vlp}{VLP}{Vision Language Pre-training model}
 \newacronym{mlm}{MLM}{Masked Language Modeling}
@@ -115,6 +124,7 @@
 \newacronym{sa}{SA}{Sensitivity-Aware learning}
 \newacronym{pitm}{p-ITM}{probabilistic Image-Text Matching}
 \newacronym{prd}{PRD}{Positive Relation Detection}
+
 \begin{document}
 
 \maketitle
@@ -128,8 +138,6 @@ For person retrieval tasks, a combination of contrastive learning and masking is
 \tableofcontents
 \mainmatter
 \printglossary[type=\acronymtype]
-
-% Each chapter is separated into a different .tex file. Include them here.
 \include{chapters/1-intro}
 % \include{chapters/2-theoretical_background}
 \include{chapters/3-literature}
@@ -137,22 +145,14 @@ For person retrieval tasks, a combination of contrastive learning and masking is
 % \include{chapters/5-evaluation}
 \include{chapters/6-discussion}
 \include{chapters/7-conclusion}
-
+\include{chapters/8-acknowledgement}
 \appendix
 % \input{chapters/after_text/appendices}
 
-% THIS IS AN EXAMPLE OF USING CITATIONS:
-% Graph generators are important \citep{metzler18random}.
-% \citet{kalofolias18from} discuss sets of redescriptions.
 
-
-% \printglossaries
 % Next comes the references
 \printbibliography[heading=bibintoc]
 
 \backmatter % Do not remove!
-%% Possible appendices come here
 \end{document}
 \endinput
-%%
-%% End of file `minimal_imlex.en.tex'.

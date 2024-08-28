@@ -94,7 +94,8 @@ Another method is visual patch masking: patches of an image are masked and the V
 In this section, vision language model used in this thesis is introduced.
 
 \subsection{ALBEF: Align before Fuse}
-Text encoder and image encoders are used to learn the representation in \acrfull{vlp}. Most existing \acrshort{vlp} models use multi-modal encoders to jointly model visual tokens (image features) and word tokens (text features). Although this method gives a certain level of performance, it faces challenges if the visual and word tokens are unaligned, making it difficult for the encoder to learn interactions between them. 
+
+In \acrfull{vlp}, text and image encoders are utilized to learn representations. Most current \acrshort{vlp} models employ multi-modal encoders to simultaneously process visual tokens (image features) and word tokens (text features). While this approach achieves a certain level of performance, it encounters difficulties when visual and word tokens are misaligned, which hampers the encoder's ability to effectively learn the interactions between them.
 To tackle this challenge, \cite{li2021align} first aligns image and text representations before fusing them through cross-modal attentions. 
 
 \begin{figure}[htbp]
@@ -116,7 +117,7 @@ In the pre-training task, the model has three objectives: \acrfull{itc} on the u
 \acrshort{itc} is used to align the representation from the unimodal encoders before fusing. This objective makes it easier for the multi-modal encoder to perform cross-modal learning, as the input features are already aligned in a common space. 
 
 \acrshort{mlm} is utilized with both image and text information to determine the masked text. \cite{li2021align} randomly masks 15\% of the input token with specialized token [MASK], which minimizes the cross-entropy loss.
-
+RaSa
 \begin{displaymath}
     L_{mlm} = \mathbb{E}_{(I,\hat{T})~D}H(y^{msk}, p^{msk}(I,\hat{T}))
 \end{displaymath}
@@ -131,7 +132,7 @@ Vision language models are very popular regions. Many studies have been publishe
 
 \begin{figure}
     \includegraphics[width=\linewidth]{img/weak_positive_relation.png}
-    \caption{The illustration features: (a) two types of positive relations in elation-aware learning, highlighting noise interference in weak positive pairs with red emphasis, and (b) replaced token detection in sensitivity-aware learning, where word replacement serves as a sensitivity transformation, with the replaced words displayed in bold. Adapted from \cite{Bai2023RaSaRA}.}
+    \caption{The illustration features: (a) shows the positive relations remarked in \acrlong{ra}. The weak positive pair is highlighted in red. (b) shows the method of replaced token detection, which serves the task of detecting the replaced word to encourage the model to be sensitive toward expression. Adapted from \cite{Bai2023RaSaRA}.}
     \label{img:rasa}
 \end{figure}
 
